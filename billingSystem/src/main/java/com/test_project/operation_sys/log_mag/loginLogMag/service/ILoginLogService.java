@@ -10,12 +10,12 @@ public interface ILoginLogService {
 	 * @param pager
 	 * findLoginDataByPager
 	 */
-	  LoginLogBean findLoginLogByPager(PagerBean pager);
+	  public PagerBean findLoginLogByPager(PagerBean pager);
 	  
 	  /**
 	   * 添加登陆日志
 	   * @param llBean
 	   * @return
 	   */
-	  void addLoginLog(LoginLogBean llBean);
+	  public void addLoginLog(LoginLogBean llBean);
 }
