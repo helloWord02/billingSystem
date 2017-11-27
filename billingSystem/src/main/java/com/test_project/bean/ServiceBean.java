@@ -11,8 +11,7 @@ import javax.persistence.Table;
  * @version 1.0
  * @created 25-11��-2017 15:09:23
  */
-@Entity
-@Table(name = "t_service")
+
 public class ServiceBean {
 
 	private String busniessAccount;

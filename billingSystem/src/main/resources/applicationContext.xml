@@ -20,9 +20,10 @@
          
     <!-- 开启spring容器的自动扫描功能 -->
     <!-- 让容器在扫描的时候，剔除WEB层的组件 -->
-	 <context:component-scan base-package="com.test_project">
+	 <context:component-scan base-package="com.test_project,testConfiger">
 	 	 <context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
             <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
+            <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
 	 </context:component-scan>  
    
     <!-- 引入外部的mysql.properties -->
@@ -104,7 +105,7 @@
             <tx:method name="modify*" read-only="false" isolation="DEFAULT" propagation="REQUIRED" rollback-for="java.lang.Exception" />
             <tx:method name="update*" read-only="false" isolation="DEFAULT" propagation="REQUIRED" rollback-for="java.lang.Exception" />
             
-            <tx:method name="delete*" read-only="false" isolation="DEFAULT" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+            <tx:method name="del*" read-only="false" isolation="DEFAULT" propagation="REQUIRED" rollback-for="java.lang.Exception" />
             <tx:method name="remove*" read-only="false" isolation="DEFAULT" propagation="REQUIRED" rollback-for="java.lang.Exception" />
             
             <tx:method name="get*" propagation="NOT_SUPPORTED" rollback-for="java.lang.Exception" />
@@ -116,72 +117,14 @@
     </tx:advice>
 	
 	<aop:config>
-        <aop:pointcut id="serviceMethods" expression="execution(* com.test_project.*_sys.service.serviceimpl.*ServiceImpl.*(..))//execution(* com.test_project.reception_sys.self_service_mag.service.serviceimpl.*ServiceImpl.*(..))//execution(* com.test_project.*_sys.*_mag.service.serviceimpl.*ServiceImpl.*(..))"/> 
+        <aop:pointcut id="serviceMethods" expression="execution(* com.test_project.*_sys.service.*.*(..))||execution(* com.test_project.operation_sys.*_mag.service.*(..))||execution(* com.test_project.operation_sys.*_mag.*_mag.service.*(..))"/> 
+        <aop:pointcut expression="execution(* com.test_project.testDao.*.*(..))" id="testdao"/>
+        <aop:pointcut expression="execution(* com.test_project.common_sys.service.*.*(..))" id="commontx"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
     </aop:config>
 	
 	<!-- 如果我们自己还要定义切面，需要开启切面的动态代理支持 -->
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>  
 	
-	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-      <property name="realm" ref="myRealm"/>
-        <!-- 使用下面配置的缓存管理器 -->
-        <property name="cacheManager" ref="cacheManager"/>
-   </bean>
-	
-	 <bean id="myRealm" class="com.easy.shiro.MyRealm"/>
-	 <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-         <!-- 调用我们配置的权限管理器 -->
-         <property name="securityManager" ref="securityManager"/>
-         <!-- 配置我们的登录请求地址 -->
-        <property name="loginUrl" value="/login.jsp"/>
-        <!-- 配置我们在登录页登录成功后的跳转地址，如果你访问的是非/login地址，则跳到您访问的地址 -->
-       <property name="successUrl" value="/jsp/user.jsp"/>
-         <!-- 如果您请求的资源不再您的权限范围，则跳转到/403请求地址 -->
-         <property name="unauthorizedUrl" value="/403.jsp"/>
-         <!-- 权限配置 --> 
-       <property name="filterChainDefinitions">
-            <value>
-                /static/** = anon
-               	/login.jsp = anon
-               	/user/login = anon
-           		/jsp/manger01.jsp= roles[superadmin]
-           		/manger01 = roles[superadmin]
-           		/jsp/manger02.jsp= roles[admin]
-           		/manger02 = roles[admin]
-                /** = authc
-            </value>
-      </property>
-      
-    </bean>
-    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
-    <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"/>
-
-<!-- 配置需要定时执行的任务类以及方法 -->  
-    <bean id="doJob"  
-        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
-        <!-- 指定任务类 -->  
-        <property name="targetObject" ref="hotWaterTask" />  
-        <!-- 指定任务执行的方法 -->  
-        <property name="targetMethod" value="getMsg" />  
-    </bean>  
-      
-    <!-- 配置触发器 -->  
-    <bean id="jobTrigger"  
-        class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
-        <property name="jobDetail" ref="doJob" />  
-        <!-- 每10秒运行一次 -->  
-        <property name="cronExpression" value="0 56 16 * * ? " /><!-- 每隔5秒钟触发一次 -->  
-    </bean>  
-  
-    <!-- 触发定时任务 -->  
-    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
-        <property name="triggers">  
-            <list>  
-                <ref bean="jobTrigger" /><!-- 此处可以配置多个触发器 -->  
-            </list>  
-        </property>  
-    </bean>  
-
 
 </beans>        

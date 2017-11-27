@@ -26,7 +26,7 @@ import com.test_project.common_sys.service.ICommonService;
 import com.test_project.operation_sys.admin_mag.service.IAdminService;
 
 
-@Service
+
 public class MyRealm extends AuthorizingRealm{
 
    @Resource
