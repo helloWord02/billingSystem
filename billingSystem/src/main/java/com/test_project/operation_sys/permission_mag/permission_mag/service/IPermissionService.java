@@ -6,7 +6,7 @@ import com.test_project.bean.PermissionBean;
 import com.test_project.pojos.PagerBean;
 
 
-public interface PermissionService {
+public interface IPermissionService {
 
 	/**
 	 * 增加权限信息

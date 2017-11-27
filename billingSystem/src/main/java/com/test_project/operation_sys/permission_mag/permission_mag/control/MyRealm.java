@@ -23,14 +23,14 @@ import org.springframework.stereotype.Service;
 import com.test_project.bean.AccountBean;
 import com.test_project.bean.RoleBean;
 import com.test_project.common_sys.service.ICommonService;
-import com.test_project.operation_sys.admin_mag.service.AdminService;
+import com.test_project.operation_sys.admin_mag.service.IAdminService;
 
 
 @Service
 public class MyRealm extends AuthorizingRealm{
 
    @Resource
-    private AdminService adminServiceImpl;
+    private IAdminService adminServiceImpl;
    
    @Resource
    private ICommonService iCommonServiceImpl;

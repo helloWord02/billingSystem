@@ -6,7 +6,7 @@ import com.test_project.bean.RoleBean;
 import com.test_project.pojos.PagerBean;
 
 
-public interface RoleService {
+public interface IRoleService {
 
 	/**
 	 * 增加角色
