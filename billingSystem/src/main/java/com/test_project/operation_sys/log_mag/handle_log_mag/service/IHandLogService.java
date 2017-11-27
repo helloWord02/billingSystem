@@ -16,12 +16,8 @@ public interface IHandLogService {
 	 * @param pager
 	 * @return 返回分页对象
 	 */
-    public PagerBean findHandLogByPagerBean(PagerBean pager);
-    /**
-    * 查找所有日志
-    * @return
-    */
-    public HandLogBean findHandLog();
+    public PagerBean findHandLogByPager(PagerBean pager);
+   
    
 
 }
