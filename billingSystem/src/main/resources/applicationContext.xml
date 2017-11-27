@@ -143,12 +143,7 @@
        <property name="filterChainDefinitions">
             <value>
                 /static/** = anon
-               	/login.jsp = anon
-               	/user/login = anon
-           		/jsp/manger01.jsp= roles[superadmin]
-           		/manger01 = roles[superadmin]
-           		/jsp/manger02.jsp= roles[admin]
-           		/manger02 = roles[admin]
+               	/login.jsp = anon   
                 /** = authc
             </value>
       </property>
