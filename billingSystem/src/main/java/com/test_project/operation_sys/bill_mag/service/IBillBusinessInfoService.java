@@ -13,6 +13,13 @@ import com.test_project.pojos.PagerBean;
 public interface IBillBusinessInfoService {
 
 	/**
+	 * 根据服务器提供的信息生成对应业务账号费用并保存到数据库
+	 * 
+	 * @param serviceBean
+	 */
+	public void saveBusinessCost(ServiceBean serviceBean);
+
+	/**
 	 * 根据业务账号查询当前业务账号对应服务器信息
 	 * 
 	 * @param pager
