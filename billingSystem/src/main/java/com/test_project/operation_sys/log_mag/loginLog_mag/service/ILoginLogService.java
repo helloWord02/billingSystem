@@ -1,4 +1,4 @@
-package com.test_project.operation_sys.log_mag.loginLogMag.service;
+package com.test_project.operation_sys.log_mag.loginLog_mag.service;
 
 import com.test_project.bean.LoginLogBean;
 import com.test_project.pojos.PagerBean;
