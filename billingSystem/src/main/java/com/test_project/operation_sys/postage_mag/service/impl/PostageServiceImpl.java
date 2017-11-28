@@ -27,19 +27,26 @@ public class PostageServiceImpl implements IPostageService {
 	@Override
 	public void delPostageById(PostageBean bean) {
 		// TODO Auto-generated method stub
-		postageDao.delPostageById(bean);
+		if(postageDao.findIsDepend(bean.getId())!=0) {
+			postageDao.delPostageById(bean);
+		}
+		
 	}
 
 	@Override
 	public PostageBean findPostageById(long id) {
 		// TODO Auto-generated method stub
+		
 		return postageDao.findPostageById(id);
 	}
 
 	@Override
 	public void updPostage(PostageBean bean) {
 		// TODO Auto-generated method stub
-		postageDao.updPostage(bean);
+		if(postageDao.findIsDepend(bean.getId())!=0) {
+			postageDao.updPostage(bean);
+		}
+		
 	}
 
 	@Override

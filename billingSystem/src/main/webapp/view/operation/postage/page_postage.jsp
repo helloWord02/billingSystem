@@ -105,52 +105,18 @@
                                     <tr role="row">
                                         <th style="width: 10%;">资费名称</th>
                                         <th style="width: 10%;">资费类型</th>
-                                        <th style="width: 20%;">基本时长</th>
-                                        <th style="width: 20%;">基本费用</th>
-                                        <th style="width: 20%;">单位费用</th>
-                                        <th style="width: 20%;">资费说明</th>
+                                        <th style="width: 20%;">基本时长(分钟)</th>
+                                        <th style="width: 20%;">基本费用(元)</th>
+                                        <th style="width: 20%;">单位费用(元/分钟)</th>
+                                        <th style="width: 20%;">资费说明</th></tr>
                                     </thead>
-                                    <tbody>
-                                    <tr class="gradeA odd" role="row">
-                                        <td class="sorting_1">1</td>
-                                        <td>服务器1租赁</td>
-                                        <td>221.237.44.152</td>
-                                        <td>111</td>
-                                        <td>221.237.44.152</td>
-                                        <td>221.237.44.152</td>
-                                    <tr class="gradeA odd" role="row">
-                                        <td class="sorting_1">2</td>
-                                        <td>服务器2租赁</td>
-                                        <td>221.237.44.152</td>
-                                        <td>122</td>
-                                        <td>221.237.44.152</td>
-                                        <td>221.237.44.152</td>
-                                    <tr class="gradeA odd" role="row">
-                                        <td class="sorting_1">3</td>
-                                        <td>服务器3租赁</td>
-                                        <td>221.237.44.152</td>
-                                        <td>1515</td>
-                                        <td>221.237.44.152</td>
-                                        <td>221.237.44.152</td>
-                                    <tr class="gradeA odd" role="row">
-                                        <td class="sorting_1">4</td>
-                                        <td>服务器4租用</td>
-                                        <td>221.237.44.152</td>
-                                        <td>1515</td>
-                                        <td>221.237.44.152</td>
-                                        <td>221.237.44.152</td>
-                                    <tr class="gradeA odd" role="row">
-                                        <td class="sorting_1">5</td>
-                                        <td>服务器5租用</td>
-                                        <td>221.237.44.152</td>
-                                        <td>111</td>
-                                        <td>221.237.44.152</td>
-                                        <td>221.237.44.152</td>
+                                    <tbody id="data">
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-
+							
                         <!--翻页按钮-->
                         <div class="row">
                             <div class="col-sm-12">
@@ -194,6 +160,112 @@
 
     </div>
 <script>
+
+var nowpage=1;
+var firstPage=1;
+var lastPage=0;
+var reg = new RegExp("^[0-9]*$");
+$(function(){
+	cutpage(firstPage);
+	
+})
+
+/* 首页  */
+
+ $("#a1").click(
+		 function(){
+				cutpage(firstPage);
+				nowpage=1; 
+		 }
+
+) 
+
+/* 上一页 */
+ $("#a2").click(
+		 function(){
+			 if(nowpage!=1){
+					nowpage--;
+					cutpage(nowpage)
+					} 
+		 }
+		
+		) 
+		
+		
+		/* 下一页 */
+$("#a3").click(function(){
+				if(nowpage!=lastPage){
+				nowpage++;
+				cutpage(nowpage)
+				}
+		}
+				)
+/* 最后一页 */				
+$("#a4").click(
+		 function(){
+				cutpage(lastPage);
+				nowpage=lastPage; 
+		 }
+
+)
+/*  选页  */
+$("#a5").click(
+		 function(){
+			if(reg.test($("#page").val())&&$("#page").val()<=lastPage&&$("#page").val()>0){
+				cutpage(lastPage);
+				nowpage=$("#page").val(); 
+			}
+			else{
+				alert("请输入正确的页码");
+			}
+			 	 
+		 }
+
+)
+	
+function cutpage(p){
+	$.ajax({
+		   type: "POST",
+		   url: "postage/cutpage",
+		   data: "pageNum="+p,
+		   success: function(msg){
+		     alert( JSON.stringify(msg));
+		     lastPage=msg.totalPage;
+		    
+		     var str="";
+		     for(var i=1;i<=msg.datas.length;i++){
+		    	 var obj=msg.datas[i-1]
+		      str+=" <tr class='gradeA odd' role='row'>"+
+             "<td class='sorting_1'>"+i+"</td>"
+             if(obj.type=='1'){
+            	 str+= "<td>计时</td>"
+             }
+		    	 if(obj.type=='0'){
+	            	 str+= "<td>包月</td>"
+	             }
+		    	 if(obj.type=='2'){
+	            	 str+= "<td>套餐</td>"
+	             }
+		    	 
+		    	 /* 基本时长 1分钟  100分钟  一个月 */
+			    	 if(obj.baisetime==0){
+		            	 str+= "<td>一个月</td>"
+		             }else{
+		            	 str+= "<td>"+obj.baisetime+"</td>"
+		             }
+			    
+		str+="<td>"+obj.baisecost+"</td>"+
+             "<td>"+obj.unitcost+"</td>"+
+             "<td>"+obj.costexplain+"</td></tr>"
+		     }
+		     $("#data").html(str);
+		     $("#span1").html(nowpage+"/"+lastPage);
+		    
+		     
+		   }
+		});
+	
+}
 
     $("#add").on("click",function(){
         window.open("view/operation/postage/page_postage_add.jsp","_self")
