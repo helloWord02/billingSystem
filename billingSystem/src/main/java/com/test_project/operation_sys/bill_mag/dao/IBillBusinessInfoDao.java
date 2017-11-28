@@ -17,7 +17,7 @@ public interface IBillBusinessInfoDao {
 	 * 
 	 * @param serviceBean
 	 */
-	public void saveBusinessCost(ServiceBean serviceBean);
+	public void saveBusinessCost(BusinessBean businessBean);
 
 	/**
 	 * 根据业务账号查询当前业务账号对应服务器信息
