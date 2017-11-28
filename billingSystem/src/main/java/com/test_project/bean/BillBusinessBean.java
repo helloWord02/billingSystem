@@ -18,8 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
  * @version 1.0
  * @created 25-11��-2017 15:09:23
  */
-@Entity
-@Table(name = "t_bill_business")
+
 public class BillBusinessBean {
 	
 	/**
