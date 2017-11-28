@@ -4,6 +4,7 @@ package com.test_project.bean;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,6 +25,7 @@ public class PostageBean implements Serializable {
 	@GeneratedValue(generator="hibernate_id")
 	private long id;
 	/**资费名称**/
+	@Column(name="postage_name")
 	private String postageName;
 	/**资费类型**/
 	private int type;
@@ -38,7 +40,26 @@ public class PostageBean implements Serializable {
 	/**状态**/
 	private int state;
 	/**开通时间**/
+	@Column(name="begindate")
 	private Date beginDate;
+	
+	
+	public PostageBean(String postageName, int type, long baisetime, double baisecost, double unitcost,
+			String costexplain, int state, Date beginDate) {
+		super();
+		this.postageName = postageName;
+		this.type = type;
+		this.baisetime = baisetime;
+		this.baisecost = baisecost;
+		this.unitcost = unitcost;
+		this.costexplain = costexplain;
+		this.state = state;
+		this.beginDate = beginDate;
+	}
+	public PostageBean() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public long getId() {
 		return id;
 	}

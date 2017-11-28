@@ -117,7 +117,7 @@
     </tx:advice>
 	
 	<aop:config>
-        <aop:pointcut id="serviceMethods" expression="execution(* com.test_project.*_sys.service.*.*(..))||execution(* com.test_project.operation_sys.*_mag.service.*(..))||execution(* com.test_project.operation_sys.*_mag.*_mag.service.*(..))"/> 
+        <aop:pointcut id="serviceMethods" expression="execution(* com.test_project.*_sys.service.impl.*.*(..))||execution(* com.test_project.operation_sys.*_mag.service.impl.*.*(..))||execution(* com.test_project.operation_sys.*_mag.*_mag.service.impl.*.*(..))"/> 
         <aop:pointcut expression="execution(* com.test_project.testDao.*.*(..))" id="testdao"/>
         <aop:pointcut expression="execution(* com.test_project.common_sys.service.*.*(..))" id="commontx"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>

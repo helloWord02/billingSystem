@@ -1,5 +1,8 @@
 package com.test_project.operation_sys.postage_mag.dao;
 
+import java.util.List;
+
+import com.test_project.bean.AccountBean;
 import com.test_project.bean.PostageBean;
 import com.test_project.pojos.PagerBean;
 
@@ -8,7 +11,7 @@ public interface IPostageDao {
 	 * 添加一条资费
 	 * @param bean
 	 */
-	public void savaPostage(PostageBean bean);
+	public void savePostage(PostageBean bean);
 	
 	/**
 	 * 删除一条资费
@@ -30,9 +33,9 @@ public interface IPostageDao {
 	/**
 	 * 根据id查询这条资费是否被业务引用
 	 * @param id 资费id
-	 * @return true 为被引用了 false为没被引用
+	 * @return null为没被引用
 	 */
-	public boolean findIsDepend(long id);
+	public List<AccountBean> findIsDepend(long id);
 	/**
 	 * 分页查询资费
 	 * @param page
