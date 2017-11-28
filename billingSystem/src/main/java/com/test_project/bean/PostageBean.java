@@ -3,13 +3,25 @@ package com.test_project.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 /**
  * 资费实体对象
  * @author xyf
  *
  */
+@Entity
+@Table(name="t_postage")
 public class PostageBean implements Serializable {
 	
+	@Id
+	@GenericGenerator(name="hibernate_id",strategy="identity")
+	@GeneratedValue(generator="hibernate_id")
 	private long id;
 	/**资费名称**/
 	private String postageName;
