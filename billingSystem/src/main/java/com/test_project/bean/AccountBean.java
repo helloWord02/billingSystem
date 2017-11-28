@@ -46,6 +46,8 @@ public class AccountBean {
 	private int qq;
 	@Column(name="state")
 	private int state;
+	@Column(name="mail",length=45)
+	private String mail;
 	@ManyToMany
 	@JoinTable(name = "t_account_role", joinColumns = {@JoinColumn(name = "account_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
 	private Set<RoleBean> roles;
@@ -152,11 +154,22 @@ public class AccountBean {
 		this.roles = roles;
 	}
 
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
 	@Override
 	public String toString() {
-		return "AccountBean [id=" + id + ", billAccount=" + billAccount + ", password=" + password + ", gender="
-				+ gender + ", idCard=" + idCard + ", address=" + address + ", cord=" + cord + ", qq=" + qq + ", state="
-				+ state + ", roles=" + roles + "]";
+		return "AccountBean [id=" + id + ", billAccount=" + billAccount + ", realName=" + realName + ", phoneNumber="
+				+ phoneNumber + ", password=" + password + ", gender=" + gender + ", idCard=" + idCard + ", address="
+				+ address + ", cord=" + cord + ", qq=" + qq + ", state=" + state + ", mail=" + mail + ", roles=" + roles
+				+ "]";
 	}
+
+	
 
 }

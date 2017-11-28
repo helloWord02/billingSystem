@@ -45,11 +45,6 @@ public interface IAdminService {
 	 */
 	public PagerBean findPagerAccount(PagerBean pager);
 
-	/**
-	 * 权限方法，根据账号查询
-	 * @param account
-	 * @return
-	 */
-	public AccountBean findByName(String billaccount);
+	
 	
 }

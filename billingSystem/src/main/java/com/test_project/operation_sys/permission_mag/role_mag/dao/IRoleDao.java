@@ -1,31 +1,29 @@
-package com.test_project.operation_sys.permission_mag.role_mag.service;
+package com.test_project.operation_sys.permission_mag.role_mag.dao;
 
 import java.util.List;
 
 import com.test_project.bean.RoleBean;
 import com.test_project.pojos.PagerBean;
 
-
-public interface IRoleService {
-
+public interface IRoleDao {
 	/**
 	 * 增加角色
 	 * @param role
 	 * @return
 	 */
-	public RoleBean saveRoleBean(RoleBean role);
+	public void saveRoleBean(RoleBean role);
 	/**
 	 * 删除角色
 	 * @param role
 	 * @return
 	 */
-	public RoleBean delRoleBean(RoleBean role);
+	public void delRoleBean(RoleBean role);
 	/**
 	 * 修改角色
 	 * @param role
 	 * @return
 	 */
-	public RoleBean updRoleBean(RoleBean role);
+	public void updRoleBean(RoleBean role);
 	/**
 	 * 条件查询角色分页
 	 * @param role
@@ -50,9 +48,4 @@ public interface IRoleService {
 	 * @return
 	 */
 	public List<RoleBean> findRoleBeans();
-	
-	
-	
-	
-	
 }
