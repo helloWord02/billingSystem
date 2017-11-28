@@ -28,7 +28,7 @@ public class BillBusinessInfoServiceImpl extends BaseDao implements IBillBusines
 	private IServiceDao serviceDao;
 	@Resource
 	private IBillBusinessInfoDao billBussinessInfoDao;
-
+ 
 	@Override
 	public void saveBusinessBean(BusinessBean business) {
 		// TODO Auto-generated method stub

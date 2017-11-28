@@ -16,5 +16,5 @@ public interface IServiceDao {
 	 * @param businessBean
 	 * @return
 	 */
-	public List<ServiceBean> findTimeLong(ServiceBean service);
+	public List<ServiceBean> findAllServiceBean(ServiceBean service);
 }

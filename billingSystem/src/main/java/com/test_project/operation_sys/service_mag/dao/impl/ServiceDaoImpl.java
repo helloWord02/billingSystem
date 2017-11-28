@@ -16,7 +16,7 @@ import com.test_project.util.BaseDao;
 public class ServiceDaoImpl extends BaseDao implements IServiceDao {
 
 	@Override
-	public List<ServiceBean> findTimeLong(ServiceBean service) {
+	public List<ServiceBean> findAllServiceBean(ServiceBean service) {
 		// TODO Auto-generated method stub
 		String hql = "select new map(s.id as id,s.busniess_account as busniessAccount,s.login_time as loginTime,s.loginout_time as loginoutTime,s.time_long as timeLone) from ServiceBean as s where s.busniess_account like CONCAT(:busniess_account,'%') ";
 		Query query = getSession().createQuery(hql);
