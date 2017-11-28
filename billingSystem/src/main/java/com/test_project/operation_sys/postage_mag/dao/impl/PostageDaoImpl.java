@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import com.test_project.bean.AccountBean;
+import com.test_project.bean.BusinessBean;
 import com.test_project.bean.PostageBean;
 import com.test_project.operation_sys.postage_mag.dao.IPostageDao;
 import com.test_project.pojos.PagerBean;
@@ -40,18 +41,31 @@ public class PostageDaoImpl extends BaseDao implements IPostageDao{
 	}
 
 	@Override
-	public List<AccountBean> findIsDepend(long id) {
-		String hql="from AccountBean a where a.billAccount=:id";
+	public long findIsDepend(long id) {
+		String hql="select count(b.id) from BusinessBean b where b.postage=:id";
 		Query q=getSession().createQuery(hql);
 		q.setLong("id", id);
-		List<AccountBean> list=q.list();
-		return list;
+		long l=(long) q.uniqueResult();
+		return l;
 	}
 
 	@Override
 	public PagerBean findPageByPostage(PagerBean page) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		String hql="from PostageBean p order by p.beginDate DESC";
+		Query q=getSession().createQuery(hql);
+		q.setFirstResult(page.getIndex());
+		q.setMaxResults(page.getRows());
+		List<PostageBean> list=q.list();
+		page.setDatas(list);
+		
+		hql="select count(p.id) from PostageBean p";
+		 q=getSession().createQuery(hql);
+		 long i=(long) q.uniqueResult();
+		 page.setTotalRows(Integer.parseInt(i+""));
+		
+		return page;
 	}
 
 }

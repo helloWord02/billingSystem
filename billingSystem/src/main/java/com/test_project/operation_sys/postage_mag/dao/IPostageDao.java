@@ -2,7 +2,7 @@ package com.test_project.operation_sys.postage_mag.dao;
 
 import java.util.List;
 
-import com.test_project.bean.AccountBean;
+import com.test_project.bean.BusinessBean;
 import com.test_project.bean.PostageBean;
 import com.test_project.pojos.PagerBean;
 
@@ -35,7 +35,7 @@ public interface IPostageDao {
 	 * @param id 资费id
 	 * @return null为没被引用
 	 */
-	public List<AccountBean> findIsDepend(long id);
+	public long findIsDepend(long id);
 	/**
 	 * 分页查询资费
 	 * @param page

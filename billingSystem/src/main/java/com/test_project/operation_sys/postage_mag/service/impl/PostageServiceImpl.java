@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.test_project.bean.AccountBean;
+import com.test_project.bean.BusinessBean;
 import com.test_project.bean.PostageBean;
 import com.test_project.operation_sys.postage_mag.dao.IPostageDao;
 import com.test_project.operation_sys.postage_mag.service.IPostageService;
@@ -42,7 +43,7 @@ public class PostageServiceImpl implements IPostageService {
 	}
 
 	@Override
-	public List<AccountBean> findIsDepend(long id) {
+	public long findIsDepend(long id) {
 		// TODO Auto-generated method stub
 		return postageDao.findIsDepend(id);
 	}
