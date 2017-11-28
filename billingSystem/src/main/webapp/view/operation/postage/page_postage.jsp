@@ -35,6 +35,7 @@
     <!-- Custom Fonts -->
     <link href="static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <script src="static/js/jQuery-2.2.2-min.js" type="text/javascript"></script>
+   
 
     <style>
 
@@ -159,69 +160,9 @@
         </div>
 
     </div>
+    
 <script>
 
-var nowpage=1;
-var firstPage=1;
-var lastPage=0;
-var reg = new RegExp("^[0-9]*$");
-$(function(){
-	cutpage(firstPage);
-	
-})
-
-/* 首页  */
-
- $("#a1").click(
-		 function(){
-				cutpage(firstPage);
-				nowpage=1; 
-		 }
-
-) 
-
-/* 上一页 */
- $("#a2").click(
-		 function(){
-			 if(nowpage!=1){
-					nowpage--;
-					cutpage(nowpage)
-					} 
-		 }
-		
-		) 
-		
-		
-		/* 下一页 */
-$("#a3").click(function(){
-				if(nowpage!=lastPage){
-				nowpage++;
-				cutpage(nowpage)
-				}
-		}
-				)
-/* 最后一页 */				
-$("#a4").click(
-		 function(){
-				cutpage(lastPage);
-				nowpage=lastPage; 
-		 }
-
-)
-/*  选页  */
-$("#a5").click(
-		 function(){
-			if(reg.test($("#page").val())&&$("#page").val()<=lastPage&&$("#page").val()>0){
-				cutpage(lastPage);
-				nowpage=$("#page").val(); 
-			}
-			else{
-				alert("请输入正确的页码");
-			}
-			 	 
-		 }
-
-)
 	
 function cutpage(p){
 	$.ajax({
@@ -280,7 +221,7 @@ function cutpage(p){
 
 
 </script>
-
+ <script src="static/js/my.js" type="text/javascript"></script>
 
 </body>
 </html>
