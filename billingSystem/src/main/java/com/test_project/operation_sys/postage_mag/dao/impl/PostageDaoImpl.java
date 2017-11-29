@@ -19,7 +19,7 @@ public class PostageDaoImpl extends BaseDao implements IPostageDao{
 	public void savePostage(PostageBean bean) {
 		// TODO Auto-generated method stub
 		getSession().save(bean);
-	}
+	} 
 
 	@Override
 	public void delPostageById(PostageBean bean) {

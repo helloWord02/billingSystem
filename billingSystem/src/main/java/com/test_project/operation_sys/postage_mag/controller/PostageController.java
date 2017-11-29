@@ -30,7 +30,7 @@ public class PostageController {
 		PagerBean repage=postageServiceImpl.findPageByPostage(page1);
 		System.out.println(repage);
 		return repage;
-		
+		 
 	}
 
 }
