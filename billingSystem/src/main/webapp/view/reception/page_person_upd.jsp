@@ -18,23 +18,23 @@
     <title>用户修改</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../<%=basePath%>static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=basePath%>static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="../<%=basePath%>static/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <link href="<%=basePath%>static/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
     <!-- Timeline CSS -->
-    <link href="../<%=basePath%>static/dist/css/timeline.css" rel="stylesheet">
+    <link href="<%=basePath%>static/dist/css/timeline.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../<%=basePath%>static/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="<%=basePath%>static/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="../<%=basePath%>static/bower_components/morrisjs/morris.css" rel="stylesheet">
+    <link href="<%=basePath%>static/bower_components/morrisjs/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../<%=basePath%>static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <script src="../<%=basePath%>static/js/jQuery-2.2.2-min.js" type="text/javascript"></script>
+    <link href="<%=basePath%>static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="<%=basePath%>static/js/jQuery-2.2.2-min.js" type="text/javascript"></script>
     
     <style>
 
