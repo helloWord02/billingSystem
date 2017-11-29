@@ -2,6 +2,7 @@ package com.test_project.operation_sys.account_mag.dao;
 
 import com.test_project.bean.AccountDayBean;
 import com.test_project.bean.AccountMonthBean;
+import com.test_project.bean.AccountYearBean;
 import com.test_project.pojos.PagerBean;
 
 public interface IAccountMonthDao {
@@ -18,4 +19,11 @@ public interface IAccountMonthDao {
 	 * @return PagerBean--返回账务月分页对象
 	 */
 	public PagerBean findAccountMonthByPage(PagerBean page);
+	
+	/**
+	 * 根据传入的月查询所有账务月总时长
+	 * @param month
+	 * @return
+	 */
+	public  AccountYearBean findAccountMonth (String month);
 }

@@ -1,5 +1,7 @@
 package com.test_project.operation_sys.account_mag.service;
 
+import java.util.Date;
+
 import com.test_project.bean.AccountYearBean;
 import com.test_project.pojos.PagerBean;
 
@@ -10,7 +12,7 @@ public interface IAccountYearService {
 	 * 查询所有的账务月数据，计算加入AccountYearBean
 	 * @param ab
 	 */
-	public void saveAccountYear(AccountYearBean ab);
+	public void saveAccountYear( Date date);
 
 	
 	/**

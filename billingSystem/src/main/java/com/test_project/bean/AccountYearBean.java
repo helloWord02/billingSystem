@@ -2,32 +2,48 @@ package com.test_project.bean;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
 /**
  * 记录服务器某年使用总时长实体bean
  * @author xl
  *
  */
+@Entity
+@Table(name="t_account_year")
 public class AccountYearBean {
 
-
+	@Id
+	@GenericGenerator(name="hibernate.identity",strategy="identity")
+	@GeneratedValue(generator="hibernate.identity")	
 	private long id;
 	/**
 	 * 业务账号
 	 */
+	@Column(name="business_account",length=40)
 	private String account;
 	
 	/**
 	 * 某年总时长
 	 */
+	@Column(name="all_time",length=20)
 	private long allTime;
 	/**
 	 * 查询时间（具体某年）
 	 * 
 	 */
+	@Column(name="date_year")
 	private Date dateYear;
 	/**
 	 * 服务器ip
 	 */
+	@Column(name="ip" )
 	private String ip;
 	
 	public AccountYearBean() {
