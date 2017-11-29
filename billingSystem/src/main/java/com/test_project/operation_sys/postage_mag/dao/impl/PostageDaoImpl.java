@@ -71,8 +71,6 @@ public class PostageDaoImpl extends BaseDao implements IPostageDao{
 		
 		hql="select count(p.id) from PostageBean p where 1=1"+dyn;
 		 q=getSession().createQuery(hql);
-/*			q.setString("postageName", (String) page.getParams().get("postageName"));
-			q.setInteger("postageType",Integer.parseInt( (String) page.getParams().get("postageType")));*/
 		 q.setProperties(page.getParams());
 		 long i=(long) q.uniqueResult();
 		 page.setTotalRows(Integer.parseInt(i+""));

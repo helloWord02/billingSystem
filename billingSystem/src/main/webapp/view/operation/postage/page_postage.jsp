@@ -70,7 +70,9 @@
             text-align:center;
         }
 
-
+   .as {
+            background-color: skyblue;
+        }
     </style>
 
 </head>
@@ -193,7 +195,8 @@ function cutpage(p){
 		     var str="";
 		     for(var i=1;i<=msg.datas.length;i++){
 		    	 var obj=msg.datas[i-1]
-		    	str += " <tr class='gradeA odd' role='row'>"
+		    	str += " <tr class='gradeA odd' role='row' onclick='cke($(this))'>"
+		    		+ "<td hidden>" + obj.id + "</td>"
 						+ "<td class='sorting_1'>" + obj.postageName + "</td>"
 				if (obj.type == '1') {
 					str += "<td>计时</td>"
@@ -235,7 +238,11 @@ function cutpage(p){
         window.open("view/operation/postage/page_postage_info.jsp","_self")
     });
 
-
+   var nowID
+	function cke (ck){
+  /*   alert(ck.children().first().html()); */
+    nowID=ck.children().first().html();
+    ck.addClass("as").siblings().removeClass("as");}
 
 </script>
  <script src="static/js/my.js" type="text/javascript"></script>
