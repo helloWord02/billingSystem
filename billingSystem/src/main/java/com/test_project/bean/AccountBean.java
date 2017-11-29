@@ -28,7 +28,7 @@ public class AccountBean {
 	private long id;
 	@Column(name="bill_account",length=45)
 	private String billAccount;
-	@Column(name="realname",length=20)
+	@Column(name="real_name",length=20)
 	private String realName;
 	@Column(name="phone_number",length=32)
 	private String phoneNumber;
