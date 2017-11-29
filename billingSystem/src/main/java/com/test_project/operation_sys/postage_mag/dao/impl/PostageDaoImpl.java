@@ -52,16 +52,28 @@ public class PostageDaoImpl extends BaseDao implements IPostageDao{
 	@Override
 	public PagerBean findPageByPostage(PagerBean page) {
 		// TODO Auto-generated method stub
+		String dyn="";
+		if((!"".equals(page.getParams().get("postageName")))&&page.getParams().get("postageName")!=null) {
+			dyn+=" and p.postageName like CONCAT(:postageName,'%')";
+		}
+		if((Integer)page.getParams().get("postageType")!=0) {
+			dyn+=" and p.type=:postageType";
+		}
 		
-		String hql="from PostageBean p order by p.beginDate DESC";
+		String hql="from PostageBean p where 1=1"+dyn;
+		System.out.println("hql=========="+hql);
 		Query q=getSession().createQuery(hql);
+		q.setProperties(page.getParams());
 		q.setFirstResult(page.getIndex());
 		q.setMaxResults(page.getRows());
 		List<PostageBean> list=q.list();
 		page.setDatas(list);
 		
-		hql="select count(p.id) from PostageBean p";
+		hql="select count(p.id) from PostageBean p where 1=1"+dyn;
 		 q=getSession().createQuery(hql);
+/*			q.setString("postageName", (String) page.getParams().get("postageName"));
+			q.setInteger("postageType",Integer.parseInt( (String) page.getParams().get("postageType")));*/
+		 q.setProperties(page.getParams());
 		 long i=(long) q.uniqueResult();
 		 page.setTotalRows(Integer.parseInt(i+""));
 		
