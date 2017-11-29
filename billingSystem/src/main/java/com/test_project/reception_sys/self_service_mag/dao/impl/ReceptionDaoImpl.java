@@ -14,8 +14,9 @@ public class ReceptionDaoImpl extends BaseDao implements IReceptionDao {
 
 	@Override
 	public AccountBean findAccountBean(long id) {
-		// TODO Auto-generated method stub		
-		return (AccountBean) getSession().get(AccountBean.class, id);
+		// TODO Auto-generated method stub	
+		AccountBean bean = (AccountBean) getSession().get(AccountBean.class, id);
+		return bean;
 	}
 
 	@Override
