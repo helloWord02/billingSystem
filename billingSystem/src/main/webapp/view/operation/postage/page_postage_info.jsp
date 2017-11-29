@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	String path = request.getContextPath();//获取项目名称
@@ -94,51 +95,89 @@
                                         <span>资费名称：</span>
                                     </td>
                                     <td>
-                                        <span style="margin-left: 20px; ">服务器一包月套餐</span>
+                                        <span style="margin-left: 20px; ">${postageInfo.postageName }</span>
                                     </td>
                                     <td>
                                         <span style="margin-left: 50px">资费类型：</span>
                                     </td>
-                                    <td>
+                                    <c:if test="${postageInfo.type==1 }">
+                                       <td>
+                                        <span style="margin-left: 20px; ">计时</span>
+                                    </td>
+                                    </c:if>
+                                    <c:if test="${postageInfo.type==2 }">
+                                       <td>
+                                        <span style="margin-left: 20px; ">套餐</span>
+                                    </td>
+                                    </c:if>
+                                    <c:if test="${postageInfo.type==3 }">
+                                       <td>
                                         <span style="margin-left: 20px; ">包月</span>
                                     </td>
+                                    </c:if>
+                                 
                                 </tr>
+                                
                                 <tr>
                                     <td>
                                         <span>基本时长：</span>
                                     </td>
                                     <td>
-                                        <span style="margin-left: 20px; ">24小时</span>
+                                        <span style="margin-left: 20px; ">${postageInfo.baisetime }</span>
                                     </td>
                                     <td>
                                         <span style="margin-left: 50px">基本费用：</span>
                                     </td>
                                     <td>
-                                        <span style="margin-left: 20px; ">120.0元</span>
+                                        <span style="margin-left: 20px; ">${postageInfo.baisecost }元</span>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    
+                                    <td>
+                                        <span>单位费用：</span>
+                                    </td>
+                                    <td>
+                                        <span style="margin-left: 20px; ">${postageInfo.unitcost }元</span>
+                                    </td>
+                                    <td>
+                                        <span style="margin-left: 50px; ">开通时间：</span>
+                                    </td>
+                                    <td>
+                                        <span style="margin-left: 20px; ">${date }</span>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <span>单位时长：</span>
+                                 <td>
+                                   <span>状态：</span>
                                     </td>
-                                    <td>
-                                        <span style="margin-left: 20px; ">24小时</span>
+                                      <c:if test="${postageInfo.state==1 }">
+                                       <td>
+                                        <span style="margin-left: 20px; ">暂停</span>
                                     </td>
-                                    <td>
-                                        <span style="margin-left: 50px">单位费用：</span>
+                                    </c:if>
+                                    
+                                    <c:if test="${postageInfo.state==2 }">
+                                       <td>
+                                        <span style="margin-left: 20px; ">开通</span>
                                     </td>
-                                    <td>
-                                        <span style="margin-left: 20px; ">120.0元</span>
+                                    </c:if>
+                                    
+                                    <c:if test="${postageInfo.state==3 }">
+                                       <td>
+                                        <span style="margin-left: 20px; ">停用</span>
                                     </td>
+                                    </c:if>
                                 </tr>
                                 <tr>
                                     <td>
                                         <span>资费说明：</span>
                                     </td>
                                     <td>
-                                        <span style="margin-left: 20px; ">24小时120.0元</span>
+                                        <span style="margin-left: 20px; ">${postageInfo.costexplain }</span>
                                     </td>
-
+                                     
                                 </tr>
 
 
