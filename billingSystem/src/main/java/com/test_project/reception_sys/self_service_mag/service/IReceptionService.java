@@ -17,9 +17,9 @@ public interface IReceptionService {
 	/*
 	 * 查询个人账务账号对应的账单
 	 */
-	public BillBusinessBean findBillBusinessBeanByPagerBean(PagerBean pager);
+	public PagerBean findBillBusinessBeanByPagerBean(PagerBean pager);
 	/*
 	 * 查询对应的业务账号上的费用明细
 	 */
-	public BillBusinessInfoBean findBillBusinessInfoBeanByPagerBean(PagerBean pager);
+	public PagerBean findBillBusinessInfoBeanByPagerBean(PagerBean pager);
 }

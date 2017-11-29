@@ -31,13 +31,13 @@ public class ReceptionServiceImpl implements IReceptionService{
 	}
 
 	@Override
-	public BillBusinessBean findBillBusinessBeanByPagerBean(PagerBean pager) {
+	public PagerBean findBillBusinessBeanByPagerBean(PagerBean pager) {
 		// TODO Auto-generated method stub
 		return ReceptionDaoImpl.findBillBusinessBeanByPagerBean(pager);
 	}
 
 	@Override
-	public BillBusinessInfoBean findBillBusinessInfoBeanByPagerBean(PagerBean pager) {
+	public PagerBean findBillBusinessInfoBeanByPagerBean(PagerBean pager) {
 		// TODO Auto-generated method stub
 		return ReceptionDaoImpl.findBillBusinessInfoBeanByPagerBean(pager);
 	}
