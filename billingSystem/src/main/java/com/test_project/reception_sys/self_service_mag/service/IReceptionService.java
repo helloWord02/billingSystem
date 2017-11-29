@@ -9,7 +9,7 @@ public interface IReceptionService {
 	/*
 	 * 通过id查个人信息展示
 	 */
-	public AccountBean findAccountBean(AccountBean account);
+	public AccountBean findAccountBean(long id);
 	/*
 	 * 修改个人信息
 	 */
