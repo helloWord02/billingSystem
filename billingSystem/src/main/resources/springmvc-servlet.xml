@@ -12,6 +12,7 @@
 	<context:component-scan base-package="testConfiger,com.test_project">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository" />
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
+		
 	</context:component-scan>
 	
 	<bean id="ViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
