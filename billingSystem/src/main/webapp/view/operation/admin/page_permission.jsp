@@ -29,12 +29,10 @@
     <!-- Custom Fonts -->
     <link href="<%=basePath%>static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-	<script type="text/javascript" src="<%=basePath%>static/js/jquery-3.2.1.min.js"></script>
+   <script type="text/javascript" src="<%=basePath%>static/js/jquery-3.2.1.min.js"></script>
 	
 	<script type="text/javascript" src="<%=basePath%>static/js/jquery.json-2.4.js"></script>
-
-   
-    <style>
+     <style>
 
         body{
             /*iframe宽我设置为1000，网页body的宽度也应该设置为1000*/
@@ -77,7 +75,7 @@
 <body>
     <div class="divall">
         <div class = "div_header">
-            <h1>管理员管理</h1>
+            <h1>权限管理</h1>
         </div>
 
         <div class="div_content">
@@ -86,7 +84,7 @@
 
 
                 <!-- 表格  -->
-                <div class="dataTable_wrapper" >
+                <div class="dataTable_wrapper">
 
                     <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
 
@@ -96,18 +94,37 @@
 
                                 <thead>
                                     <tr role="row">
-                                        <th style="width: 20%;">管理员名称</th>
-                                        <th style="width: 20%;">账号</th>
-                                        <th style="width: 20%;">性别</th>
-                                        <th style="width: 20%;">联系电话</th>
+                                        <th style="width: 50%;">权限名称</th>
+                                        <th style="width: 50%;">权限信息</th>
                                     </thead>
                                     <tbody id="tbody">
-                                    <tr class='gradeA odd' role='row'>
-                                    <td class='sorting_1'>数据被狗吃了</td>
-                                    <td>....</td>
-                                    <td>....</td>
-                                    <td>....</td>
-									
+                                    <tr class="gradeA odd" role="row">
+                                        <td class="sorting_1">123</td>
+                                        <td>123</td>
+
+
+                                    <tr class="gradeA odd" role="row">
+                                        <td class="sorting_1">2</td>
+                                        <td>123</td>
+
+
+
+                                    <tr class="gradeA odd" role="row">
+                                        <td class="sorting_1">2</td>
+                                        <td>123</td>
+
+
+                                    <tr class="gradeA odd" role="row">
+                                        <td class="sorting_1">2</td>
+                                        <td>123</td>
+
+
+
+                                    <tr class="gradeA odd" role="row">
+                                        <td class="sorting_1">2</td>
+                                        <td>123</td>
+
+
                                     </tbody>
                                 </table>
                             </div>
@@ -118,14 +135,14 @@
                             <div class="col-sm-12">
                                 <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                                     <ul class="pagination">
-                                        <li class="paginate_button  " aria-controls="dataTables-example" tabindex="0" id="a1"><a id="f1">首页</a></li>
-                                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="1" id="a2"><a id="f2">上一页</a></li>
-                                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="2" id="a3"><a id="f3">下一页</a></li>
-                                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="3" id="a4"><a id="f4">尾页</a></li>
-                                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="4" id="a5"><a id="f5">跳转</a></li>
+                                        <li class="paginate_button  " aria-controls="dataTables-example" tabindex="0" id="f1"><a>首页</a></li>
+                                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="1" id="f2"><a>上一页</a></li>
+                                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="2" id="f3"><a>下一页</a></li>
+                                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="3" id="f4"><a>尾页</a></li>
+                                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="4" id="f5"><a >跳转</a></li>
                                         <li aria-controls="dataTables-example" tabindex="4">
                                             <div class="form-group input-group">
-                                            	 <span class="input-group-addon" id="span1">
+                                            <span class="input-group-addon" id="span1">
 	                                                </span>
                                                 <input style="width: 70px" type="text" class="form-control" placeholder="跳转页" id="page">
                                             </div>
@@ -137,11 +154,11 @@
                         </div>
                         <!-- /翻页按钮-->
                         <div style="text-align: left" >
-                            <button type="button" class="btn btn-info" style="width: 100px;height: 40px" id="add">增加管理员</button>
-                            <button type="button" class="btn btn-info" style="width: 100px;height: 40px" id="del">删除管理员</button>
-                            <button type="button" class="btn btn-info" style="width: 100px;height: 40px" id="upd">修改管理员</button>
-                            <button type="button" class="btn btn-info" style="width: 100px;height: 40px" id="get">管理员信息</button>
- 							<input type="hidden" id="hid" value="0">
+                            <button type="button" class="btn btn-info" style="width: 100px;height: 40px" id="add">增加权限</button>
+                            <button type="button" class="btn btn-info" style="width: 100px;height: 40px" id="del">删除权限</button>
+                            <button type="button" class="btn btn-info" style="width: 100px;height: 40px" id="upd">修改权限信息</button>
+							<input type="hidden" id="hid" value="0">
+
                         </div>
 
                     </div>
@@ -159,7 +176,7 @@
     function test(page,rows){
 		$.ajax({
 			type:"POST",
-			url:"admin/main",
+			url:"permission/main",
 			data:{page:page,rows:rows},
 			async:true,
 			success:function(data){
@@ -167,12 +184,12 @@
 				var s="";
 				for (var i = 0; i < mes.length; i++) {
 					
-					s+="<tr index='"+mes[i].id+"' class='gradeA odd' role='row'><td class='sorting_1'>"+mes[i].realName+"</td><td>"+mes[i].billAccount+"</td><td>"+format(mes[i].gender)+"</td><td>"+mes[i].phoneNumber+"</td>";
+					s+="<tr index='"+mes[i].id+"' class='gradeA odd' role='row'><td class='sorting_1'>"+mes[i].permissionName+"</td><td>"+mes[i].msg+"</td>";
 					
 				}
 				for (var i = 0; i <5- mes.length; i++) {
 					
-					s+="<tr class='gradeA odd' role='row'><td class='sorting_1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td></td><td></td><td></td>";
+					s+="<tr class='gradeA odd' role='row'><td class='sorting_1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td></td>";
 					
 				}
 				$("#span1").html(data.page+"/"+data.totalPage);
@@ -241,7 +258,7 @@
 	}
 	}
 	$("#add").click(function(){
-		window.location.href="view/operation/admin/page_admin_add.jsp";
+		window.location.href="view/operation/admin/page_permission_add.jsp";
 	});
 	$("#del").click(function(){
 		if($("#hid").val()=="0"){
@@ -251,7 +268,7 @@
 			console.info(id);
 			$.ajax({
 				type:"POST",
-				url:"admin/delete",
+				url:"permission/delete",
 				data:{id:id},
 				async:true,
 				success:function(mesg){
@@ -273,28 +290,11 @@
 		if($("#hid").val()=="0"){
 			alert("请先选择一行数据！");
 		}else{
-			window.location.href="admin/upd?id="+$("#hid").val();	
+			window.location.href="permission/upd?id="+$("#hid").val();	
 		}
 		
 	});
-	$("#get").click(function(){
-		if($("#hid").val()=="0"){
-			alert("请先选择一行数据！");
-		}else{
-			window.location.href="admin/checkinfo?id="+$("#hid").val();
-		}
-		
-	});
-	function format (s){
-		if(s=="1"){
-			return "男";
-		}else if(s=="0"){
-			return "女";
-		}
-		
-		
-		
-	}
+	
     </script>
 </body>
 </html>

@@ -1,7 +1,9 @@
 package com.test_project.bean;
 
+import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,11 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * this is 账务账号表 and 管理员表 and 用户表
@@ -23,7 +26,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name="t_account")
-public class AccountBean {
+@JsonIgnoreProperties(value={"roles"}) 
+public class AccountBean implements Serializable{
 	@Id
 	@GenericGenerator(name="hibernate.identity",strategy="identity")
 	@GeneratedValue(generator="hibernate.identity")
@@ -50,127 +54,157 @@ public class AccountBean {
 	private int state;
 	@Column(name="mail",length=45)
 	private String mail;
-	@ManyToMany
+	@ManyToOne(targetEntity = RoleBean.class)
 	@JoinTable(name = "t_account_role", joinColumns = {@JoinColumn(name = "account_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
-	@JsonIgnore
-	private Set<RoleBean> roles;
+	private RoleBean roles;
 
 	public AccountBean(){
 
 	}
 
+	
 	public long getId() {
 		return id;
 	}
+
 
 	public void setId(long id) {
 		this.id = id;
 	}
 
-	
 
 	public String getBillAccount() {
 		return billAccount;
 	}
 
+
 	public void setBillAccount(String billAccount) {
 		this.billAccount = billAccount;
 	}
+
 
 	public String getRealName() {
 		return realName;
 	}
 
+
 	public void setRealName(String realName) {
 		this.realName = realName;
 	}
+
 
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
+
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+
 
 	public String getPassword() {
 		return password;
 	}
 
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 
 	public int getGender() {
 		return gender;
 	}
 
+
 	public void setGender(int gender) {
 		this.gender = gender;
 	}
+
 
 	public String getIdCard() {
 		return idCard;
 	}
 
+
 	public void setIdCard(String idCard) {
 		this.idCard = idCard;
 	}
+
 
 	public String getAddress() {
 		return address;
 	}
 
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 
 	public int getCord() {
 		return cord;
 	}
 
+
 	public void setCord(int cord) {
 		this.cord = cord;
 	}
+
 
 	public int getQq() {
 		return qq;
 	}
 
+
 	public void setQq(int qq) {
 		this.qq = qq;
 	}
+
 
 	public int getState() {
 		return state;
 	}
 
+
 	public void setState(int state) {
 		this.state = state;
 	}
 
-	public Set<RoleBean> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<RoleBean> roles) {
-		this.roles = roles;
-	}
 
 	public String getMail() {
 		return mail;
 	}
 
+
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
+
+
+	public RoleBean getRoles() {
+		return roles;
+	}
+
+
+	public void setRoles(RoleBean roles) {
+		this.roles = roles;
+	}
+
 
 	@Override
 	public String toString() {
 		return "AccountBean [id=" + id + ", billAccount=" + billAccount + ", realName=" + realName + ", phoneNumber="
 				+ phoneNumber + ", password=" + password + ", gender=" + gender + ", idCard=" + idCard + ", address="
-				+ address + ", cord=" + cord + ", qq=" + qq + ", state=" + state + ", mail=" + mail + "]";
+				+ address + ", cord=" + cord + ", qq=" + qq + ", state=" + state + ", mail=" + mail + ", roles=" + roles
+				+ "]";
 	}
+
+
+	
+
+	
 
 	
 

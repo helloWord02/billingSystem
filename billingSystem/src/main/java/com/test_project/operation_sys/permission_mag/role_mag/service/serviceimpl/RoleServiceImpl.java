@@ -58,7 +58,7 @@ public class RoleServiceImpl implements IRoleService {
 	@Override
 	public List<RoleBean> findRoleBeans() {
 		// TODO Auto-generated method stub
-		return null;
+		return roleDaoImpl.findRoleBeans();
 	}
 
 }
