@@ -25,6 +25,7 @@ public class AdminDaoImpl extends BaseDao implements IAdminDao {
 	public void deleteAccountBean(AccountBean account) {
 		// TODO Auto-generated method stub
 		AccountBean ab=(AccountBean) getSession().get(AccountBean.class, account.getId());
+		
 		getSession().delete(ab);
 	}
 
@@ -57,6 +58,15 @@ public class AdminDaoImpl extends BaseDao implements IAdminDao {
 		if(account.getQq()!=0) {
 			ab.setQq(account.getQq());
 		}
+		if(account.getRoles()!=null) {
+			ab.setRoles(account.getRoles());
+		}
+		if(account.getGender()>=0&&account.getGender()<=1) {
+			ab.setGender(account.getGender());
+		}
+		if(account.getRealName()!=null&&!"".equals(account.getRealName())) {
+			ab.setRealName(account.getRealName());
+		}
 		getSession().update(ab);
 	}
 
@@ -80,20 +90,21 @@ public class AdminDaoImpl extends BaseDao implements IAdminDao {
 	@Override
 	public PagerBean findPagerAccount(PagerBean pager) {
 		// TODO Auto-generated method stub
-		String hql="select count(a.id) From AccountBean as a join RoleBean as r  where r.type =:roletype";
+		String hql="select count(a.id) From AccountBean as a left join a.roles as r where r.type =:roletype";
 		Query query = getSession().createQuery(hql);
 		query.setProperties(pager.getParams());
 		Long l=(Long) query.uniqueResult();
 		pager.setTotalRows(Integer.valueOf(l+""));
 		
-		hql = "From AccountBean as a join RoleBean as r  where r.type =:roletype";
+		hql = "From AccountBean as a left join fetch a.roles as r where r.type =:roletype";
 		Query query1 = getSession().createQuery(hql);
 		query1.setProperties(pager.getParams());
 		query1.setFirstResult(pager.getIndex());
 		query1.setMaxResults(pager.getRows());
 		
 		
-		List<?> data=query1.list();
+		List<AccountBean> data=query1.list();
+		System.out.println(data);
 		pager.setDatas(data);
 		return pager;
 	}

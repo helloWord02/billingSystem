@@ -1,5 +1,6 @@
 package com.test_project.bean;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +17,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 
 /**
@@ -26,7 +29,8 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @Table(name="t_role")
-public class RoleBean {
+@JsonIgnoreProperties(value={"billAccounts","permissions"})  
+public class RoleBean implements Serializable{
 	@Id
 	@GenericGenerator(name="hibernate.identity",strategy="identity")
 	@GeneratedValue(generator="hibernate.identity")
@@ -35,10 +39,10 @@ public class RoleBean {
 	private String roleName;
 	@Column(name="type")
 	private int type;
-	@OneToMany(targetEntity = PermissionBean.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(targetEntity = PermissionBean.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "t_permission_role", joinColumns = {@JoinColumn(name = "role_id")}, inverseJoinColumns = {@JoinColumn(name = "permission_id")})
 	private Set<PermissionBean> permissions;
-	@ManyToMany(targetEntity = AccountBean.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(targetEntity = AccountBean.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "t_account_role", joinColumns = {@JoinColumn(name = "role_id")}, inverseJoinColumns = {@JoinColumn(name = "account_id")})
 	private Set<AccountBean> billAccounts;
 

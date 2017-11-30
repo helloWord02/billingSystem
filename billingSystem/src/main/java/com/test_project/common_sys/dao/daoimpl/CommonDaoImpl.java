@@ -24,7 +24,9 @@ public class CommonDaoImpl extends BaseDao implements ICommonDao {
 	public void updateAccountBean(AccountBean account) {
 		// TODO Auto-generated method stub
 		AccountBean ab=(AccountBean) getSession().get(AccountBean.class, account.getId());
-		ab.setPassword(account.getPassword());
+		if(account.getPassword()!=null&&!"".equals(account.getPassword())) {
+			ab.setPassword(account.getPassword());
+		}
 		getSession().update(ab);
 	}
 

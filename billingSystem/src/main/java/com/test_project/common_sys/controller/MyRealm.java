@@ -46,10 +46,10 @@ public class MyRealm extends AuthorizingRealm{
 	            System.out.println("权限"+user);
 	            if( user != null && user.getRoles() != null ){  
 	                SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();  
-	                for(RoleBean each: user.getRoles() ){  
-	                        info.addRole(each.getRoleName());  
-	                        info.addStringPermissions(each.getPermissionsName());  
-	                }  
+	                	RoleBean role=user.getRoles();
+                        info.addRole(role.getRoleName());  
+                        info.addStringPermissions(role.getPermissionsName());  
+	                 
 	                return info;  
 	            }  
 	        }  

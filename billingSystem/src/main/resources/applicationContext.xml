@@ -28,7 +28,8 @@
    
     <!-- 引入外部的mysql.properties -->
     <context:property-placeholder location="classpath:mysql.properties" ignore-unresolvable="true" ignore-resource-not-found="true"/>
-
+	<!-- 引入外部的mail.properties -->
+    <context:property-placeholder location="classpath:mail.properties" ignore-unresolvable="true" ignore-resource-not-found="true"/>
    <!-- 配置C3P0数据源连接池,来自于：c3p0.jar -->
      <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
      	<!-- JDBC连接数据库，最基本的4个条件 -->
@@ -36,7 +37,7 @@
      	<property name="jdbcUrl" value="${mysql.url}"></property>
      	<property name="user" value="${mysql.username}"></property>
      	<property name="password" value="${mysql.password}"></property>
-     	
+      	
      	<!-- 设置初始化连接数 -->
      	<property name="initialPoolSize" value="15"></property>
      	<!-- 设置池中最小连接数量 -->
@@ -82,6 +83,7 @@
 				<value>com.test_project.bean</value>     		
      		</list>
      	</property>
+     	
      </bean>
      
       <!-- 配置数据源的事务管理器,来自于：spring-orm.jar-->
@@ -117,9 +119,8 @@
     </tx:advice>
 	
 	<aop:config>
-        <aop:pointcut id="serviceMethods" expression="execution(* com.test_project.*_sys.service.impl.*.*(..))||execution(* com.test_project.*_sys.*_mag.service.impl.*.*(..))||execution(* com.test_project.*_sys.*_mag.*_mag.service.impl.*.*(..))"/> 
-       
-        <aop:pointcut expression="execution(* com.test_project.*_sys.*_mag.service.impl.*.*(..))" id="testdao"/>
+        <aop:pointcut id="serviceMethods" expression="execution(* com.test_project.*_sys.service.*impl.*.*(..))||execution(* com.test_project.operation_sys.*_mag.service.*impl.*.*(..))||execution(* com.test_project.operation_sys.*_mag.*_mag.service.*impl.*.*(..))"/> 
+        <aop:pointcut expression="execution(* com.test_project.testDao.*.*(..))" id="testdao"/>
         <aop:pointcut expression="execution(* com.test_project.common_sys.service.*.*(..))" id="commontx"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
     </aop:config>
@@ -127,5 +128,23 @@
 	<!-- 如果我们自己还要定义切面，需要开启切面的动态代理支持 -->
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>  
 	
+	<bean id="javaMailSenderImpl" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.host}"/> 
+        <property name="port" value="${mail.port}"/>
+		<property name="username" value="${mail.username}"/> 
+        <property name="password" value="${mail.password}"/>
+        <property name="javaMailProperties">
+            <props >
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.ssl.enable">true</prop>
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+                <prop key="mail.smtp.timeout">25000</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="simpleMailMessage" class="org.springframework.mail.SimpleMailMessage">
+        <property name="from" value="${mail.from}" />
+        <property name="subject" value="系统注册验证" />
+    </bean>
 
 </beans>        

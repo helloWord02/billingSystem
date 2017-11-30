@@ -32,6 +32,13 @@ public class PermissionDaoImpl extends BaseDao implements IPermissionDao {
 	public void updPermissionBean(PermissionBean bean) {
 		// TODO Auto-generated method stub
 		PermissionBean pb=(PermissionBean) getSession().get(PermissionBean.class, bean.getId());
+		if(bean.getPermissionName()!=null&&!"".equals(bean.getPermissionName())) {
+			pb.setPermissionName(bean.getPermissionName());
+		}
+		if(bean.getMsg()!=null&&!"".equals(bean.getMsg())) {
+			pb.setMsg(bean.getMsg());
+		}
+		
 		getSession().update(pb);
 	}
 
@@ -63,7 +70,7 @@ public class PermissionDaoImpl extends BaseDao implements IPermissionDao {
 		// TODO Auto-generated method stub
 		String hql = "from PermissionBean";
 		Query query1 = getSession().createQuery(hql);
-		
+		System.out.println(query1.list());
 		return query1.list();
 	}
 
