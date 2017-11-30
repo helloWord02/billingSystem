@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	String path = request.getContextPath();//获取项目名称
@@ -10,7 +10,7 @@
 <head>
 <base href="<%=basePath%>">
     <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="IE=edge">
+    <meta http-equiv="Content-Type" content="IE=edge">  
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -87,24 +87,25 @@
                 <h3>修改个人信息</h3><br><br>
             </div>
             <!-- 查询  -->
-
+  
             <div style="margin-top: -20px" >
 
-                <form role="form" style="text-align: center">
+                <form  style="text-align: center" action="receptions/upd" method="post">
+                	<input type="hidden" value="${account.id}" name="id">
                     <span>账务账号：</span>
-                    <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="账务账号" name="businessName" type="text"  readonly="readonly"><br><br>
+                    <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="账务账号" name="billAccount" type="text" value= ${account.billAccount} ><br><br>
                     <span>真实姓名：</span>
-                    <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="真实姓名" name="basicTime" type="text"  readonly="readonly"><br><br>
+                     <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="真实姓名" name="realName" type="text" value= ${account.realName} ><br><br>       
                     <span>密  码：</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="密码" name="basicCost" type="text" ><br><br>
+                    <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="密码" name="password" type="text" value= ${account.password} ><br><br>
                     <span>联系电话：</span>
-                    <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="联系电话" name="cost" type="text"  ><br><br>
+                    <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="联系电话" name="phoneNumber" type="text"   value= ${account.phoneNumber}><br><br>
                     <span>身份证 ：</span>
-                    <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="身份证" name="info" type="text"  readonly="readonly"><br><br>
+                    <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="身份证" name="idCard" type="text"   value= ${account.idCard}><br><br>                   
                     <span>邮  编：</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="邮编" name="info" type="text" ><br><br>
+                    <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="邮编" name="cord" type="text" value= ${account.cord}><br><br>
                     <span>Q  Q：</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="QQ" name="info" type="text" ><br><br>
+                    <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="QQ" name="qq" type="text" value= ${account.qq} ><br><br>
                     <button id="upd" style="width: 100px;height: 40px" type="submit" class="btn btn-info">修改</button>
                     <button id="cancel" style="width: 100px;height: 40px;margin-left: 80px" type="button" class="btn btn-info">取消</button>
                 </form>
@@ -120,6 +121,8 @@
     $("#cancel").on("click",function(){
         window.open("page_person_info.html","_self")
     });
+    
+    
 </script>
 
 </body>

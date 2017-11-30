@@ -42,25 +42,8 @@ public class ReceptionDaoImpl extends BaseDao implements IReceptionDao {
 	@Override
 	public PagerBean findBillBusinessInfoBeanByPagerBean(PagerBean pager) {
 		// TODO Auto-generated method stub
-		/**
-		 * 分页信息查询
-		 */
-		Criteria criteria = getSession().createCriteria(BillBusinessInfoBean.class);
-		criteria.add(Restrictions.like("business_account", pager.getParams().get("business_account").toString()));
-		criteria.setProjection(Projections.count("id"));
-		int totalRows =  (int) criteria.uniqueResult();
-		pager.setTotalRows(totalRows);
-		
-		/**
-		 * 查询具体数据
-		 */
-		criteria.setProjection(null);
-		criteria.setFirstResult(pager.getIndex());
-		criteria.setMaxResults(pager.getRows());
-		criteria.addOrder(Order.desc("id"));
-		List<?> datas = criteria.list();
-		pager.setDatas(datas);		
-		return pager;
+				
+		return null;
 	}
 
 }

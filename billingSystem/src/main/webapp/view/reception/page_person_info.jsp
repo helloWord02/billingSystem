@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	String path = request.getContextPath();//获取项目名称
@@ -10,7 +10,7 @@
 <html>
 <head>
 	<base href="<%=basePath%>">
-    <meta charset="utf-8">
+    <meta charset="utf-8">    
     <meta http-equiv="Content-Type" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -94,13 +94,13 @@
                                     <span>账务账号：</span>
                                 </td>
                                 <td>
-                                    <span style="margin-left: 20px; ">${account.bill_account}</span>
+                                    <span style="margin-left: 20px; ">${account.billAccount}</span>
                                 </td>
                                 <td>
                                     <span style="margin-left: 50px">真实姓名：</span>
                                 </td>
                                 <td>
-                                    <span style="margin-left: 20px; ">${account.real_name}</span>
+                                    <span style="margin-left: 20px; ">${account.realName}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -108,13 +108,13 @@
                                     <span>联系电话：</span>
                                 </td>
                                 <td>
-                                    <span style="margin-left: 20px; ">13258187859</span>
+                                    <span style="margin-left: 20px; ">${account.phoneNumber}</span>
                                 </td>
                                 <td>
                                     <span style="margin-left: 50px">身份证：</span>
                                 </td>
                                 <td>
-                                    <span style="margin-left: 20px; ">510703199508240231</span>
+                                    <span style="margin-left: 20px; ">${account.idCard}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -122,13 +122,13 @@
                                     <span>邮  编：</span>
                                 </td>
                                 <td>
-                                    <span style="margin-left: 20px; ">621000</span>
+                                    <span style="margin-left: 20px; ">${account.cord}</span>
                                 </td>
                                 <td>
                                     <span style="margin-left: 50px">Q Q：</span>
                                 </td>
                                 <td>
-                                    <span style="margin-left: 20px; ">623318826</span>
+                                    <span style="margin-left: 20px; ">${account.qq}</span>
                                 </td>
                             </tr>
                         </table>
@@ -145,6 +145,8 @@
     $("#back").on("click",function(){
         window.open("page_diyaccount.html","_self")
     });
+ 
+
 </script>
 
 </body>

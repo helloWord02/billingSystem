@@ -9,7 +9,7 @@
 
 <head>
 	<base href="<%=basePath%>">
-   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">   
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -18,22 +18,22 @@
    
     <title>电信系统</title>
  
-    <link href="../<%=basePath%>static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=basePath%>static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
  
-    <link href="../<%=basePath%>static/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <link href="<%=basePath%>static/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
  
-    <link href="../<%=basePath%>static/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="<%=basePath%>static/dist/css/sb-admin-2.css" rel="stylesheet">
  
-    <link href="../<%=basePath%>static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <script src="../<%=basePath%>static/js/jQuery-2.2.2-min.js" type="text/javascript"></script>
+    <link href="<%=basePath%>static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="<%=basePath%>static/js/jQuery-2.2.2-min.js" type="text/javascript"></script>
         
-        <script src="../<%=basePath%>static/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="<%=basePath%>static/bower_components/jquery/dist/jquery.min.js"></script>
  
-        <script src="../<%=basePath%>static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="<%=basePath%>static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
  
-        <script src="../<%=basePath%>static/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+        <script src="<%=basePath%>static/bower_components/metisMenu/dist/metisMenu.min.js"></script>
  
-        <script src="../<%=basePath%>static/dist/js/sb-admin-2.js"></script>
+        <script src="<%=basePath%>static/dist/js/sb-admin-2.js"></script>
    
     <style>
         .iframe1{
@@ -67,15 +67,15 @@
                         <h5 style="display: inline;height:100%;margin-left: 20px">欢迎XXX登录！</h5>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="page_person_info.html"  target="myiframe"><i class="fa fa-user fa-fw"></i> 个人信息</a>
+                        <li><a href="receptions/find?id=1"  target="myiframe"><i class="fa fa-user fa-fw"></i> 个人信息</a>
                         </li>
-                        <li><a href="page_person_upd.html"  target="myiframe"><i class="fa fa-gear fa-fw"></i> 修改密码</a>
+                        <li><a href="receptions/update?id=1"  target="myiframe"><i class="fa fa-gear fa-fw"></i> 修改密码</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
                         </li>
                     </ul>
-                </li>
+                </li>  
             </ul>
 
 

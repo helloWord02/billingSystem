@@ -13,6 +13,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * this is 账务账号表 and 管理员表 and 用户表
  * @author hdj
@@ -50,6 +52,7 @@ public class AccountBean {
 	private String mail;
 	@ManyToMany
 	@JoinTable(name = "t_account_role", joinColumns = {@JoinColumn(name = "account_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
+	@JsonIgnore
 	private Set<RoleBean> roles;
 
 	public AccountBean(){
@@ -166,8 +169,7 @@ public class AccountBean {
 	public String toString() {
 		return "AccountBean [id=" + id + ", billAccount=" + billAccount + ", realName=" + realName + ", phoneNumber="
 				+ phoneNumber + ", password=" + password + ", gender=" + gender + ", idCard=" + idCard + ", address="
-				+ address + ", cord=" + cord + ", qq=" + qq + ", state=" + state + ", mail=" + mail + ", roles=" + roles
-				+ "]";
+				+ address + ", cord=" + cord + ", qq=" + qq + ", state=" + state + ", mail=" + mail + "]";
 	}
 
 	
