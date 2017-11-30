@@ -121,13 +121,13 @@ th {
 										<tr role="row">
 											<th style="width: 10%;">资费名称</th>
 											<th style="width: 10%;">资费类型</th>
-											<th style="width: 15%;">基本时长(分钟)</th>
+											<th style="width: 15%;">基本时长(小时)</th>
 											<th style="width: 10%;">基本费用(元)</th>
-											<th style="width: 15%;">单位费用(元/分钟)</th>
+											<th style="width: 15%;">单位费用(元/小时)</th>
 											<th style="width: 30%;">资费说明</th>
 											<th style="width: 10%;">状态</th>
 										</tr>
-										
+
 										</tr>
 									</thead>
 									<tbody id="data">
@@ -192,9 +192,11 @@ th {
 
 	<script>
 		$("#sel").click(function() {
-			alert("ddd")
+			/* alert("ddd") */
+
 			cutpage(firstPage);
 			nowpage = 1;
+
 		})
 
 		function cutpage(p) {
@@ -210,7 +212,7 @@ th {
 						url : "postage/cutpage",
 						data : json,
 						success : function(msg) {
-							alert(JSON.stringify(msg));
+							/* alert(JSON.stringify(msg)); */
 							lastPage = msg.totalPage;
 
 							var str = "";
@@ -243,13 +245,13 @@ th {
 										+ "<td>" + obj.unitcost + "</td>"
 										+ "<td>" + obj.costexplain + "</td>"
 								if (obj.state == 1) {
-									str+="<td>暂停</td></tr>"
+									str += "<td>暂停</td></tr>"
 								}
 								if (obj.state == 2) {
-									str+="<td>开通</td></tr>"
+									str += "<td>开通</td></tr>"
 								}
 								if (obj.state == 3) {
-									str+="<td>停用</td></tr>"
+									str += "<td>停用</td></tr>"
 								}
 
 							}
@@ -266,28 +268,55 @@ th {
 		function cke(ck) {
 			nowID = ck.children().first().html();
 			ck.addClass("as").siblings().removeClass("as");
+			/* 将被引用了的资费的删除和修改的按钮给处理掉*/
+			$.ajax({
+				type : "POST",
+				url : "postage/depend",
+				data : "nowid=" + nowID,
+				success : function(msg) {
+					/*   alert( "Data Saved: " + msg ); */
+					if (msg == false) {
+						$("#del").attr("disabled", "disabled")
+						$("#upd").attr("disabled", "disabled")
+					}
+					if (msg == true) {
+						$("#del").removeAttr("disabled")
+						$("#upd").removeAttr("disabled")
+					}
+				}
+			});
 
 		}
-		
+
 		/*删除 */
-		$("#del").click(function(){
-				   if(confirm("确认删除?")){
-					   window.open("postage/delt?nowId=" + nowID, "_self")
-				   }
-				   else {
-					   alert("ddd继续")
-				}
-			
+		$("#del").click(function() {
+			if (nowID != null) {
+				if (confirm("确认删除?")) {
+					window.open("postage/delt?nowId=" + nowID, "_self");
+					alert("删除成功")
+				} 
+			} else {
+				alert("请选中一行")
+			}
+
 		})
 
 		$("#add").on("click", function() {
 			window.open("view/operation/postage/page_postage_add.jsp", "_self")
 		});
 		$("#upd").on("click", function() {
-			window.open("view/operation/postage/page_postage_upd.jsp", "_self")
+			if (nowID != null) {
+			window.open("postage/updatefind?nowId=" + nowID, "_self")
+			} else {
+				alert("请选中一行")
+			}
 		});
 		$("#find").on("click", function() {
+			if (nowID != null) {
 			window.open("postage/findInfo?nowId=" + nowID, "_self")
+			} else {
+				alert("请选中一行")
+			}
 		});
 	</script>
 	<script src="static/js/my.js" type="text/javascript"></script>
