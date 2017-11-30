@@ -144,7 +144,7 @@
     </bean>
     <bean id="simpleMailMessage" class="org.springframework.mail.SimpleMailMessage">
         <property name="from" value="${mail.from}" />
-        <property name="subject" value="系统注册验证" />
+        <property name="subject" value="电信系统通知" />
     </bean>
 
 </beans>        

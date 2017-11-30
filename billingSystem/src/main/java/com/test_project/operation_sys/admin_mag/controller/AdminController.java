@@ -29,7 +29,7 @@ public class AdminController {
 	
 	@RequestMapping(value="/main")
 	public @ResponseBody PagerBean getAdmins(int page,int rows) {
-		System.out.println(page+"  "+rows);
+		
 		PagerBean pager=new PagerBean();
 		pager.setPage(page);
 		pager.setRows(rows);

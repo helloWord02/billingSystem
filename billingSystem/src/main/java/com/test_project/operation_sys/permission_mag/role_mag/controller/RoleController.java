@@ -35,6 +35,7 @@ public class RoleController {
 	}
 	@RequestMapping(value="/main")
 	public @ResponseBody PagerBean getmain(int page,int rows) {
+		System.out.println("666666666666666666");
 		PagerBean pager=new PagerBean();
 		pager.setPage(page);
 		pager.setRows(rows);
