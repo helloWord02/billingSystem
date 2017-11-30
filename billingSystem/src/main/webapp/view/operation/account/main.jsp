@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	String path = request.getContextPath();//获取项目名称
@@ -9,7 +11,7 @@
 
 <head>
 	<base href="<%=basePath%>">
-   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">   
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -64,18 +66,18 @@
                 <li class="dropdown" >
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                        <h5 style="display: inline;height:100%;margin-left: 20px">欢迎XXX登录！</h5>
+                        <h5 style="display: inline;height:100%;margin-left: 20px">欢迎<shiro:principal/>登录！</h5>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="receptions/find?id=1"  target="myiframe"><i class="fa fa-user fa-fw"></i> 个人信息</a>
+                        <li><a href="page_person_info.html"  target="myiframe"><i class="fa fa-user fa-fw"></i> 个人信息</a>
                         </li>
-                        <li><a href="receptions/update?id=1"  target="myiframe"><i class="fa fa-gear fa-fw"></i> 修改密码</a>
+                        <li><a href="page_person_upd.html"  target="myiframe"><i class="fa fa-gear fa-fw"></i> 修改密码</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
+                        <li><a href="user/loginout"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
                         </li>
                     </ul>
-                </li>  
+                </li>
             </ul>
 
 
@@ -119,7 +121,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="page_account.html" target="myiframe"><i class="fa fa-edit fa-fw"></i>账务查询系统</span></a>
+                            <a href="page_account.jsp" target="myiframe"><i class="fa fa-edit fa-fw"></i>账务查询系统</span></a>
 
                             <!-- /.nav-second-level -->
                         </li>

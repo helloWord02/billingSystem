@@ -25,7 +25,7 @@ public class AccountYearServiceImpl implements IAccountYearService {
 		 String str = format.format(date);
 		 String year = str.split("-")[1];
 		 AccountYearBean ay =  accountMonthDaoImpl.findAccountMonth(year) ;
-		 ay.setDateYear(date);
+		 ay.setDate(date);
 		 accountYearDaoImpl.saveAccountYear(ay);
 	}
 

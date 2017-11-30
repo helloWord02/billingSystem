@@ -1,7 +1,6 @@
 package com.test_project.operation_sys.account_mag.dao.impl;
 
 import java.util.List;
-
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
@@ -21,26 +20,26 @@ public class AccountYearDaoImpl extends BaseDao implements IAccountYearDao{
 	@Override
 	public PagerBean findAccountYearByPage(PagerBean pager) {
 		// TODO Auto-generated method stub
-		String year = pager.getParams().get("year").toString();	 
-		String hql = "select count(id) from AccountYearBean ";
-		if(year!=null&&"".equals(year)) {
-			hql = hql + " where  year(dateYear)=year(:year) ";
+		String year = pager.getParams().get("year").toString();	
+		String hql = "From AccountYearBean ";
+		if(year!=null && !("".equals(year))) {
+			hql = hql + " where  year(date)=" + year;
 		}
-		 
-		Query query = getSession().createQuery(hql);
-		 
-		long totalRows = (Long) query.uniqueResult();
-	 
-		pager.setTotalRows(Integer.valueOf(String.valueOf(totalRows)));
-		hql = "From AccountYearBean  ";
-		if(year!=null&&"".equals(year)) {
-			hql = hql + " where  year(dateYear)=year(:year) ";
-		}
-		query = getSession().createQuery(hql); 
+		Query query = getSession().createQuery(hql); 		 
 		query.setFirstResult(pager.getIndex());
-		query.setMaxResults(pager.getPage());
+		query.setMaxResults(pager.getRows());
 		List<?> datas = query.list();
 		pager.setDatas(datas); 
+		
+		hql = "select count(id) from AccountYearBean ";
+		if(year!=null&&!("".equals(year))) {
+			hql = hql + " where  year(date)=  " + year;
+		}		 
+		query = getSession().createQuery(hql); 
+		long totalRows = (long) query.uniqueResult();	 
+		pager.setTotalRows(Integer.valueOf(String.valueOf(totalRows)));
+		
+	    
 		return pager;
 	}
 

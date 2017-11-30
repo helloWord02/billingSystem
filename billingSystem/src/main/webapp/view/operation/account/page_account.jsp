@@ -62,6 +62,10 @@
         th{
             text-align:center;
         }
+        .as{
+        
+        	background-color: rgba(179, 227, 255, 0.5);
+        }
 
 
     </style>
@@ -79,10 +83,10 @@
                <!-- 查询 -->
                 <div  >
                     <span>年：</span>
-                    <input  style="width: 140px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="年" name="year" type="text" >
+                    <input id="dateYear"  style="width: 140px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="年" name="param" type="text" >
                     <span>月：</span>
-                    <input  style=" width: 140px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="月" name="month" type="text" >
-                    <button type="button" class="btn btn-info">查询</button>
+                    <input  id="dateMonth" style=" width: 140px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="月" name="param" type="text" >
+                    <button type="button" class="btn btn-info" id="find">查询</button>
                 </div>
                 <!-- 查询  -->
 
@@ -93,48 +97,18 @@
 
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
+                                <table class="table  table-bordered  dataTable no-footer" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
 
                                 <thead>
-                                    <tr role="row">
+                                     <tr role="row">
                                         <th style="width: 10%;">编号</th>
                                         <th style="width: 20%;">业务名称</th>
                                         <th style="width: 20%;">实验室IP</th>
                                         <th style="width: 20%;">总时长</th>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="gradeA odd" role="row">
-                                        <td class="sorting_1">1</td>
-                                        <td>服务器1租赁</td>
-                                        <td>221.237.44.152</td>
-                                        <td>111</td>
-
-                                    <tr class="gradeA odd" role="row">
-                                        <td class="sorting_1">2</td>
-                                        <td>服务器2租赁</td>
-                                        <td>221.237.44.152</td>
-                                        <td>122</td>
-
-
-                                    <tr class="gradeA odd" role="row">
-                                        <td class="sorting_1">3</td>
-                                        <td>服务器3租赁</td>
-                                        <td>221.237.44.152</td>
-                                        <td>1515</td>
-
-                                    <tr class="gradeA odd" role="row">
-                                        <td class="sorting_1">4</td>
-                                        <td>服务器4租用</td>
-                                        <td>221.237.44.152</td>
-                                        <td>1515</td>
-
-
-                                    <tr class="gradeA odd" role="row">
-                                        <td class="sorting_1">5</td>
-                                        <td>服务器5租用</td>
-                                        <td>221.237.44.152</td>
-                                        <td>111</td>
-
+                                        <th style="width: 20%;">时间</th>  
+                               </thead>
+                                    <tbody id="data">
+                                    
                                     </tbody>
                                 </table>
                             </div>
@@ -153,6 +127,7 @@
                                         <li aria-controls="dataTables-example" tabindex="4">
                                             <div class="form-group input-group">
 	                                                <span class="input-group-addon" id="span1">
+	                                                
 	                                                </span>
                                                 <input style="width: 70px" type="text" class="form-control" placeholder="跳转页" id="page">
                                             </div>
@@ -173,117 +148,49 @@
 
     </div>
 <script >
-
-	var nowpage=1;
-	var firstPage=1;
-	var lastPage=0;
-	var year="";
-	var reg = new RegExp("^[0-9]*$");
-	$(function(){
-		cutpage(firstPage);
-		
-	})
+	function getTime(time){
+		var date = new Date(time);
+		return date.toLocaleString();
+	}
 	
-	/* 首页  */
-	
-	 $("#a1").click(
-			 function(){
-					cutpage(firstPage);
-					nowpage=1; 
-			 }
-	
-	) 
-	
-	/* 上一页 */
-	 $("#a2").click(
-			 function(){
-				 if(nowpage!=1){
-						nowpage--;
-						cutpage(nowpage)
-						} 
-			 }
-			
-			) 
-			
-			
-			/* 下一页 */
-	$("#a3").click(function(){
-					if(nowpage!=lastPage){
-					nowpage++;
-					cutpage(nowpage)
-					}
-			}
-					)
-	/* 最后一页 */				
-	$("#a4").click(
-			 function(){
-					cutpage(lastPage);
-					nowpage=lastPage; 
-			 }
-	
-	)
-	/*  选页  */
-	$("#a5").click(
-			 function(){
-				if(reg.test($("#page").val())&&$("#page").val()<=lastPage&&$("#page").val()>0){
-					cutpage(lastPage);
-					nowpage=$("#page").val(); 
-				}
-				else{
-					alert("请输入正确的页码");
-				}
-				 	 
-			 }
-	
-	)
-		
 	function cutpage(p){
 		$.ajax({
 			   type: "POST",
-			   url: "postage/cutpage",
+			   url: "account/accountpage",
 			   data: "pageNum="+p,
 			   success: function(msg){
 			     alert( JSON.stringify(msg));
-			     lastPage=msg.totalPage;
-			    
-			     var str="";
+			     lastPage=msg.totalPage;			    
+			     var str="";  				    
 			     for(var i=1;i<=msg.datas.length;i++){
-			    	 var obj=msg.datas[i-1]
-			      str+=" <tr class='gradeA odd' role='row'>"+
-	             "<td class='sorting_1'>"+i+"</td>"
-	             if(obj.type=='1'){
-	            	 str+= "<td>计时</td>"
-	             }
-			    	 if(obj.type=='0'){
-		            	 str+= "<td>包月</td>"
-		             }
-			    	 if(obj.type=='2'){
-		            	 str+= "<td>套餐</td>"
-		             }
-			    	 
-			    	 /* 基本时长 1分钟  100分钟  一个月 */
-				    	 if(obj.baisetime==0){
-			            	 str+= "<td>一个月</td>"
-			             }else{
-			            	 str+= "<td>"+obj.baisetime+"</td>"
-			             }
-				    
-			str+="<td>"+obj.baisecost+"</td>"+
-	             "<td>"+obj.unitcost+"</td>"+
-	             "<td>"+obj.costexplain+"</td></tr>"
-			     }
+			    	 	var obj=msg.datas[i-1]
+						str +="<tr onclick='cke($(this) )' ><td>"+i+"</td><td>"+obj.account+"</td><td>"+obj.allTime+"</td><td>"+ obj.ip+"</td><td >"+ getTime(obj.date) +" </td></tr>"
+					}
 			     $("#data").html(str);
 			     $("#span1").html(nowpage+"/"+lastPage);
-			    
 			     
 			   }
 			});
-		
+		 
 	}
-
-
-
-</script>
-
+	function cke(ck){
+		
+		ck.addClass("as").siblings().removeClass("as");
+	}
+	
+	 $("#find").on("click",function(){
+		 
+			 var dateYear= $("#dateYear").val();
+			 var dateMonth= $("#dateMonth").val();
+			 
+			 if(dateYear !="" ){
+				 window.open("view/operation/account/page_account_fen.jsp"+"?dateYear="+dateYear+"&dateMonth="+dateMonth,"_self")	;	    
+			 }else if(dateMonth !="" ){
+				 alert("请输入年！");
+			 }
+	       });
+	 
+	</script>
+ <script src="static/js/my.js" type="text/javascript"></script>
 </body>
 </html>

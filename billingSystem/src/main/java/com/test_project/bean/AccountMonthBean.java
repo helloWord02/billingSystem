@@ -39,7 +39,7 @@ public class AccountMonthBean {
 	 * 
 	 */
 	@Column(name="date_month")
-	private Date dateMonth;
+	private Date date ;
 	/**
 	 * 服务器ip
 	 */
@@ -54,7 +54,7 @@ public class AccountMonthBean {
 		super();
 		this.account = account;
 		this.allTime = allTime;
-		this.dateMonth = dateMonth;
+		this.date  = dateMonth;
 		this.ip = ip;
 	}
 
@@ -82,12 +82,12 @@ public class AccountMonthBean {
 		this.allTime = allTime;
 	}
 
-	public Date getDateMonth() {
-		return dateMonth;
+	public Date getDate () {
+		return date ;
 	}
 
-	public void setDateMonth(Date dateMonth) {
-		this.dateMonth = dateMonth;
+	public void setDate (Date dateMonth) {
+		this.date  = dateMonth;
 	}
 
 	public String getIp() {
@@ -100,8 +100,8 @@ public class AccountMonthBean {
 
 	@Override
 	public String toString() {
-		return "AccountMonthBean [id=" + id + ", account=" + account + ", allTime=" + allTime + ", dateMonth="
-				+ dateMonth + ", ip=" + ip + "]";
+		return "AccountMonthBean [id=" + id + ", account=" + account + ", allTime=" + allTime + ", date="
+				+ date  + ", ip=" + ip + "]";
 	}
 	
 }
