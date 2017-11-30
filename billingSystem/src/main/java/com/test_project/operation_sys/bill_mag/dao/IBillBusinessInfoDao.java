@@ -1,5 +1,7 @@
 package com.test_project.operation_sys.bill_mag.dao;
 
+import com.test_project.bean.BillBusinessBean;
+import com.test_project.bean.BillBusinessInfoBean;
 import com.test_project.bean.BusinessBean;
 import com.test_project.bean.ServiceBean;
 import com.test_project.pojos.PagerBean;
@@ -25,5 +27,5 @@ public interface IBillBusinessInfoDao {
 	 * @param pager
 	 * @return
 	 */
-	public PagerBean findBusinessByBusinessAccount(PagerBean pager);
+	public BillBusinessInfoBean findBusinessByBusinessAccount(BillBusinessInfoBean billBusiness);
 }

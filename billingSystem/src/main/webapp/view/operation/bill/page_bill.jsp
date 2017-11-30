@@ -87,17 +87,20 @@ th {
 				<!-- 查询 -->
 				<div>
 					<span>身份证：</span> <input
-						style="width: 140px; height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid"
+						style="width: 150px; height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid"
 						placeholder="身份证" name="idcard" type="text"> <span>账务账号：</span>
 					<input
-						style="width: 140px; height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid"
+						style="width: 110px; height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid"
 						placeholder="账务账号" name="number" type="text"> <span>用户名：</span>
 					<input
-						style="width: 140px; height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid"
-						placeholder="用户名" name="username" type="text"> <span>时间：</span>
+						style="width: 110px; height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid"
+						placeholder="用户名" name="username" type="text"> <span>年：</span>
 					<input
-						style="width: 140px; height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid"
-						placeholder="时间" name="time" type="text">
+						style="width: 110px; height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid"
+						placeholder="年份" name="time" type="text"><span>月：</span>
+					<input
+						style="width: 110px; height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid"
+						placeholder="月份" name="time" type="text">
 					<button type="button" class="btn btn-info">查询</button>
 				</div>
 				<!-- 查询  -->
@@ -118,54 +121,15 @@ th {
 									<thead>
 										<tr role="row">
 											<th style="width: 20%;">身份证</th>
-											<th style="width: 20%;">账务名称</th>
+											<th style="width: 20%;">账务账号</th>
 											<th style="width: 10%;">用户名</th>
 											<th style="width: 20%;">时间</th>
 											<th style="width: 10%;">总费用</th>
 											<th style="width: 10%;">支付方式</th>
 											<th style="width: 10%;">支付状态</th>
 									</thead>
-									<tbody>
-										<tr class="gradeA odd" role="row">
-											<td class="sorting_1">1</td>
-											<td>服务器1租赁</td>
-											<td>221.237.44.152</td>
-											<td>111</td>
-											<td>服务器1</td>
-											<td>221.237.44.152</td>
-											<td>111</td>
-										<tr class="gradeA odd" role="row">
-											<td class="sorting_1">2</td>
-											<td>服务器2租赁</td>
-											<td>221.237.44.152</td>
-											<td>122</td>
-											<td>服务器1</td>
-											<td>221.237.44.152</td>
-											<td>111</td>
-										<tr class="gradeA odd" role="row">
-											<td class="sorting_1">3</td>
-											<td>服务器3租赁</td>
-											<td>221.237.44.152</td>
-											<td>1515</td>
-											<td>服务器1</td>
-											<td>221.237.44.152</td>
-											<td>111</td>
-										<tr class="gradeA odd" role="row">
-											<td class="sorting_1">4</td>
-											<td>服务器4租用</td>
-											<td>221.237.44.152</td>
-											<td>1515</td>
-											<td>服务器1</td>
-											<td>221.237.44.152</td>
-											<td>111</td>
-										<tr class="gradeA odd" role="row">
-											<td class="sorting_1">5</td>
-											<td>服务器5租用</td>
-											<td>221.237.44.152</td>
-											<td>111</td>
-											<td>服务器1</td>
-											<td>221.237.44.152</td>
-											<td>111</td>
+									<tbody id="data">
+										
 									</tbody>
 								</table>
 							</div>
@@ -209,5 +173,38 @@ th {
 		</div>
 
 	</div>
+		<script src="static/js/my.js" type="text/javascript"></script>
+	<script>		
+	function cutpage(p){
+		$.ajax({
+			   type: "POST",
+			   url: "bill/cutpage",
+			   data: "pageNum="+p,
+			   success: function(msg){
+			     alert( JSON.stringify(msg));
+			     lastPage=msg.totalPage;
+			    
+			     var str="";
+			     for(var i=1;i<=msg.datas.length;i++){
+			    	 var obj=msg.datas[i-1]
+						 str+=" <tr class='gradeA odd' role='row'>"+
+			             "<td class='sorting_1'>"+obj.idcard+"</td>"+			             
+			             "<td>"+obj.billAccount+"</td>"+
+			             "<td>"+obj.userName+"</td>"+
+			             "<td>"+obj.date+"</td>"+
+			             "<td>"+obj.allCost+"</td>"+
+			             "<td>"+obj.payType+"</td>"+
+			             "<td>"+obj.payState+"</td>"+
+			             "</tr>"					     
+					}					
+			     $("#data").html(str);
+			     $("#span1").html(nowpage+"/"+lastPage);
+				}
+			});
+		}
+	</script>
+	
+
+	
 </body>
 </html>

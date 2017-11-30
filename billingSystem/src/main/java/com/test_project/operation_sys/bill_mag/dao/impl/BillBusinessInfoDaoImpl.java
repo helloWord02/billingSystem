@@ -5,11 +5,13 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import com.test_project.bean.BillBusinessInfoBean;
 import com.test_project.bean.BusinessBean;
 import com.test_project.bean.ServiceBean;
 import com.test_project.operation_sys.bill_mag.dao.IBillBusinessInfoDao;
@@ -31,27 +33,18 @@ public class BillBusinessInfoDaoImpl extends BaseDao implements IBillBusinessInf
 	}
 
 	@Override
-	public PagerBean findBusinessByBusinessAccount(PagerBean pager) {
+	public BillBusinessInfoBean findBusinessByBusinessAccount(BillBusinessInfoBean billBusinessInfo) {	
 		// TODO Auto-generated method stub
-		/**
-		 * 分页信息查询
-		 */
-		Criteria criteria = getSession().createCriteria(BusinessBean.class);
-		criteria.add(Restrictions.like("business_account", pager.getParams().get("business_account").toString()));
-		criteria.setProjection(Projections.count("id"));
-		int totalRows =  (int) criteria.uniqueResult();
-		pager.setTotalRows(totalRows);
-		
-		/**
-		 * 查询具体数据
-		 */
-		criteria.setProjection(null);
-		criteria.setFirstResult(pager.getIndex());
-		criteria.setMaxResults(pager.getRows());
-		criteria.addOrder(Order.desc("id"));
-		List<?> datas = criteria.list();
-		pager.setDatas(datas);		
-		return pager;
+		System.out.println("传进来的businessAccount:"+billBusinessInfo.getBusinessAccount());
+		String hql = "from BillBusinessInfoBean as b where b.businessAccount = :businessAccount";
+		Query query = getSession().createQuery(hql);
+		query.setString("businessAccount", billBusinessInfo.getBusinessAccount());
+		List<BillBusinessInfoBean> list = query.list();
+		System.out.println("返回的list-BillBusinessInfoBean:"+list);
+		//System.out.println("业务详细信息："+ business);
+		System.out.println(list.size());
+		billBusinessInfo = list.get(0);
+		return billBusinessInfo;
 	}
 
 }

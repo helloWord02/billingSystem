@@ -1,14 +1,23 @@
 package com.test_project.operation_sys.bill_mag.dao.impl;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
+import com.test_project.bean.BillBusinessBean;
 import com.test_project.bean.BusinessBean;
 import com.test_project.bean.ServiceBean;
 import com.test_project.operation_sys.bill_mag.dao.IBillBusinessDao;
 import com.test_project.pojos.PagerBean;
 import com.test_project.util.BaseDao;
+
 /**
  * 账务账号下所有的业务账号当月发生的费用明细信息持久层实现类
+ * 
  * @author huangjun
  *
  */
@@ -18,13 +27,33 @@ public class BillBusinessDaoImpl extends BaseDao implements IBillBusinessDao {
 	@Override
 	public void saveBillCost(BusinessBean buesiness) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public PagerBean findAllBusinessByBillAccount(PagerBean pager) {
 		// TODO Auto-generated method stub
-		return null;
+		/**
+		 * 分页信息查询
+		 */
+		System.out.println("传进来的PagerBean:" + pager);
+		Criteria criteria = getSession().createCriteria(BillBusinessBean.class);
+		criteria.add(Restrictions.eq("billAccount", pager.getParams().get("billAccount")));
+		criteria.setProjection(Projections.count("id"));//设置id投影
+		Long totalRows = (Long) criteria.uniqueResult();
+		pager.setTotalRows(Integer.valueOf(String.valueOf(totalRows)));
+
+		/**
+		 * 查询具体的数据
+		 */
+		criteria.setProjection(null);//清除所有投影
+		criteria.setFirstResult(pager.getIndex());
+		criteria.setMaxResults(pager.getRows());
+		criteria.addOrder(Order.desc("id"));//按id排序
+		List<?> datas = criteria.list();
+		pager.setDatas(datas);
+		System.out.println("Dao层查询到的数据："+pager);
+		return pager;
 	}
 
 }

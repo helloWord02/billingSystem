@@ -107,39 +107,15 @@ th {
 											<th style="width: 15%;">退出时间</th>
 											<th style="width: 15%;">时长</th>
 									</thead>
-									<tbody>
-										<tr class="gradeA odd" role="row">
-											<td class="sorting_1">1</td>
-											<td>服务器1租赁</td>
-											<td>221.237.44.152</td>
-											<td>111</td>
-										<tr class="gradeA odd" role="row">
-											<td class="sorting_1">2</td>
-											<td>服务器2租赁</td>
-											<td>221.237.44.152</td>
-											<td>122</td>
-										<tr class="gradeA odd" role="row">
-											<td class="sorting_1">3</td>
-											<td>服务器3租赁</td>
-											<td>221.237.44.152</td>
-											<td>1515</td>
-										<tr class="gradeA odd" role="row">
-											<td class="sorting_1">4</td>
-											<td>服务器4租用</td>
-											<td>221.237.44.152</td>
-											<td>1515</td>
-										<tr class="gradeA odd" role="row">
-											<td class="sorting_1">5</td>
-											<td>服务器5租用</td>
-											<td>221.237.44.152</td>
-											<td>111</td>
+									<tbody id="data">
+										
 									</tbody>
 								</table>
 							</div>
 						</div>
 
 						<!--翻页按钮-->
-						<div class="row">
+						<!-- <div class="row">
 							<div class="col-sm-12">
 								<div class="dataTables_paginate paging_simple_numbers"
 									id="dataTables-example_paginate">
@@ -164,7 +140,7 @@ th {
 									</ul>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<!-- /翻页按钮-->
 					</div>
 
@@ -177,6 +153,33 @@ th {
 
 	</div>
 
+	<script>
+		
+		function cutpage(p){
+			$.ajax({
+				type : "POST",
+				url : "bill/showBillBusinessInfoData",
+				data: "pageNum="+p,
+				   success: function(msg){
+				     alert( JSON.stringify(msg));
+				     
+				    
+				    var str = "";
+							 str+="<tr class='gradeA odd' role='row'>"+
+				             "<td class='sorting_1'>"+msg.servicesInfo+"</td>"+			             
+				             "<td>"+msg.loginTime+"</td>"+
+				             "<td>"+msg.loginoutTime+"</td>"+
+				             "<td>"+msg.timeLong+"</td>"+
+				             "</tr>"					     
+											
+				     $("#data").html(str);
+				     $("#span1").html(nowpage+"/"+lastPage);
+					}
+				});
+			}
+		</script>
+
+	<script src="static/js/my.js" type="text/javascript"></script>
 
 </body>
 </html>

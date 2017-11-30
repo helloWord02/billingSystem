@@ -108,37 +108,8 @@ th {
 											<th style="width: 20%;">业务费用</th>
 											<th style="width: 20%;">资费套餐</th>
 									</thead>
-									<tbody>
-										<tr class="gradeA odd" role="row">
-											<td class="sorting_1">1</td>
-											<td>服务器1租赁</td>
-											<td>221.237.44.152</td>
-											<td>111</td>
-											<td>服务器1</td>
-										<tr class="gradeA odd" role="row">
-											<td class="sorting_1">2</td>
-											<td>服务器2租赁</td>
-											<td>221.237.44.152</td>
-											<td>122</td>
-											<td>服务器1</td>
-										<tr class="gradeA odd" role="row">
-											<td class="sorting_1">3</td>
-											<td>服务器3租赁</td>
-											<td>221.237.44.152</td>
-											<td>1515</td>
-											<td>服务器1</td>
-										<tr class="gradeA odd" role="row">
-											<td class="sorting_1">4</td>
-											<td>服务器4租用</td>
-											<td>221.237.44.152</td>
-											<td>1515</td>
-											<td>服务器1</td>
-										<tr class="gradeA odd" role="row">
-											<td class="sorting_1">5</td>
-											<td>服务器5租用</td>
-											<td>221.237.44.152</td>
-											<td>111</td>
-											<td>服务器1</td>
+									<tbody id="data">
+										
 									</tbody>
 								</table>
 							</div>
@@ -183,6 +154,34 @@ th {
 
 	</div>
 
+	<script src="static/js/my.js" type="text/javascript"></script>
+	<script>		
+	function cutpage(p){
+		$.ajax({
+			   type: "POST",
+			   url: "bill/showBillBusinessData",
+			   data: "pageNum="+p,
+			   success: function(msg){
+			     alert( JSON.stringify(msg));
+			     lastPage=msg.totalPage;
+			    
+			     var str="";
+			     for(var i=1;i<=msg.datas.length;i++){
+			    	 var obj=msg.datas[i-1]
+						 str+=" <tr class='gradeA odd' role='row'>"+
+			             "<td class='sorting_1'>"+obj.billAccount+"</td>"+			             
+			             "<td>"+obj.service+"</td>"+
+			             "<td>"+obj.timeLong+"</td>"+
+			             "<td>"+obj.cost+"</td>"+
+			             "<td>"+obj.postageName+"</td>"+
+			             "</tr>"					     
+					}					
+			     $("#data").html(str);
+			     $("#span1").html(nowpage+"/"+lastPage);
+				}
+			});
+		}
+	</script>
 
 </body>
 </html>
