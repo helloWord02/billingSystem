@@ -39,7 +39,7 @@ public class AccountDayBean {
 	 * 
 	 */
 	@Column(name="date_day")
-	private Date dateDay;
+	private Date date;
 	/**
 	 * 服务器ip
 	 */
@@ -54,7 +54,7 @@ public class AccountDayBean {
 		super();
 		this.account = account;
 		this.allTime = allTime;
-		this.dateDay = dateDay;
+		this.date  = dateDay;
 		this.ip = ip;
 	}
 
@@ -82,12 +82,12 @@ public class AccountDayBean {
 		this.allTime = allTime;
 	}
 
-	public Date getDateDay() {
-		return dateDay;
+	public Date getDate () {
+		return date ;
 	}
 
-	public void setDateDay(Date dateDay) {
-		this.dateDay = dateDay;
+	public void setDate (Date dateDay) {
+		this.date  = dateDay;
 	}
 
 	public String getIp() {
@@ -100,7 +100,7 @@ public class AccountDayBean {
 
 	@Override
 	public String toString() {
-		return "AccountDayBean [id=" + id + ", account=" + account + ", allTime=" + allTime + ", dateDay=" + dateDay
+		return "AccountDayBean [id=" + id + ", account=" + account + ", allTime=" + allTime + ", date =" + date 
 				+ ", ip=" + ip + "]";
 	}
 	

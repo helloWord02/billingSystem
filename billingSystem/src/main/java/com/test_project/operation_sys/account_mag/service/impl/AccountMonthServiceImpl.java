@@ -22,12 +22,13 @@ public class AccountMonthServiceImpl implements IAccountMonthService {
 		// TODO Auto-generated method stub
 		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		 String str = format.format(date);
+		 String year = str.split("-")[0];
 		 String month = str.split("-")[1];
-		 AccountMonthBean am =  accountDayDaoImpl.findAccountDayByPage(month);
-		 am.setDateMonth(date);
+		 AccountMonthBean am =  accountDayDaoImpl.findAccountDayByPage(year,month);
+		 am.setDate(date);
 		 accountMonthDaoImpl.saveAccountMonth(am);
 	}
-
+ 
 	@Override
 	public PagerBean findAccountMonthByPage(PagerBean page) {
 		// TODO Auto-generated method stub

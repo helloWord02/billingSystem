@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	String path = request.getContextPath();//获取项目名称
@@ -17,18 +18,18 @@
 
     <title> 账务账号管理</title>
  
-    <link href="../<%=basePath%>static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=basePath%>static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="../<%=basePath%>static/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <link href="<%=basePath%>static/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
  
-    <link href="../<%=basePath%>static/dist/css/timeline.css" rel="stylesheet">
+    <link href="<%=basePath%>static/dist/css/timeline.css" rel="stylesheet">
  
-    <link href="../<%=basePath%>static/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="<%=basePath%>static/dist/css/sb-admin-2.css" rel="stylesheet">
  
-    <link href="../<%=basePath%>static/bower_components/morrisjs/morris.css" rel="stylesheet">
+    <link href="<%=basePath%>static/bower_components/morrisjs/morris.css" rel="stylesheet">
  
-    <link href="../<%=basePath%>static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <script src="../<%=basePath%>static/js/jQuery-2.2.2-min.js" type="text/javascript"></script>
+    <link href="<%=basePath%>static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="<%=basePath%>static/js/jQuery-2.2.2-min.js" type="text/javascript"></script>
      
     <style>
 
@@ -62,7 +63,11 @@
         th{
             text-align:center;
         }
-
+ 	
+ 	.as{
+        
+        	background-color: rgba(179, 227, 255, 0.5);
+        }
 
     </style>
 
@@ -78,7 +83,7 @@
             <div class="panel-body">
                <!-- 查询 -->
                 <div  >
-                    <span style="font-size: 16px ">2017年6月</span>
+                    <span style="font-size: 16px "> ${param.dateYear} ${param.dateMonth}</span>
 
                 </div>
                 <!-- 查询  -->
@@ -90,48 +95,18 @@
 
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
-
+                                <table class="table  table-bordered  dataTable no-footer" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
+                                
                                 <thead>
                                     <tr role="row">
                                         <th style="width: 10%;">编号</th>
                                         <th style="width: 20%;">业务名称</th>
                                         <th style="width: 20%;">实验室IP</th>
                                         <th style="width: 20%;">总时长</th>
+                                         <th style="width: 20%;">时间</th>
                                     </thead>
-                                    <tbody>
-                                    <tr class="gradeA odd" role="row">
-                                        <td class="sorting_1">1</td>
-                                        <td>服务器1租赁</td>
-                                        <td>221.237.44.152</td>
-                                        <td>111</td>
-
-                                    <tr class="gradeA odd" role="row">
-                                        <td class="sorting_1">2</td>
-                                        <td>服务器2租赁</td>
-                                        <td>221.237.44.152</td>
-                                        <td>122</td>
-
-
-                                    <tr class="gradeA odd" role="row">
-                                        <td class="sorting_1">3</td>
-                                        <td>服务器3租赁</td>
-                                        <td>221.237.44.152</td>
-                                        <td>1515</td>
-
-                                    <tr class="gradeA odd" role="row">
-                                        <td class="sorting_1">4</td>
-                                        <td>服务器4租用</td>
-                                        <td>221.237.44.152</td>
-                                        <td>1515</td>
-
-
-                                    <tr class="gradeA odd" role="row">
-                                        <td class="sorting_1">5</td>
-                                        <td>服务器5租用</td>
-                                        <td>221.237.44.152</td>
-                                        <td>111</td>
-
+                                    <tbody id="data">
+                                       
                                     </tbody>
                                 </table>
                             </div>
@@ -140,8 +115,9 @@
                         <!--翻页按钮-->
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
-                                    <ul class="pagination">
+                            <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                                   
+                                  <ul class="pagination">
                                         <li class="paginate_button  " aria-controls="dataTables-example" tabindex="0" id="a1"><a>首页</a></li>
                                         <li class="paginate_button " aria-controls="dataTables-example" tabindex="1" id="a2"><a>上一页</a></li>
                                         <li class="paginate_button " aria-controls="dataTables-example" tabindex="2" id="a3"><a>下一页</a></li>
@@ -172,10 +148,68 @@
     </div>
 
     <script>
-
+   
+    var year =  "${param.dateYear}";
+    var month =  "${param.dateMonth}";
+    
+    var ip = ""
+    
+    function getTime(time){
+		var date = new Date(time);
+		return date.toLocaleString();
+	}
+    
+    function cutpage(p){
+    	var json={
+    			pageNum:p,
+    			year: year,
+    			 month:month,   			 
+    			 ip:ip
+    			
+    	}
+		$.ajax({
+			   type: "POST",
+			   url: "accountfen/fenpage",
+			   data: json,
+			   success: function(msg){
+			     alert( JSON.stringify(msg));
+			     lastPage=msg.totalPage;			    
+			     var str="";  				    
+			     for(var i=1;i<=msg.datas.length;i++){
+			    	 	var obj=msg.datas[i-1]
+						str +="<tr onclick='cke($(this) )'  ondblclick='ock($(this))'><td>"+i+"</td><td>"+obj.account+"</td><td>"+obj.ip+"</td><td>"+obj.allTime +"</td><td>"+ getTime(obj.date)+"</td></tr>"
+					}
+			     $("#data").html(str);
+			     $("#span1").html(nowpage+"/"+lastPage);
+			     
+			   }
+			});
+		
+	}
+    
+    function ock(o){
+		 ip = $(o).children().eq(2).html(); 
+		 date =  $(o).children().eq(4).html(); 
+		 month = date.split("/")[1];
+		 alert("ip="+ip); 
+		 alert("month="+month);
+		 $(function(){
+				cutpage(1);
+			})
+		 
+	}
+	    
+		function cke(ck){
+			
+			ck.addClass("as").siblings().removeClass("as");
+		}
+	
         $("#back").on("click",function(){
-            window.open("page_postage.html","_self")
+        	
+            window.open("view/operation/account/page_account.jsp","_self")
         });
+        
     </script>
+    <script src="static/js/my.js" type="text/javascript"></script>
 </body>
 </html>

@@ -23,26 +23,30 @@ public class AccountMonthDaoImpl extends BaseDao implements IAccountMonthDao {
 	@Override
 	public PagerBean findAccountMonthByPage(PagerBean pager) {
 		// TODO Auto-generated method stub
-		String hql = "select count(id) from AccountMonthBean where year(dateMonth)=year(?) "
-				+ " and month(dateMonth)=month(?) and ip like concat(?,%)";
-		 
+		String month = pager.getParams().get("month").toString();		
+		String hql = "select count(id) from AccountMonthBean where year(date)=(?) "
+				+ "  and ip like concat(?,'%')";
+		if(month!=null && !("".equals(month))) {
+			hql = hql + " and month(date)="+month;
+		}
 		Query query = getSession().createQuery(hql);
 		query.setString(0, pager.getParams().get("year").toString());
-		query.setString(1, pager.getParams().get("month").toString());
-		query.setString(2, pager.getParams().get("ip").toString());
+		query.setString(1, pager.getParams().get("ip").toString());
 		long totalRows = (Long) query.uniqueResult();
 	 
 		pager.setTotalRows(Integer.valueOf(String.valueOf(totalRows)));
 
-		hql = "From AccountMonthBean as d where  year(dateMonth)=year(?) "   
-				 +  " and month(dateMonth)=month(?) and ip like concat(?,%)";
+		hql = "From AccountMonthBean as d where  year(date)=(?) "   
+				 +  " and ip like concat(?,'%')";
+		if(month!=null && !("".equals(month))) {
+			hql = hql + " and month(date)="+month;
+		}
 		query = getSession().createQuery(hql);
-		query.setString(0, pager.getParams().get("year").toString());
-		query.setString(1, pager.getParams().get("month").toString());
-		query.setString(2, pager.getParams().get("ip").toString());
+		query.setString(0, pager.getParams().get("year").toString());		 
+		query.setString(1, pager.getParams().get("ip").toString());
 		query.setFirstResult(pager.getIndex());
-		query.setMaxResults(pager.getPage());
-		List<?> datas = query.list();
+		query.setMaxResults(pager.getRows());
+		List<AccountMonthBean> datas = query.list();
 		pager.setDatas(datas); 
 		return pager;
 	}
@@ -51,7 +55,7 @@ public class AccountMonthDaoImpl extends BaseDao implements IAccountMonthDao {
 	public AccountYearBean findAccountMonth(String year) {
 		// TODO Auto-generated method stub
 		String hql = "select new Map( d.businessAccount as businessAcount,d.ip as ip,sum(d.allTime) as allTime )"
-				+ "from AccountMonthBean as d where year(d.dateMonth)=year(?) ";
+				+ "from AccountMonthBean as d where year(d.date)=(?) ";
 		Query query = getSession().createQuery(hql);
 		query = getSession().createQuery(hql);
 		query.setString(0,year);

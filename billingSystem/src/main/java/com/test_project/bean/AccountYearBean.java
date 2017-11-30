@@ -39,11 +39,11 @@ public class AccountYearBean {
 	 * 
 	 */
 	@Column(name="date_year")
-	private Date dateYear;
+	private Date date ;
 	/**
 	 * 服务器ip
 	 */
-	@Column(name="ip" )
+	@Column(name="ip",length=40 )
 	private String ip;
 	
 	public AccountYearBean() {
@@ -54,7 +54,7 @@ public class AccountYearBean {
 		super();
 		this.account = account;
 		this.allTime = allTime;
-		this.dateYear = dateYear;
+		this.date  = dateYear;
 		this.ip = ip;
 	}
 
@@ -82,12 +82,12 @@ public class AccountYearBean {
 		this.allTime = allTime;
 	}
 
-	public Date getDateYear() {
-		return dateYear;
+	public Date getDate () {
+		return date ;
 	}
 
-	public void setDateYear(Date dateYear) {
-		this.dateYear = dateYear;
+	public void setDate (Date dateYear) {
+		this.date  = dateYear;
 	}
 
 	public String getIp() {
@@ -100,7 +100,7 @@ public class AccountYearBean {
 
 	@Override
 	public String toString() {
-		return "AccountYearBean [id=" + id + ", account=" + account + ", allTime=" + allTime + ", dateYear=" + dateYear
+		return "AccountYearBean [id=" + id + ", account=" + account + ", allTime=" + allTime + ", date =" + date 
 				+ ", ip=" + ip + "]";
 	}
 	
