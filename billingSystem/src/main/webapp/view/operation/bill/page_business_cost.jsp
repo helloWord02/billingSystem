@@ -172,16 +172,19 @@ th {
 		$.ajax({
 			   type: "POST",
 			   url: "bill/showBillBusinessData",
-			   data: "page="+ p +"&billaccount='${acc}'",
+			   data: "page="+ p +"&billaccount=${acc}",
 			   success: function(msg){
+				//   alert(msg);
 			     alert( JSON.stringify(msg));
 			     lastPage=msg.totalPage;
 			    
 			     var str="";
 			     for(var i=1;i<=msg.datas.length;i++){
+			    	 
 			    	 var obj=msg.datas[i-1]
+			    	 alert("+++++++++++++"+obj)
 						 str+=" <tr class='gradeA odd' role='row'>"+
-			             "<td>"+obj.billAccount+"</td>"+			             
+			             "<td>"+obj.businessName+"</td>"+			             
 			             "<td>"+obj.service+"</td>"+
 			             "<td>"+obj.timeLong+"</td>"+
 			             "<td>"+obj.cost+"</td>"+

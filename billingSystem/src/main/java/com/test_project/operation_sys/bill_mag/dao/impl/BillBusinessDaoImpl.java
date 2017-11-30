@@ -42,19 +42,23 @@ public class BillBusinessDaoImpl extends BaseDao implements IBillBusinessDao {
 		String billAccount = pager.getParams().get("billAccount").toString();
 		System.out.println("Dao层得到的billAccount："+billAccount);
 		query.setString("billAccount", billAccount);
+		
 		long totalRows = (Long) query.uniqueResult();
+		System.out.println("totalRows:+++++++++++++++totalRows:"+totalRows);
 		pager.setTotalRows(Integer.valueOf(String.valueOf(totalRows)));
+		System.out.println("Pager:+++++++++++++++totalRows:"+pager.getTotalRows());
 		/**
 		 * 查询具体的数据
 		 */
 		hql="from BillBusinessBean as b where b.billAccount = :billAccount ";
-		billAccount = pager.getParams().get("billAccount").toString();
-		query.setString("billAccount", billAccount);
+		query = getSession().createQuery(hql).setString("billAccount", billAccount);		
+		System.out.println("------------------------------------"+query.list());		
 		query.setFirstResult(pager.getIndex());
 		query.setMaxResults(pager.getRows());
 		List<BillBusinessBean> datas = query.list();
+		System.out.println("Dao层查询到的datas数据："+ datas);
 		pager.setDatas(datas);
-		System.out.println("Dao层查询到的数据："+pager);
+		System.out.println("Dao层查询到的pager数据："+ pager);
 		return pager;
 	}
 

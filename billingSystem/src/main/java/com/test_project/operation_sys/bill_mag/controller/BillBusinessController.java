@@ -29,15 +29,7 @@ public class BillBusinessController {
 	
 	@RequestMapping("/showBillBusinessPage")
 	public ModelAndView showBillBusinessPage(String billAccount) {
-		ModelAndView mv=new ModelAndView("view/operation/bill/page_business_cost");
-		PagerBean pager = new PagerBean(1, 5, null);
-		Map<String, Object> map = new HashMap<>();
-		map.put("billAccount", billAccount);
-		pager.setParams(map);
-		pager = billBusinessServiceImpl.findAllBusinessByBillAccount(pager);
-//		mv.addObject("pager",pager);
-		
-		
+		ModelAndView mv=new ModelAndView("view/operation/bill/page_business_cost");		
 		mv.addObject("acc",billAccount);
 		return mv;
 	}
@@ -53,7 +45,7 @@ public class BillBusinessController {
 		pager.setParams(map);
 		System.out.println("PagerBeanMAP" + pager.getParams().get("billAccount"));
 		pager = billBusinessServiceImpl.findAllBusinessByBillAccount(pager);
-		System.out.println(pager);
+		System.out.println("View层：99999999999999999999999999999"+pager);
 		return pager;
 
 	}
