@@ -30,6 +30,11 @@ public class BillBusinessBean implements Serializable {
 	@Column(name = "bill_account", length = 45)
 	private String billAccount;
 	/**
+	 * 业务账号
+	 */
+	@Column(name = "business_name", length = 45)
+	private String businessName;
+	/**
 	 * 费用
 	 */
 	@Column(name = "cost")
@@ -121,10 +126,20 @@ public class BillBusinessBean implements Serializable {
 		this.timeLong = timeLong;
 	}
 
+	
+	public String getBusinessName() {
+		return businessName;
+	}
+
+	public void setBusinessName(String businessName) {
+		this.businessName = businessName;
+	}
+
 	@Override
 	public String toString() {
-		return "BillBusinessBean [billAccount=" + billAccount + ", cost=" + cost + ", id=" + id + ", postageName="
-				+ postageName + ", service=" + service + ", timeLong=" + timeLong + "]";
+		return "BillBusinessBean [billAccount=" + billAccount + ", businessName=" + businessName + ", cost=" + cost
+				+ ", id=" + id + ", postageName=" + postageName + ", service=" + service + ", timeLong=" + timeLong
+				+ "]";
 	}
 
 }
