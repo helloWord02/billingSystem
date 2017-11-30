@@ -1,5 +1,6 @@
 package com.test_project.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,13 +18,14 @@ import org.hibernate.annotations.GenericGenerator;
  * @version 1.0
  * @created 25-11��-2017 15:09:23
  */
+@Entity
+@Table(name = "t_bill_business_info")
+public class BillBusinessInfoBean implements Serializable {
 
-public class BillBusinessInfoBean {
-	
 	/**
 	 * 业务账号
 	 */
-	@Column(name = "business_account",length = 45)
+	@Column(name = "business_account", length = 45)
 	private String businessAccount;
 	/**
 	 * id
@@ -45,15 +47,28 @@ public class BillBusinessInfoBean {
 	/**
 	 * 服务器信息
 	 */
-	private ServiceBean servicesInfo;
+	@Column(name = "services_info")
+	private String servicesInfo;
 	/**
 	 * 时长
 	 */
-	@Column(name = "date")
+	@Column(name = "time_long")
 	private long timeLong;
 
 	public BillBusinessInfoBean() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
+	public BillBusinessInfoBean(String businessAccount, int id, Date loginoutTime, Date loginTime,
+			String servicesInfo, long timeLong) {
+		super();
+		this.businessAccount = businessAccount;
+		this.id = id;
+		this.loginoutTime = loginoutTime;
+		this.loginTime = loginTime;
+		this.servicesInfo = servicesInfo;
+		this.timeLong = timeLong;
 	}
 
 	public String getBusinessAccount() {
@@ -88,11 +103,11 @@ public class BillBusinessInfoBean {
 		this.loginTime = loginTime;
 	}
 
-	public ServiceBean getServicesInfo() {
+	public String getServicesInfo() {
 		return servicesInfo;
 	}
 
-	public void setServicesInfo(ServiceBean servicesInfo) {
+	public void setServicesInfo(String servicesInfo) {
 		this.servicesInfo = servicesInfo;
 	}
 

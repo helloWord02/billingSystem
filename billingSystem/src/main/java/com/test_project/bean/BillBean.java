@@ -1,5 +1,6 @@
 package com.test_project.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,8 +18,9 @@ import org.hibernate.annotations.GenericGenerator;
  * @version 1.0
  * @created 25-11��-2017 15:09:23
  */
-
-public class BillBean {
+@Entity
+@Table(name = "t_bill")
+public class BillBean implements Serializable {
 	/**
 	 * 总费用
 	 */
@@ -34,7 +36,7 @@ public class BillBean {
 	/**
 	 * 日期
 	 */
-	@Column(name = "date")
+	@Column(name = "use_time")
 	private Date date;
 	/**
 	 * 主键
@@ -48,7 +50,7 @@ public class BillBean {
 	 * 身份证
 	 */
 	@Column(name = "idcard")
-	private int idcard;
+	private String idcard;
 	
 	/**
 	 * 支付状态
@@ -103,11 +105,11 @@ public class BillBean {
 		this.id = id;
 	}
 
-	public int getIdcard() {
+	public String getIdcard() {
 		return idcard;
 	}
 
-	public void setIdcard(int idcard) {
+	public void setIdcard(String idcard) {
 		this.idcard = idcard;
 	}
 

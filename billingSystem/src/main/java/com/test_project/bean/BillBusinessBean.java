@@ -1,5 +1,7 @@
 package com.test_project.bean;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,13 +20,14 @@ import org.hibernate.annotations.GenericGenerator;
  * @version 1.0
  * @created 25-11��-2017 15:09:23
  */
+@Entity
+@Table(name = "t_bill_business")
+public class BillBusinessBean implements Serializable {
 
-public class BillBusinessBean {
-	
 	/**
 	 * 账务账号
 	 */
-	@Column(name = "bill_account",length = 45)
+	@Column(name = "bill_account", length = 45)
 	private String billAccount;
 	/**
 	 * 费用
@@ -41,13 +44,13 @@ public class BillBusinessBean {
 	/**
 	 * 资费名称
 	 */
-	@Column(name = "postage_name",length = 45)
+	@Column(name = "postage_name", length = 45)
 	private String postageName;
 	/**
 	 * 服务器信息
 	 */
-	
-	private ServiceBean serviceBean;
+	@Column(name = "service", length = 45)
+	private String service;
 	/**
 	 * 时长
 	 */
@@ -55,7 +58,19 @@ public class BillBusinessBean {
 	private long timeLong;
 
 	public BillBusinessBean() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
+	public BillBusinessBean(String billAccount, double cost, long id, String postageName, String service,
+			long timeLong) {
+		super();
+		this.billAccount = billAccount;
+		this.cost = cost;
+		this.id = id;
+		this.postageName = postageName;
+		this.service = service;
+		this.timeLong = timeLong;
 	}
 
 	public String getBillAccount() {
@@ -90,12 +105,12 @@ public class BillBusinessBean {
 		this.postageName = postageName;
 	}
 
-	public ServiceBean getServiceBean() {
-		return serviceBean;
+	public String getService() {
+		return service;
 	}
 
-	public void setServiceBean(ServiceBean serviceBean) {
-		this.serviceBean = serviceBean;
+	public void setService(String service) {
+		this.service = service;
 	}
 
 	public long getTimeLong() {
@@ -109,7 +124,7 @@ public class BillBusinessBean {
 	@Override
 	public String toString() {
 		return "BillBusinessBean [billAccount=" + billAccount + ", cost=" + cost + ", id=" + id + ", postageName="
-				+ postageName + ", serviceBean=" + serviceBean + ", timeLong=" + timeLong + "]";
+				+ postageName + ", service=" + service + ", timeLong=" + timeLong + "]";
 	}
 
 }
