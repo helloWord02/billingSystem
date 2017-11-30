@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
+	<%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	String path = request.getContextPath();//获取项目名称
@@ -104,12 +105,19 @@ th {
 											<th style="width: 20%;">业务账号</th>
 											<th style="width: 20%;">IP</th>
 											<th style="width: 20%;">时长</th>
-
 											<th style="width: 20%;">业务费用</th>
 											<th style="width: 20%;">资费套餐</th>
 									</thead>
 									<tbody id="data">
-										
+		 						<%-- <c:forEach items="${ pager.datas} " var="BillBusinessBean">
+											<tr class='gradeA odd' role='row'>
+												<td>${BillBusinessBean.billAccount }</td>
+												<td>${BillBusinessBean.service }</td>
+												<td>${BillBusinessBean.timeLong }</td>
+												<td>${BillBusinessBean.cost }</td>
+												<td>${BillBusinessBean.postageName }</td>
+											</tr> 
+										</c:forEach>  --%>
 									</tbody>
 								</table>
 							</div>
@@ -155,12 +163,16 @@ th {
 	</div>
 
 	<script src="static/js/my.js" type="text/javascript"></script>
-	<script>		
+	<script>
+	
+	
 	function cutpage(p){
+		/*  alert($("tr").first().chiled().first().html())  */
+		
 		$.ajax({
 			   type: "POST",
 			   url: "bill/showBillBusinessData",
-			   data: "pageNum="+p,
+			   data: "page="+ p +"&billaccount='${acc}'",
 			   success: function(msg){
 			     alert( JSON.stringify(msg));
 			     lastPage=msg.totalPage;
@@ -169,7 +181,7 @@ th {
 			     for(var i=1;i<=msg.datas.length;i++){
 			    	 var obj=msg.datas[i-1]
 						 str+=" <tr class='gradeA odd' role='row'>"+
-			             "<td class='sorting_1'>"+obj.billAccount+"</td>"+			             
+			             "<td>"+obj.billAccount+"</td>"+			             
 			             "<td>"+obj.service+"</td>"+
 			             "<td>"+obj.timeLong+"</td>"+
 			             "<td>"+obj.cost+"</td>"+
@@ -181,7 +193,7 @@ th {
 				}
 			});
 		}
-	</script>
+	</script> 
 
 </body>
 </html>

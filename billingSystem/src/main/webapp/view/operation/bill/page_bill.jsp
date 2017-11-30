@@ -72,6 +72,9 @@ td {
 th {
 	text-align: center;
 }
+.as {
+	background-color: skyblue;
+}
 </style>
 
 </head>
@@ -88,20 +91,20 @@ th {
 				<div>
 					<span>身份证：</span> <input
 						style="width: 150px; height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid"
-						placeholder="身份证" name="idcard" type="text"> <span>账务账号：</span>
+						placeholder="身份证" id="idcard" type="text"> <span>账务账号：</span>
 					<input
 						style="width: 110px; height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid"
-						placeholder="账务账号" name="number" type="text"> <span>用户名：</span>
+						placeholder="账务账号" id="billAccount" type="text"> <span>用户名：</span>
 					<input
 						style="width: 110px; height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid"
-						placeholder="用户名" name="username" type="text"> <span>年：</span>
+						placeholder="用户名" id="userName" type="text"> <span>年：</span>
 					<input
 						style="width: 110px; height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid"
-						placeholder="年份" name="time" type="text"><span>月：</span>
+						placeholder="年份" id="year" type="text"><span>月：</span>
 					<input
 						style="width: 110px; height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid"
-						placeholder="月份" name="time" type="text">
-					<button type="button" class="btn btn-info">查询</button>
+						placeholder="月份" id="month" type="text">
+					<button type="button" class="btn btn-info" id = "sel">查询</button>
 				</div>
 				<!-- 查询  -->
 
@@ -114,7 +117,7 @@ th {
 						<div class="row">
 							<div class="col-sm-12">
 								<table
-									class="table table-striped table-bordered table-hover dataTable no-footer"
+									class="table table-bordered dataTable no-footer"
 									id="dataTables-example" role="grid"
 									aria-describedby="dataTables-example_info">
 
@@ -174,12 +177,24 @@ th {
 
 	</div>
 		<script src="static/js/my.js" type="text/javascript"></script>
-	<script>		
+	<script>
+	function dateFormat(time){
+		var date = new Date(time);
+		return date.toLocaleString();
+	}
 	function cutpage(p){
+		var json = {
+				page : p,
+				idcard : $("#idcard").val(),
+				billAccount : $("#billAccount").val(),
+				userName : $("#userName").val(),
+				year : $("#year").val(),
+				month : $("#month").val(),
+			}
 		$.ajax({
 			   type: "POST",
 			   url: "bill/cutpage",
-			   data: "pageNum="+p,
+			   data: json,
 			   success: function(msg){
 			     alert( JSON.stringify(msg));
 			     lastPage=msg.totalPage;
@@ -187,11 +202,11 @@ th {
 			     var str="";
 			     for(var i=1;i<=msg.datas.length;i++){
 			    	 var obj=msg.datas[i-1]
-						 str+=" <tr class='gradeA odd' role='row'>"+
+						 str+=" <tr onclick='cke($(this))' ondblclick = 'dbck($(this))'>"+
 			             "<td class='sorting_1'>"+obj.idcard+"</td>"+			             
 			             "<td>"+obj.billAccount+"</td>"+
 			             "<td>"+obj.userName+"</td>"+
-			             "<td>"+obj.date+"</td>"+
+			             "<td>"+dateFormat(obj.date)+"</td>"+
 			             "<td>"+obj.allCost+"</td>"+
 			             "<td>"+obj.payType+"</td>"+
 			             "<td>"+obj.payState+"</td>"+
@@ -202,6 +217,30 @@ th {
 				}
 			});
 		}
+	
+
+	/*查询按钮绑定事件*/
+		$("#sel").click(function() {
+			alert("ddd")
+			cutpage(firstPage);
+			nowpage = 1;
+		})
+	
+	/* 点击变色及获取当前行iD 注意table样式 */
+		
+		function cke(ck) {			
+			ck.addClass("as").siblings().removeClass("as");
+		}
+		
+	/* 给每行绑定双击跳转事件 */
+		var billAccount
+		function dbck(bill) {
+		var billaccount = $(bill).children().eq(1).html();		
+		alert(billaccount)
+		window.open("bill/showBillBusinessPage?billAccount=" + billaccount, "_self")
+		
+		}
+
 	</script>
 	
 

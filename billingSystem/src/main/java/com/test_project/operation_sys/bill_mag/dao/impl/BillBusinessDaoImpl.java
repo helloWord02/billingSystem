@@ -3,6 +3,7 @@ package com.test_project.operation_sys.bill_mag.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -36,21 +37,22 @@ public class BillBusinessDaoImpl extends BaseDao implements IBillBusinessDao {
 		/**
 		 * 分页信息查询
 		 */
-		System.out.println("传进来的PagerBean:" + pager);
-		Criteria criteria = getSession().createCriteria(BillBusinessBean.class);
-		criteria.add(Restrictions.eq("billAccount", pager.getParams().get("billAccount")));
-		criteria.setProjection(Projections.count("id"));//设置id投影
-		Long totalRows = (Long) criteria.uniqueResult();
+		String hql = "select count(b.id) from BillBusinessBean as b where b.billAccount = :billAccount ";
+		Query query = getSession().createQuery(hql);
+		String billAccount = pager.getParams().get("billAccount").toString();
+		System.out.println("Dao层得到的billAccount："+billAccount);
+		query.setString("billAccount", billAccount);
+		long totalRows = (Long) query.uniqueResult();
 		pager.setTotalRows(Integer.valueOf(String.valueOf(totalRows)));
-
 		/**
 		 * 查询具体的数据
 		 */
-		criteria.setProjection(null);//清除所有投影
-		criteria.setFirstResult(pager.getIndex());
-		criteria.setMaxResults(pager.getRows());
-		criteria.addOrder(Order.desc("id"));//按id排序
-		List<?> datas = criteria.list();
+		hql="from BillBusinessBean as b where b.billAccount = :billAccount ";
+		billAccount = pager.getParams().get("billAccount").toString();
+		query.setString("billAccount", billAccount);
+		query.setFirstResult(pager.getIndex());
+		query.setMaxResults(pager.getRows());
+		List<BillBusinessBean> datas = query.list();
 		pager.setDatas(datas);
 		System.out.println("Dao层查询到的数据："+pager);
 		return pager;
