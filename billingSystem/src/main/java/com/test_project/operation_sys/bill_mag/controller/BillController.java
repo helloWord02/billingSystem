@@ -33,7 +33,8 @@ public class BillController {
 		String month = "";
 		BillBean b = new BillBean();
 		b.setBillAccount("账务");
-		
+		b.setIdcard("");
+		b.setUserName("");
 		
 		
 		
