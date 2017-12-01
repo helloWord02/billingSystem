@@ -34,6 +34,13 @@ public class BillBusinessBean implements Serializable {
 	 */
 	@Column(name = "business_name", length = 45)
 	private String businessName;
+
+	/**
+	 * 月时间
+	 */
+	@Column(name = "date_month", length = 45)
+	private String dateMonth;
+
 	/**
 	 * 费用
 	 */
@@ -46,16 +53,19 @@ public class BillBusinessBean implements Serializable {
 	@GenericGenerator(name = "hibernate.identity", strategy = "identity")
 	@GeneratedValue(generator = "hibernate.identity")
 	private long id;
+	
 	/**
 	 * 资费名称
 	 */
 	@Column(name = "postage_name", length = 45)
 	private String postageName;
+	
 	/**
 	 * 服务器信息
 	 */
 	@Column(name = "service", length = 45)
 	private String service;
+	
 	/**
 	 * 时长
 	 */
@@ -67,15 +77,27 @@ public class BillBusinessBean implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BillBusinessBean(String billAccount, double cost, long id, String postageName, String service,
-			long timeLong) {
+	public BillBusinessBean(String billAccount, String businessName, String dateMonth, double cost, long id,
+			String postageName, String service, long timeLong) {
 		super();
 		this.billAccount = billAccount;
+		this.businessName = businessName;
+		this.dateMonth = dateMonth;
 		this.cost = cost;
 		this.id = id;
 		this.postageName = postageName;
 		this.service = service;
 		this.timeLong = timeLong;
+	}
+
+
+
+	public String getDateMonth() {
+		return dateMonth;
+	}
+
+	public void setDateMonth(String dateMonth) {
+		this.dateMonth = dateMonth;
 	}
 
 	public String getBillAccount() {
@@ -126,7 +148,6 @@ public class BillBusinessBean implements Serializable {
 		this.timeLong = timeLong;
 	}
 
-	
 	public String getBusinessName() {
 		return businessName;
 	}
@@ -137,9 +158,9 @@ public class BillBusinessBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "BillBusinessBean [billAccount=" + billAccount + ", businessName=" + businessName + ", cost=" + cost
-				+ ", id=" + id + ", postageName=" + postageName + ", service=" + service + ", timeLong=" + timeLong
-				+ "]";
+		return "BillBusinessBean [billAccount=" + billAccount + ", businessName=" + businessName + ", dateMonth="
+				+ dateMonth + ", cost=" + cost + ", id=" + id + ", postageName=" + postageName + ", service=" + service
+				+ ", timeLong=" + timeLong + "]";
 	}
 
 }
