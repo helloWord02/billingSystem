@@ -37,7 +37,7 @@ public class BillBean implements Serializable {
 	 * 日期
 	 */
 	@Column(name = "use_time")
-	private Date date;
+	private Date useTime;
 	/**
 	 * 主键
 	 */
@@ -90,11 +90,11 @@ public class BillBean implements Serializable {
 	}
 
 	public Date getDate() {
-		return date;
+		return useTime;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDate(Date useTime) {
+		this.useTime = useTime;
 	}
 
 	public long getId() {
@@ -139,7 +139,7 @@ public class BillBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "BillBean [allCost=" + allCost + ", billAccount=" + billAccount + ", date=" + date + ", id=" + id
+		return "BillBean [allCost=" + allCost + ", billAccount=" + billAccount + ", useTime=" + useTime + ", id=" + id
 				+ ", idcard=" + idcard + ", payState=" + payState + ", payType=" + payType + ", userName=" + userName
 				+ "]";
 	}

@@ -73,6 +73,10 @@ td {
 th {
 	text-align: center;
 }
+
+.as {
+	background-color: skyblue;
+}
 </style>
 
 </head>
@@ -96,7 +100,7 @@ th {
 						<div class="row">
 							<div class="col-sm-12">
 								<table
-									class="table table-striped table-bordered table-hover dataTable no-footer"
+									class="table table-bordered dataTable no-footer"
 									id="dataTables-example" role="grid"
 									aria-describedby="dataTables-example_info">
 
@@ -109,15 +113,7 @@ th {
 											<th style="width: 20%;">资费套餐</th>
 									</thead>
 									<tbody id="data">
-		 						<%-- <c:forEach items="${ pager.datas} " var="BillBusinessBean">
-											<tr class='gradeA odd' role='row'>
-												<td>${BillBusinessBean.billAccount }</td>
-												<td>${BillBusinessBean.service }</td>
-												<td>${BillBusinessBean.timeLong }</td>
-												<td>${BillBusinessBean.cost }</td>
-												<td>${BillBusinessBean.postageName }</td>
-											</tr> 
-										</c:forEach>  --%>
+		 						
 									</tbody>
 								</table>
 							</div>
@@ -182,8 +178,7 @@ th {
 			     for(var i=1;i<=msg.datas.length;i++){
 			    	 
 			    	 var obj=msg.datas[i-1]
-			    	 alert("+++++++++++++"+obj)
-						 str+=" <tr class='gradeA odd' role='row'>"+
+						 str+=" <tr onclick='cke($(this))' ondblclick = 'dbck($(this))'>"+
 			             "<td>"+obj.businessName+"</td>"+			             
 			             "<td>"+obj.service+"</td>"+
 			             "<td>"+obj.timeLong+"</td>"+
@@ -196,6 +191,21 @@ th {
 				}
 			});
 		}
+		
+	/* 点击变色及获取当前行iD */
+	
+	function cke(ck) {			
+		ck.addClass("as").siblings().removeClass("as");
+	}
+	
+	/* 给每行绑定双击跳转事件 */
+	var billAccount
+	function dbck(businessName) {
+	var businessName = $(businessName).children().eq(0).html();		
+	alert(businessName)
+	window.open("bill/showBillBusinessInfoPage?businessName=" + businessName, "_self")
+	
+	}
 	</script> 
 
 </body>

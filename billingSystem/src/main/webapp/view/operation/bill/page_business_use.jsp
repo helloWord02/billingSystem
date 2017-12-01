@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
+	<%@taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	String path = request.getContextPath();//获取项目名称
@@ -72,6 +73,9 @@ td {
 th {
 	text-align: center;
 }
+.as {
+	background-color: skyblue;
+}
 </style>
 
 </head>
@@ -95,13 +99,12 @@ th {
 						<div class="row">
 							<div class="col-sm-12">
 								<table
-									class="table table-striped table-bordered table-hover dataTable no-footer"
+									class="table table-bordered dataTable no-footer"
 									id="dataTables-example" role="grid"
 									aria-describedby="dataTables-example_info">
 
 									<thead>
 										<tr role="row">
-
 											<th style="width: 15%;">服务器信息</th>
 											<th style="width: 15%;">登入时间</th>
 											<th style="width: 15%;">退出时间</th>
@@ -154,21 +157,24 @@ th {
 	</div>
 
 	<script>
-		
+	/* 时间转换 */	
+	function dateFormat(time){
+		var date = new Date(time);
+		return date.toLocaleString();
+	}
 		function cutpage(p){
 			$.ajax({
 				type : "POST",
 				url : "bill/showBillBusinessInfoData",
-				data: "pageNum="+p,
+				data: "pageNum=" + p +"&billaccount=${businessName}",
 				   success: function(msg){
 				     alert( JSON.stringify(msg));
 				     
-				    
 				    var str = "";
-							 str+="<tr class='gradeA odd' role='row'>"+
+							 str+=" <tr onclick='cke($(this))'>"+
 				             "<td class='sorting_1'>"+msg.servicesInfo+"</td>"+			             
-				             "<td>"+msg.loginTime+"</td>"+
-				             "<td>"+msg.loginoutTime+"</td>"+
+				             "<td>"+dateFormat(msg.loginTime)+"</td>"+
+				             "<td>"+dateFormat(msg.loginoutTime)+"</td>"+
 				             "<td>"+msg.timeLong+"</td>"+
 				             "</tr>"					     
 											
@@ -177,6 +183,12 @@ th {
 					}
 				});
 			}
+		
+		/* 点击变色及获取当前行iD */
+		
+		function cke(ck) {			
+			ck.addClass("as").siblings().removeClass("as");
+		}
 		</script>
 
 	<script src="static/js/my.js" type="text/javascript"></script>

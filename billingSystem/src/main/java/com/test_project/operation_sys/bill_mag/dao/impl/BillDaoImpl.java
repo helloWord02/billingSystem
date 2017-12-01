@@ -1,6 +1,8 @@
 package com.test_project.operation_sys.bill_mag.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -31,14 +33,16 @@ public class BillDaoImpl extends BaseDao implements IBillDao {
 		 * 查询分页信息
 		 */
 		String year = pager.getParams().get("year").toString();
+		System.out.println("year++++++++++++++++++++++++++++++++++++++++++"+year);
 		String month = pager.getParams().get("month").toString();
+		System.out.println("month++++++++++++++++++++++++++++++++++++++++++"+month);
 		String hql = "select count(b.id) from BillBean as b where b.idcard like CONCAT(? , '%') and b.billAccount like CONCAT(? , '%') and b.userName like CONCAT(?, '%')";
 		if(year != null && !"".equals(year)) {
-			hql += " and year(b.useTime) = " + year;
+			hql += " and year(b.useTime) = "+year;
 		}
 		
 		if(month != null && !"".equals(month)) {
-			hql += " and month(b.useTime) = " + month;
+			hql += " and month(b.useTime) = "+month ;
 		}
 		Query query = getSession().createQuery(hql);		
 		query.setString(0, pager.getParams().get("idcard").toString());
@@ -52,13 +56,17 @@ public class BillDaoImpl extends BaseDao implements IBillDao {
 		 */
 		hql = "from BillBean as b where b.idcard like CONCAT(?,'%') and b.billAccount like CONCAT(?,'%') and b.userName like CONCAT(?,'%')";
 		if(year != null && !"".equals(year)) {
-			hql += "and year(b.useTime) = " + year;
+			hql += " and year(b.useTime) like CONCAT(:year,'%')";			
 		}
 		
 		if(month != null && !"".equals(month)) {
-			hql += "and month(b.useTime) = " + month;
+			hql += " and month(b.useTime) = "+ month ;
 		}
-		query = getSession().createQuery(hql);		
+		query = getSession().createQuery(hql);
+//		query.setString("year", year);
+		Map map = new HashMap<>();
+		map.put("year", year);
+		query.setProperties(map);
 		query.setString(0, pager.getParams().get("idcard").toString());
 		query.setString(1, pager.getParams().get("billAccount").toString());
 		query.setString(2, pager.getParams().get("userName").toString());
