@@ -96,7 +96,7 @@ public class RoleBean implements Serializable{
         Set<String> list = new HashSet<>();
         Set<PermissionBean> perlist = this.getPermissions();
         for (PermissionBean per : perlist) {
-            list.add(per.getPermissionName());
+            list.add(per.getMsg());
         }
         return list;
 }

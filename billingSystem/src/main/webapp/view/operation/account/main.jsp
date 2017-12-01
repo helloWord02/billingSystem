@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" isELIgnored="false"%>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <%
 	String path = request.getContextPath();//获取项目名称
 	String basePath = request.getScheme() +"://" + request.getServerName() + ":" + 
@@ -85,7 +84,7 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
 
-                        <li>
+                        <shiro:hasPermission name="/a"><li>
                             <a ><i class=" fa fa-user fa-fw"></i> 用户自服务系统<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -95,9 +94,8 @@
                                     <a href="page_person_upd.html" target="myiframe">修改个人信息</a>
                                 </li>
                             </ul>
-
-                        </li>
-                        <li>
+                        </li></shiro:hasPermission>
+                        <shiro:hasPermission name="/b"><li>
                             <a ><i class="fa fa-bar-chart-o fa-fw"></i> 用户管理系统<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -108,24 +106,24 @@
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
-                        </li>
-                        <li>
+                        </li></shiro:hasPermission>
+                        <shiro:hasPermission name="/c"><li>
                             <a href="page_postage_info.html" target="myiframe"><i class="fa fa-desktop  fa-fw"></i> 管理员管理系统</a>
-                        </li>
-                        <li>
+                        </li></shiro:hasPermission>
+                       <shiro:hasPermission name="/d"> <li>
                             <a href="page_postage.html" target="myiframe"><i class="fa fa-edit fa-fw"></i>资费管理系统</a>
-                        </li>
-                        <li>
+                        </li></shiro:hasPermission>
+                       <shiro:hasPermission name="/e"> <li>
                             <a href="page_bill.html" target="myiframe"><i class="fa fa-edit fa-fw"></i>账单查询系统</span></a>
 
                             <!-- /.nav-second-level -->
-                        </li>
-                        <li>
+                        </li></shiro:hasPermission>
+                        <shiro:hasPermission name="/f"><li>
                             <a href="page_account.jsp" target="myiframe"><i class="fa fa-edit fa-fw"></i>账务查询系统</span></a>
 
                             <!-- /.nav-second-level -->
-                        </li>
-                        <li >
+                        </li></shiro:hasPermission>
+                       <shiro:hasPermission name="/g"> <li >
                             <a ><i class="fa fa-files-o fa-fw"></i> 权限管理系统<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -136,8 +134,8 @@
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
-                        </li>
-                        <li >
+                        </li></shiro:hasPermission>
+                        <shiro:hasPermission name="/h"><li >
                             <a><i class="fa fa-hospital-o  fa-fw"></i> 前台日志系统<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -148,8 +146,8 @@
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
-                        </li>
-                        <li>
+                        </li></shiro:hasPermission>
+                        <shiro:hasPermission name="/i"><li>
                             <a><i class="fa fa-calendar  fa-fw"></i> 报表查询系统<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -160,7 +158,7 @@
                                 </li>
                             </ul>
                             <!-- /报表系统 -->
-                        </li>
+                        </li></shiro:hasPermission>
                     </ul>
                 </div>
 
@@ -181,6 +179,7 @@
             <br>
             <p>**********2017年11月26日************<p>
             <p>**********中国电信互联网中心成都一分部************</p>
+            
     </div>
 
 </body>

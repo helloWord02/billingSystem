@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 import com.test_project.bean.AccountBean;
 import com.test_project.common_sys.dao.ICommonDao;
 import com.test_project.common_sys.service.ICommonService;
-
+@Service
 public class CommonServiceImpl implements ICommonService {
 
-	
+	@Resource
 	private ICommonDao commonDaoImpl;
 	
 	@Override

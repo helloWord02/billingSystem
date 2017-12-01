@@ -4,13 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.hibernate.Query;
-
-
+import org.springframework.stereotype.Repository;
 
 import com.test_project.bean.AccountBean;
 import com.test_project.common_sys.dao.ICommonDao;
 import com.test_project.util.BaseDao;
-
+@Repository
 public class CommonDaoImpl extends BaseDao implements ICommonDao {
 
 	@Override
@@ -40,9 +39,7 @@ public class CommonDaoImpl extends BaseDao implements ICommonDao {
 		String hql = "from AccountBean A where  A.billAccount=:name and A.password=:pwd";
 		Query query1 = getSession().createQuery(hql);
 		query1.setProperties(params);
-		
-		
-		
+	
 		if(query1.list().size()!=0) {
 			a=(AccountBean) query1.list().get(0);
 		}

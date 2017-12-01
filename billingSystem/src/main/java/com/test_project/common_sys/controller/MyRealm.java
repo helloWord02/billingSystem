@@ -26,14 +26,14 @@ import com.test_project.common_sys.service.ICommonService;
 import com.test_project.operation_sys.admin_mag.service.IAdminService;
 
 
-
+@Service
 public class MyRealm extends AuthorizingRealm{
 
    @Resource
     private IAdminService adminServiceImpl;
    
    @Resource
-   private ICommonService iCommonServiceImpl;
+   private ICommonService commonServiceImpl;
    
 //权限认证
 	@Override
@@ -68,7 +68,7 @@ public class MyRealm extends AuthorizingRealm{
         	AccountBean bean=new AccountBean();
         	bean.setBillAccount(userName);
         	bean.setPassword(String.valueOf(userPwd));
-        	AccountBean user = iCommonServiceImpl.login(bean);  
+        	AccountBean user = commonServiceImpl.login(bean);  
             Subject currentUser = SecurityUtils.getSubject();
             Session s=currentUser.getSession();
 	        s.setAttribute("user", user);
