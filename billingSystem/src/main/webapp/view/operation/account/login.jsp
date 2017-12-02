@@ -43,7 +43,7 @@
 
 <body>
 
-<div class="container"  style=" height:600px;background:url(../<%=basePath%>static/img/timg.jpg)">
+<div class="container"  style=" height:600px;background:url(static/imge/timg.jpg)">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <div class="login-panel panel panel-default"  >
@@ -68,10 +68,10 @@
                                     <input name="remember"  type="checkbox"  id="rmbUser">记住用户名
                                 </label>
                             </div>
-
                             
                         	<button type="button" onclick="submitform()" class=" btn btn-outline btn-primary  " style="width: 80px;margin-left: 60px" id="loginbut">登录</button>
                             <button type="reset" class=" btn btn-outline btn-primary " style="width: 80px;margin-left: 40px">重置</button>
+
                         </fieldset>
                     </form>
                 </div>
@@ -80,7 +80,7 @@
     </div>
 </div>
 <script type="text/javascript">
-var obut=document.getElementById("loginbut");
+var obut=document.getElementById("loginbtn");
 	function login(){
 		
 		$.ajax({

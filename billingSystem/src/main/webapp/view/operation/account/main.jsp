@@ -57,7 +57,7 @@
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0 ;background-color:white">
             <div class="navbar-header" style="height: 80px;line-height: 80px; " >
-                <img src="../<%=basePath%>static/img/log.jpg" style="width: 250px;height: 80px">
+                <img src="static/imge/log.jpg" style="width: 250px;height: 80px">
                 <h1 style="margin-left: 350px;display: inline">电信计费服务系统</h1>
 
             </div>
@@ -99,19 +99,22 @@
                             <a ><i class="fa fa-bar-chart-o fa-fw"></i> 用户管理系统<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="page_account_number.html" target="myiframe">账务账号管理</a>
+                                    <a href="  view/operation/log/handLog.jsp" target="myiframe">账务账号管理</a>
                                 </li>
                                 <li>
-                                    <a href="page_business.html" target="myiframe">业务账号管理</a>
+                                    <a href=" view/operation/log/loginLog.jsp" target="myiframe">业务账号管理</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li></shiro:hasPermission>
+
                         <shiro:hasPermission name="/adminroot"><li>
+
                             <a href="view/operation/admin/page_admin.jsp" target="myiframe"><i class="fa fa-desktop  fa-fw"></i> 管理员管理系统</a>
                         </li></shiro:hasPermission>
+
                        <shiro:hasPermission name="/zifeiroot"> <li>
-                            <a href="page_postage.html" target="myiframe"><i class="fa fa-edit fa-fw"></i>资费管理系统</a>
+                            <a href="page_postage.html" target="myiframe"><i class="fa fa-edit fa-fw"></i>资费管理系统</a>  
                         </li></shiro:hasPermission>
                        <shiro:hasPermission name="/zhangdanroot"> <li>
                             <a href="page_bill.html" target="myiframe"><i class="fa fa-edit fa-fw"></i>账单查询系统</span></a>

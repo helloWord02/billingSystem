@@ -81,7 +81,9 @@
 
                  <div  >
 
+
                      <form id="formtest" style="text-align: center;margin-top:-30px;">
+
 						   <table style="margin-left:  180px"  >
                              <tr>
                                  <td><span>管理员名称：</span>
