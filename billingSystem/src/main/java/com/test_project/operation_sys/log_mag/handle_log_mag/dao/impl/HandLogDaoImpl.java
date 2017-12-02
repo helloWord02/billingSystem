@@ -22,20 +22,21 @@ public class HandLogDaoImpl extends BaseDao implements IHandLogDao {
 	public PagerBean findHandLogByPagerBean(PagerBean pager) {
 		// TODO Auto-generated method stub	
 		
-		String hql="select RoleName from RoleBean as r where typr=2";
-		Query query = getSession().createQuery(hql);
-		query.setString(0, pager.getParams().get("roleName").toString());
-		long totalRows = (Long) query.uniqueResult();
-//		query.setMaxResults(pager.getRows());
+		String hql="select count(id)  from HandLogBean where magName like concat(:magName,'%') "
+				+ " and handTime >= (:beginTime) and  handTime<= (:endTime)";
+		Query  query = getSession().createQuery(hql); 
+		query.setProperties(pager.getParams());
+		long totalRows = (long) query.uniqueResult();	 
 		pager.setTotalRows(Integer.valueOf(String.valueOf(totalRows)));
 	
-		hql = "From RoleBean as r left join fetch h.type as w where w.tyoe like CONCAT(?,'%')";
-		query = getSession().createQuery(hql);
-		query.setString(0, pager.getParams().get("roleName").toString());
+		hql = " From HandLogBean where magName like concat(:magName,'%') "
+				+ "and handTime >= (:beginTime) and handTime<= (:endTime)";
+		query = getSession().createQuery(hql); 
+		query.setProperties(pager.getParams());
 		query.setFirstResult(pager.getIndex());
 		query.setMaxResults(pager.getRows());
 		List<?> datas = query.list();
-		pager.setDatas(datas);
+		pager.setDatas(datas); 
 		
 		return pager;
 		

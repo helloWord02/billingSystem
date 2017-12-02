@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	String path = request.getContextPath();//获取项目名称
@@ -191,6 +191,6 @@
 	       });
 	 
 	</script>
- <script src="static/js/my.js" type="text/javascript"></script>
+ <script src=" static/js/my.js" type="text/javascript"></script>
 </body>
 </html>

@@ -39,7 +39,7 @@
 
 <body>
 
-<div class="container"  style=" height:600px;background:url(../<%=basePath%>static/img/timg.jpg)">
+<div class="container"  style=" height:600px;background:url(static/imge/timg.jpg)">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <div class="login-panel panel panel-default"  >
@@ -49,7 +49,10 @@
                 <div class="panel-body" >
                     <form  name="user">
                         <fieldset>
-                            <div class="form-group" >
+                         	 <div class="form-group" style="height: 20px;border: 1px chartreuse solid;margin-top: -10px" >
+                                <span style="font-size: 12px;color: red ">用户名或密码有误！</span>
+                            </div>
+                            <div class="form-group" style="margin-top: -10px">
                                 <input class="form-control" placeholder="账务账号" name="billAccount" type="text" id="wsc-username">
                             </div>
                             <div class="form-group">
@@ -61,9 +64,9 @@
                                 </label>
                             </div>
 
-                            <button type="button" onclick="submitform()" class=" btn btn-primary btn-lg btn-block" id="loginbut">登录</button>
-                        	<button type="reset" class=" btn btn-primary btn-lg btn-block">重置</button>
-                        	
+                             <button type="button" onclick="submitform()" id="loginbtn" class=" btn btn-outline btn-primary  " style="width: 80px;margin-left: 60px">登录</button>
+                            <button type="reset" class=" btn btn-outline btn-primary " style="width: 80px;margin-left: 40px">重置</button>
+                            
                         </fieldset>
                     </form>
                 </div>
@@ -72,7 +75,7 @@
     </div>
 </div>
 <script type="text/javascript">
-var obut=document.getElementById("loginbut");
+var obut=document.getElementById("loginbtn");
 	function login(){
 		
 		$.ajax({

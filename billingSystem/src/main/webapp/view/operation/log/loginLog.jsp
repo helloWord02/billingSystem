@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
+  <%
+	String path=request.getContextPath();
+	String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>   
     
-    <%@ include file="header.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<base href="<%=basePath%>">
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  <title>登陆日志</title>
 
@@ -17,23 +22,24 @@
     <title>professor-1</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../<%=basePath%>static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=basePath%>static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="../<%=basePath%>static/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <link href="<%=basePath%>static/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
     <!-- Timeline CSS -->
-    <link href="../<%=basePath%>static/css/timeline.css" rel="stylesheet">
+    <link href="<%=basePath%>static/dist/css/timeline.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../<%=basePath%>static/css/sb-admin-2.css" rel="stylesheet">
+    <link href="<%=basePath%>static/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="../<%=basePath%>static/bower_components/morrisjs/morris.css" rel="stylesheet">
+    <link href="<%=basePath%>static/bower_components/morrisjs/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../<%=basePath%>static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+    <link href="<%=basePath%>static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<script src="<%=basePath%>static/js/jQuery-2.2.2-min.js" type="text/javascript"></script>
+     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -73,7 +79,9 @@
         th{
             text-align:center;
         }
-
+	.as {
+		background-color: skyblue;
+	}
 
     </style>
 </head>
@@ -88,55 +96,38 @@
 
         <div class="panel-body">
 
+		 <!-- 查询 -->
+                <div  >
+                    <span>用户名：</span>
+                    <input  style="width: 140px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="用户名" id="magName" type="text" >
+                    <span>开始时间：</span>
+                    <input  style=" width: 140px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="操作时间" id="beginTime" type="text" >
+                     <span>结束时间：</span>
+                    <input  style=" width: 140px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="结束时间时间" id="endTime" type="text" >
+                    
+                    
+                    <button type="button" class="btn btn-info" id="find">查询</button>
+                </div>
             <!-- 表格  -->
             <div class="dataTable_wrapper">
-
+				
                 <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-
+					
                     <div class="row">
                         <div class="col-sm-12">
-                            <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
-
+                          <table class="table table-bordered  dataTable no-footer"
+									id="dataTables-example" role="grid"
+									aria-describedby="dataTables-example_info">
+                           
                                 <thead>
                                 <tr role="row">
-                                    <th style="width: 10%;">ip</th>
-                                    <th style="width: 10%;">操作类型</th>
-
                                     <th style="width: 10%;">用户名</th>
+                                    <th style="width: 10%;">操作类型</th>
+                                    <th style="width: 10%;">操作时间</th>
 
                                 </thead>
-                                <tbody>
-                                <tr class="gradeA odd" role="row">
-
-                                    <td>111</td>
-                                    <td>服务器5租用</td>
-                                    <td>221.237.44.152</td>
-
-
-                                <tr class="gradeA odd" role="row">
-
-                                    <td>122</td>
-                                    <td>服务器5租用</td>
-                                    <td>221.237.44.152</td>
-
-
-                                <tr class="gradeA odd" role="row">
-
-                                    <td>1515</td>
-                                    <td>服务器5租用</td>
-                                    <td>221.237.44.152</td>
-
-                                <tr class="gradeA odd" role="row">
-
-                                    <td>1515</td>
-                                    <td>服务器5租用</td>
-                                    <td>221.237.44.152</td>
-
-                                <tr class="gradeA odd" role="row">
-
-                                    <td>111</td>
-                                    <td>服务器5租用</td>
-                                    <td>221.237.44.152</td>
+                                <tbody id="data">
+                                
 
                                 </tbody>
                             </table>
@@ -176,7 +167,56 @@
 
 </div>
 
+<script>
 
+	
+	
+	function cutpage(p){
+		
+		var json={
+				pageNum:p,
+				magName:$("#magName").val(),
+				endTime:$("#beginTime").val(),  			 
+				beginTime:$("#endTime").val()
+				
+		}
+		$.ajax({
+			   type: "POST",
+			   url: "log11/loginLog",
+			   data: json,
+			   success: function(msg){
+			   
+				 alert( JSON.stringify(msg));
+			     lastPage=msg.totalPage;
+			    
+			     var str="";
+			     for(var i=1;i<=msg.datas.length;i++){
+			    	 var obj=msg.datas[i-1]
+						 str+=" <tr onclick='cke($(this) )' >"+	             
+			             "<td>"+obj.magName+"</td>"+
+			             "<td>"+obj.handType+"</td>"+
+			             "<td>"+obj.handTime+"</td>"+
+			             "</tr>"					     
+					}					
+			     $("#data").html(str);
+			     $("#span1").html(nowpage+"/"+lastPage);
+				}
+			});
+	}
+
+	function cke(ck){
+		
+		ck.addClass("as").siblings().removeClass("as");
+	}
+	
+	 $("#find").on("click",function(){
+		 cutpage(1);
+		 nowpage = 1;
+		 
+       });
+</script>
+
+<script src=" static/js/my.js" type="text/javascript"></script>
 
 </body>
 </html>

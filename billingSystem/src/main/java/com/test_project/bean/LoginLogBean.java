@@ -2,20 +2,37 @@ package com.test_project.bean;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+
+@Entity
+@Table(name="t_login_log")
 public class LoginLogBean {
 	
+	@Id
+	@GenericGenerator(name="hibernate.identity",strategy="identity")
+	@GeneratedValue(generator="hibernate.identity")	
 	private  Long id;
 	/**
 	 * 管理员名称
 	 */
+	@Column(name="mag_name",length=40)
 	private String magName;
 	/**
 	 * 操作类型
 	 */
+	@Column(name="handle_type" )
 	private int  handType;
 	/**
 	 * 操作时间
 	 */
+	@Column(name=" handle_time")
 	private Date handTime;
 	
 	
