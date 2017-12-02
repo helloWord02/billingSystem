@@ -1,5 +1,8 @@
 package com.test_project.operation_sys.bill_mag.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -19,23 +22,28 @@ public class BillBusinessInfoController {
 	private IBillBusinessInfoService billBusinessInfoServiceImpl;
 	
 	@RequestMapping("/showBillBusinessInfoPage")
-	public ModelAndView showBillBusinessPage(String businessName) {
-		ModelAndView mv=new ModelAndView("view/operation/bill/page_business_use");		
+	public ModelAndView showBillBusinessPage(String businessName,String year,String month) {
+		ModelAndView mv=new ModelAndView("view/operation/bill/page_business_use");
+		mv.addObject("year",year);
+		mv.addObject("month",month);
 		mv.addObject("businessName",businessName);
 		return mv;
 	}
 	
 	@RequestMapping("/showBillBusinessInfoData")
 	
-	public @ResponseBody BillBusinessInfoBean showBillBusinessInfoData(int pageNum) {
-		
-		BillBusinessInfoBean bb = new BillBusinessInfoBean();
-		bb.setBusinessAccount("业务账户3");
-		
-		bb = billBusinessInfoServiceImpl.findBusinessByBusinessAccount(bb);
-		System.out.println("详细业务账号信息："+bb);
-		
-		return bb;
+	public @ResponseBody PagerBean showBillBusinessInfoData(int page,String year,String month,String businessName) {
+		PagerBean pager = new PagerBean(page,5,null);
+		Map<String, Object> map = new HashMap<>();
+		BillBusinessInfoBean bb = new BillBusinessInfoBean();		
+		map.put("year", year);
+		map.put("month", month);
+		map.put("businessName", businessName);
+		pager.setParams(map);
+//		System.out.println("View层传递到后台的Pager------------------------------------------------："+pager);
+		pager = billBusinessInfoServiceImpl.findBusinessByBusinessAccount(pager);
+//		System.out.println("View层得到后台的Pager------------------------------------------------："+pager);		
+		return pager;
 		
 	}
 

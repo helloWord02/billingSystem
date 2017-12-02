@@ -166,6 +166,7 @@ th {
 							</div>
 						</div>
 						<!-- /翻页按钮-->
+						
 					</div>
 
 				</div>
@@ -190,6 +191,7 @@ th {
 				userName : $("#userName").val(),
 				year : $("#year").val(),
 				month : $("#month").val(),
+				
 			}
 		$.ajax({
 			   type: "POST",
@@ -235,9 +237,13 @@ th {
 	/* 给每行绑定双击跳转事件 */
 		var billAccount
 		function dbck(bill) {
-		var billaccount = $(bill).children().eq(1).html();		
+		var billaccount = $(bill).children().eq(1).html();	
 		alert(billaccount)
-		window.open("bill/showBillBusinessPage?billAccount=" + billaccount, "_self")
+		var yearOfMonth = $(bill).children().eq(3).html();
+		alert(yearOfMonth)
+		alert(typeof(yearOfMonth))
+		
+		window.open("bill/showBillBusinessPage?billAccount=" + billaccount+"&yearOfMonth="+ yearOfMonth, "_self")
 		
 		}
 

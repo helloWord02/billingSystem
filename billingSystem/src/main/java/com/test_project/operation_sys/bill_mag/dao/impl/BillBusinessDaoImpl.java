@@ -37,11 +37,15 @@ public class BillBusinessDaoImpl extends BaseDao implements IBillBusinessDao {
 		/**
 		 * 分页信息查询
 		 */
-		String hql = "select count(b.id) from BillBusinessBean as b where b.billAccount = :billAccount ";
+		String hql = "select count(b.id) from BillBusinessBean as b where b.billAccount = :billAccount and year(b.dateMonth) = :year and month(b.dateMonth) = :month ";
 		Query query = getSession().createQuery(hql);
 		String billAccount = pager.getParams().get("billAccount").toString();
+		String year = pager.getParams().get("year").toString();
+		String month = pager.getParams().get("month").toString();
 		System.out.println("Dao层得到的billAccount："+billAccount);
 		query.setString("billAccount", billAccount);
+		query.setString("year", year);
+		query.setString("month", month);
 		
 		long totalRows = (Long) query.uniqueResult();
 		System.out.println("totalRows:+++++++++++++++totalRows:"+totalRows);
@@ -50,8 +54,11 @@ public class BillBusinessDaoImpl extends BaseDao implements IBillBusinessDao {
 		/**
 		 * 查询具体的数据
 		 */
-		hql="from BillBusinessBean as b where b.billAccount = :billAccount ";
-		query = getSession().createQuery(hql).setString("billAccount", billAccount);		
+		hql="from BillBusinessBean as b where b.billAccount = :billAccount and year(b.dateMonth) = :year and month(b.dateMonth) = :month ";
+		query = getSession().createQuery(hql);
+		query.setString("billAccount", billAccount);
+		query.setString("year", year);
+		query.setString("month", month);
 		System.out.println("------------------------------------"+query.list());		
 		query.setFirstResult(pager.getIndex());
 		query.setMaxResults(pager.getRows());

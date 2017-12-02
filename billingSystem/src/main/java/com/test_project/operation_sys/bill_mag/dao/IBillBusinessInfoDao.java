@@ -27,5 +27,5 @@ public interface IBillBusinessInfoDao {
 	 * @param pager
 	 * @return
 	 */
-	public BillBusinessInfoBean findBusinessByBusinessAccount(BillBusinessInfoBean billBusiness);
+	public PagerBean findBusinessByBusinessAccount(PagerBean pager);
 }
