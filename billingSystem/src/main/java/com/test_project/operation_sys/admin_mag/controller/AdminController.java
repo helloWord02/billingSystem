@@ -6,13 +6,16 @@ import java.util.Map;
 
 
 import javax.annotation.Resource;
+import javax.jms.Destination;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.test_project.bean.AccountBean;
 import com.test_project.bean.RoleBean;
+import com.test_project.common_sys.activemq.ProducerService;
 import com.test_project.common_sys.controller.MailSend;
 import com.test_project.operation_sys.admin_mag.service.IAdminService;
 import com.test_project.pojos.PagerBean;
@@ -23,9 +26,11 @@ public class AdminController {
 	@Resource
 	private IAdminService adminServiceImpl;
 	
-	
 	@Resource
-	private MailSend mailSend;
+	private ProducerService producerService;
+	
+	@Resource(name = "demoQueueDestination")
+    private Destination destination;
 	
 	@RequestMapping(value="/main")
 	public @ResponseBody PagerBean getAdmins(int page,int rows) {
@@ -60,16 +65,15 @@ public class AdminController {
 				RoleBean b=new RoleBean();
 				b.setId(Integer.parseInt(roles));
 				bean.setRoles(b);
-				System.out.println(bean);
-				
 				adminServiceImpl.saveAccountBean(bean);
-				System.out.println("开始发送邮件！！！！");
-				mailSend.sendbean(bean);
 				bean=null;
+				System.out.println("开始发送邮件消息到队列中！！！！");
+				producerService.sendMessage(destination, realName, billAccount, password, mail);
+				System.out.println("发送邮件消息到队列成功！！！！");
 				return "0";
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println(e);
+			e.printStackTrace();
 			return "1";
 		}
 		

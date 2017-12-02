@@ -34,11 +34,11 @@
 
         body{
             /*iframe宽我设置为1000，网页body的宽度也应该设置为1000*/
-            width: 1000px;
+            width: 1100px;
         }
 
         .div_header{
-            width: 1000px;
+            width: 1100px;
             height: 100px;
             background-color: rgba(179, 227, 255, 0.5);
         }
@@ -55,12 +55,9 @@
             line-height: 100px;
             text-align: center;
         }
-        td
-        {
-            text-align:center;
-        }
-        th{
-            text-align:center;
+          td{
+            align:left;
+            height: 50px;
         }
 
 
@@ -84,48 +81,48 @@
 
                  <div  >
 
-                    <form id="formtest" style="text-align: center">
-						<table class="table">
-							<tr>
-								<td><span>管理员名称:</span>
-                        <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="管理员名称" name="realName" type="text" ></td>
-								<td><span>密码：</span>
-                        <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="密码" name="password" type="text" ></td>
-							</tr>
-							<tr>
-								<td><span>电话：</span>
-                        <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="电话" name="phoneNumber" type="text" ></td>
-								<td>
-                                    <span  >性&nbsp&nbsp 别&nbsp&nbsp&nbsp:</span>
-                                    <input style="margin-left:50px;" type="radio" checked="checked" name="gender" value="1"/>男 &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio"   name="gender" value="0"/>女
+                     <form id="formtest" style="text-align: center;margin-top:-30px;">
+						   <table style="margin-left:  180px"  >
+                             <tr>
+                                 <td><span>管理员名称：</span>
+                                     <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="管理员名称" name="realName" type="text" ></td>
+                                 <td><span style="margin-left: 100px">密&nbsp&nbsp 码&nbsp&nbsp&nbsp：</span>
+                                     <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="密码" name="password" type="text" ></td>
+                             </tr>
+                             <tr>
+                                 <td><span> 电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：</span>
+                                     <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="电话" name="phoneNumber" type="text" ></td>
+                                 <td>
+                                     <span style="margin-left:-20px;" >性&nbsp&nbsp 别&nbsp&nbsp&nbsp：</span>
+                                     <input style="margin-left:30px;" type="radio" checked="checked" name="gender" value="1"/>男 &nbsp;&nbsp;&nbsp;&nbsp;<input  type="radio"   name="gender" value="0"/>女
 
-                                </td>
-							</tr>
-							<tr>
-								<td><span>地址：</span>
-                        <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="地址" name="address" type="text" ></td>
-								<td><span>邮编：</span>
-                        <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="邮编" name="cord" type="text" ></td>
-							</tr>
-							<tr>
-								<td><span>邮箱：</span>
-                        <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="邮箱" name="mail" type="text" ></td>
-								<td><span>QQ：</span>
-                        <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="QQ" name="qq" type="text" ></td>
-							</tr>
-							<tr>
-								<td><span>角色：</span>
-                        			<select name="roles" id="roleoption"  style="margin-left: 10px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid">
-                                        <option value="0">数据假造中~~</option>     
-                                    </select></td>
-                                    <td><input type="hidden" id="hid" name="id" value="${id }"></td>
-							</tr>
-							<tr>
-								<td><button style="width: 100px;height: 40px" type="button" class="btn btn-info" id="add">修改</button>
-                        		</td>
-                        		<td><button style="width: 100px;height: 40px;margin-left: 80px" type="button" class="btn btn-info" id="cancel">取消</button></td>
-							</tr>
-						</table>
+                                 </td>
+                             </tr>
+                             <tr>
+                                 <td><span> 地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</span>
+                                     <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="地址" name="address" type="text" ></td>
+                                 <td><span style="margin-left: 100px"> 邮&nbsp;&nbsp;&nbsp;编&nbsp;&nbsp;&nbsp;：</span>
+                                     <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="邮编" name="cord" type="text" ></td>
+                             </tr>
+                             <tr>
+                                 <td><span> 邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</span>
+                                     <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="邮箱" name="mail" type="text" ></td>
+                                 <td><span style="margin-left: 100px">Q&nbsp;&nbsp;&nbsp;&nbsp;Q&nbsp;&nbsp;：</span>
+                                     <input  style="margin-left: 20px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="QQ" name="qq" type="text" ></td>
+                             </tr>
+                             <tr>
+                                 <td><span>角&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;色：</span>
+                                     <select name="roles" id="roleoption"  style="margin-left: 10px;width: 200px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid">
+                                         <option value="0">数据假造中~~</option>
+                                     </select></td>
+                                 <td><input type="hidden" id="hid" name="id" value="${id }"></td>
+                             </tr>
+                             <tr>
+                                 <td><button style="width: 100px;height: 40px" type="button" class="btn btn-info" id="add">修改</button>
+                                 </td>
+                                 <td><button style="width: 100px;height: 40px;margin-left: 40px" type="button" class="btn btn-info" id="cancel">取消</button></td>
+                             </tr>
+                         </table>
 
                     </form>
 
@@ -174,7 +171,7 @@
 	
 	});
     $("#cancel").click(function(){
-		window.history.back(-1);	
+    	window.location.href="view/operation/admin/page_admin.jsp";
 	});
     
     </script>

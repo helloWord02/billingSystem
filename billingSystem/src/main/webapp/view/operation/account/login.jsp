@@ -9,7 +9,7 @@
 
 <head>
 	<base href="<%=basePath%>">
-   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -34,7 +34,11 @@
     <script src="<%=basePath%>static/dist/js/sb-admin-2.js"></script>
      <script type="text/javascript" src="<%=basePath %>static/js/md5.js"></script>
      <script type="text/javascript" src="<%=basePath %>static/js/jquery.cookie.js"></script>
-
+<style type="text/css">
+	#spa1,#spa2{
+		display: none;
+	}
+</style>
 </head>
 
 <body>
@@ -49,7 +53,11 @@
                 <div class="panel-body" >
                     <form  name="user">
                         <fieldset>
-                            <div class="form-group" >
+                         	<div class="form-group" style="height: 20px;margin-top: -10px" >
+                                <span style="font-size: 12px;color: red " id="spa1">用户名或密码有误！</span>
+                                <span style="font-size: 12px;color: red " id="spa2">用户名或密码不能为空！</span>
+                            </div>
+                            <div class="form-group" style="margin-top: -10px">
                                 <input class="form-control" placeholder="账务账号" name="billAccount" type="text" id="wsc-username">
                             </div>
                             <div class="form-group">
@@ -61,9 +69,9 @@
                                 </label>
                             </div>
 
-                            <button type="button" onclick="submitform()" class=" btn btn-primary btn-lg btn-block" id="loginbut">登录</button>
-                        	<button type="reset" class=" btn btn-primary btn-lg btn-block">重置</button>
-                        	
+                            
+                        	<button type="button" onclick="submitform()" class=" btn btn-outline btn-primary  " style="width: 80px;margin-left: 60px" id="loginbut">登录</button>
+                            <button type="reset" class=" btn btn-outline btn-primary " style="width: 80px;margin-left: 40px">重置</button>
                         </fieldset>
                     </form>
                 </div>
@@ -82,10 +90,12 @@ var obut=document.getElementById("loginbut");
 			async:true,
 			success:function(data){
 				if(data=="0"){
+					saveUserInfo();
 					window.location.href="view/operation/account/main.jsp";
 				}else{
-					alert("网络异常！");
-					window.location.reload(true);
+					$("#spa2").css("display","none");
+					$("#spa1").css("display","inline");
+					console.info("no");
 					obut.disabled=false;
 				}
 			}
@@ -97,10 +107,10 @@ var obut=document.getElementById("loginbut");
     	
     	if($("#wsc-username").val()!=null&&$("#wsc-username").val()!=""&&$("#wsc-password").val()!=null&&$("#wsc-password").val()!=""){
     		obut.disabled=true;
-    		saveUserInfo();
     		login();
     	}else{
-    		alert("用户名/密码不能为空！");
+    		$("#spa2").css("display","inline");
+			$("#spa1").css("display","none");
     	}
         
         

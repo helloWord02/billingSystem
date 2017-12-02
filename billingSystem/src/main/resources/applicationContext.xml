@@ -168,6 +168,8 @@
                 /static/** = anon
                	/login.jsp = anon
                	/user/login = anon
+               	/SendMessage =anon
+               	/ReceiveMessage =anon
                 /** = authc
             </value>
       </property>

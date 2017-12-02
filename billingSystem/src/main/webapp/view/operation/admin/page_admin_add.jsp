@@ -34,11 +34,11 @@
 
         body{
             /*iframe宽我设置为1000，网页body的宽度也应该设置为1000*/
-            width: 1000px;
+            width: 1100px;
         }
 
         .div_header{
-            width: 1000px;
+            width: 1100px;
             height: 100px;
             background-color: rgba(179, 227, 255, 0.5);
         }
@@ -183,28 +183,51 @@ function test(){
 	});
 }
 test();
-	$("#add").click(function(){
-		var fields = $("#formtest").serializeArray();
-		console.info(fields);
-		$.ajax({
-			type:"post",
-			url:"admin/add",
-			data: {realName:fields[0].value,gender:fields[1].value,billAccount:fields[2].value,password:fields[3].value,idCard:fields[4].value,phoneNumber:fields[5].value,cord:fields[6].value,address:fields[7].value,qq:fields[8].value,roles:fields[9].value,mail:fields[10].value},
-			async:true,
-			success:function(data){
-				if(data=="0"){
-					alert("添加成功！");
-					window.location.href="view/operation/admin/page_admin.jsp";
-				}else{
-					alert("网络异常！");
-					window.location.reload(true);
+	function notnull(){
+		var flag=true
+		$("input").each(function(){
+			if($(this).val()==''){
+				/* alert($(this).val()) */
+				$(this).css("border-color", "red");
+				console.info("no");
+				flag=false
+			}else{
+				$(this).css("border-color", "gray");
+				console.info("ok");
 				}
-			}
-		});
+		})
+		return flag
+	}
+	
+	$("#add").click(function(){
+		var boo=notnull();
+		
+		if(boo==true){
+			console.info("okajax");
+			var fields = $("#formtest").serializeArray();
+			$.ajax({
+				type:"post",
+				url:"admin/add",
+				data: {realName:fields[0].value,gender:fields[1].value,billAccount:fields[2].value,password:fields[3].value,idCard:fields[4].value,phoneNumber:fields[5].value,cord:fields[6].value,address:fields[7].value,qq:fields[8].value,roles:fields[9].value,mail:fields[10].value},
+				async:true,
+				success:function(data){
+					if(data=="0"){
+						alert("添加成功！");
+						window.location.href="view/operation/admin/page_admin.jsp";
+					}else{
+						alert("网络异常！");
+						window.location.reload(true);
+					}
+				}
+			});
+			
+			
+		}
+		
 	
 	});
 	$("#cancel").click(function(){
-		window.history.back(-1);	
+		window.location.href="view/operation/admin/page_admin.jsp";	
 	});
 
 

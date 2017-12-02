@@ -84,7 +84,7 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
 
-                        <shiro:hasPermission name="/a"><li>
+                        <shiro:hasPermission name="/userselfroot"><li>
                             <a ><i class=" fa fa-user fa-fw"></i> 用户自服务系统<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -95,7 +95,7 @@
                                 </li>
                             </ul>
                         </li></shiro:hasPermission>
-                        <shiro:hasPermission name="/b"><li>
+                        <shiro:hasPermission name="/userroot"><li>
                             <a ><i class="fa fa-bar-chart-o fa-fw"></i> 用户管理系统<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -107,35 +107,35 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li></shiro:hasPermission>
-                        <shiro:hasPermission name="/c"><li>
-                            <a href="page_postage_info.html" target="myiframe"><i class="fa fa-desktop  fa-fw"></i> 管理员管理系统</a>
+                        <shiro:hasPermission name="/adminroot"><li>
+                            <a href="view/operation/admin/page_admin.jsp" target="myiframe"><i class="fa fa-desktop  fa-fw"></i> 管理员管理系统</a>
                         </li></shiro:hasPermission>
-                       <shiro:hasPermission name="/d"> <li>
+                       <shiro:hasPermission name="/zifeiroot"> <li>
                             <a href="page_postage.html" target="myiframe"><i class="fa fa-edit fa-fw"></i>资费管理系统</a>
                         </li></shiro:hasPermission>
-                       <shiro:hasPermission name="/e"> <li>
+                       <shiro:hasPermission name="/zhangdanroot"> <li>
                             <a href="page_bill.html" target="myiframe"><i class="fa fa-edit fa-fw"></i>账单查询系统</span></a>
 
                             <!-- /.nav-second-level -->
                         </li></shiro:hasPermission>
-                        <shiro:hasPermission name="/f"><li>
+                        <shiro:hasPermission name="/zhangwuroot"><li>
                             <a href="page_account.jsp" target="myiframe"><i class="fa fa-edit fa-fw"></i>账务查询系统</span></a>
 
                             <!-- /.nav-second-level -->
                         </li></shiro:hasPermission>
-                       <shiro:hasPermission name="/g"> <li >
+                       <shiro:hasPermission name="/root"> <li >
                             <a ><i class="fa fa-files-o fa-fw"></i> 权限管理系统<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a class="active" href="page_role.html" target="myiframe">角色管理</a>
+                                    <a class="active" href="view/operation/admin/page_role.jsp" target="myiframe">角色管理</a>
                                 </li>
                                 <li>
-                                    <a href=" page_permission.html" target="myiframe">权限管理</a>
+                                    <a href="view/operation/admin/page_permission.jsp" target="myiframe">权限管理</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li></shiro:hasPermission>
-                        <shiro:hasPermission name="/h"><li >
+                        <shiro:hasPermission name="/logroot"><li >
                             <a><i class="fa fa-hospital-o  fa-fw"></i> 前台日志系统<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -147,7 +147,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li></shiro:hasPermission>
-                        <shiro:hasPermission name="/i"><li>
+                        <shiro:hasPermission name="/baobiaoroot"><li>
                             <a><i class="fa fa-calendar  fa-fw"></i> 报表查询系统<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>

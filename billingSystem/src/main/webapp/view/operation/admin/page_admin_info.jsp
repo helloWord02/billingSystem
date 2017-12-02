@@ -34,11 +34,11 @@
 
         body{
             /*iframe宽我设置为1000，网页body的宽度也应该设置为1000*/
-            width: 1000px;
+            width: 1100px;
         }
 
         .div_header{
-            width: 1000px;
+            width: 1100px;
             height: 100px;
             background-color: rgba(179, 227, 255, 0.5);
         }
@@ -182,7 +182,7 @@
     </div>
     <script>
     $("#cancel").click(function(){
-		window.history.back(-1);	
+    	window.location.href="view/operation/admin/page_admin.jsp";	
 	});
     
     </script>
