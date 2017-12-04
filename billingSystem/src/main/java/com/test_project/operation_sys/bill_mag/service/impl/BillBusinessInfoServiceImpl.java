@@ -73,10 +73,10 @@ public class BillBusinessInfoServiceImpl implements IBillBusinessInfoService {
 	}
 
 	@Override
-	public BillBusinessInfoBean findBusinessByBusinessAccount(BillBusinessInfoBean billBusiness) {
+	public PagerBean findBusinessByBusinessAccount(PagerBean pager) {
 		// TODO Auto-generated method stub
 
-		return billBussinessInfoDao.findBusinessByBusinessAccount(billBusiness);
+		return billBussinessInfoDao.findBusinessByBusinessAccount(pager);
 	}
 
 }

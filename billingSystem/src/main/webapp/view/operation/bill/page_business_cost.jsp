@@ -151,7 +151,7 @@ th {
 
 				</div>
 				<!-- 表格 -->
-
+				<button id="back" style="width: 100px;height: 40px;margin-left: 450px" type="button" class="btn btn-info">返回</button>
 			</div>
 
 		</div>
@@ -168,7 +168,7 @@ th {
 		$.ajax({
 			   type: "POST",
 			   url: "bill/showBillBusinessData",
-			   data: "page="+ p +"&billaccount=${acc}",
+			   data: "page="+ p +"&billaccount=${acc}&year=${year}&month=${month}",
 			   success: function(msg){
 				//   alert(msg);
 			     alert( JSON.stringify(msg));
@@ -201,11 +201,20 @@ th {
 	/* 给每行绑定双击跳转事件 */
 	var billAccount
 	function dbck(businessName) {
-	var businessName = $(businessName).children().eq(0).html();		
+	var businessName = $(businessName).children().eq(0).html();	
+	var year = ${year};
+	alert(year)
+	var month = ${month};
+	alert(month)
 	alert(businessName)
-	window.open("bill/showBillBusinessInfoPage?businessName=" + businessName, "_self")
+	window.open("bill/showBillBusinessInfoPage?businessName=" + businessName +"&year="+ year + "&month="+ month, "_self")
 	
 	}
+	/* 返回按钮绑定跳转事件 */
+	$("#back").on("click",function(){
+    	
+        window.open("view/operation/bill/page_bill.jsp","_self")
+    });
 	</script> 
 
 </body>
