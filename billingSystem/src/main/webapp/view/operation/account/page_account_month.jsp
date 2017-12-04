@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	String path = request.getContextPath();//获取项目名称
@@ -62,11 +63,11 @@
         th{
             text-align:center;
         }
-        .as{
+ 	
+ 	.as{
         
         	background-color: rgba(179, 227, 255, 0.5);
         }
-
 
     </style>
 
@@ -82,11 +83,8 @@
             <div class="panel-body">
                <!-- 查询 -->
                 <div  >
-                    <span>年：</span>
-                    <input id="dateYear"  style="width: 140px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="年" name="param" type="text" >
-                    <span>月：</span>
-                    <input  id="dateMonth" style=" width: 140px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="月" name="param" type="text" >
-                    <button type="button" class="btn btn-info" id="find">查询</button>
+                    <span style="font-size: 16px "> ${param.dateYear}</span>
+
                 </div>
                 <!-- 查询  -->
 
@@ -98,17 +96,17 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <table class="table  table-bordered  dataTable no-footer" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
-
+                                
                                 <thead>
-                                     <tr role="row">
+                                    <tr role="row">
                                         <th style="width: 10%;">编号</th>
                                         <th style="width: 20%;">业务名称</th>
                                         <th style="width: 20%;">实验室IP</th>
                                         <th style="width: 20%;">总时长</th>
-                                        <th style="width: 20%;">时间</th>  
-                               </thead>
+                                         <th style="width: 20%;">时间</th>
+                                    </thead>
                                     <tbody id="data">
-                                    
+                                       
                                     </tbody>
                                 </table>
                             </div>
@@ -117,8 +115,9 @@
                         <!--翻页按钮-->
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
-                                    <ul class="pagination">
+                            <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                                   
+                                  <ul class="pagination">
                                         <li class="paginate_button  " aria-controls="dataTables-example" tabindex="0" id="a1"><a>首页</a></li>
                                         <li class="paginate_button " aria-controls="dataTables-example" tabindex="1" id="a2"><a>上一页</a></li>
                                         <li class="paginate_button " aria-controls="dataTables-example" tabindex="2" id="a3"><a>下一页</a></li>
@@ -127,7 +126,6 @@
                                         <li aria-controls="dataTables-example" tabindex="4">
                                             <div class="form-group input-group">
 	                                                <span class="input-group-addon" id="span1">
-	                                                
 	                                                </span>
                                                 <input style="width: 70px" type="text" class="form-control" placeholder="跳转页" id="page">
                                             </div>
@@ -141,30 +139,36 @@
 
                 </div>
                 <!-- 表格 -->
+                <button id="back" style="width: 100px;height: 40px;margin-left: 450px" type="button" class="btn btn-info">返回</button>
 
             </div>
 
         </div>
 
     </div>
-<script >
-	var year =  "";
-	
-	function getTime(time){
+
+    <script>
+   
+    var year =  "${param.dateYear}";
+    var month =  "";  
+    var ip = "${param.ip}";
+    
+    function getTime(time){
 		var date = new Date(time);
 		return date.toLocaleString();
 	}
-	
-	function cutpage(p){
-		var json={
+    
+    function cutpage(p){
+    	var json={
     			pageNum:p,
     			year: year,
-    			 
+    			 month:month,   			 
+    			 ip:ip
     			
     	}
 		$.ajax({
 			   type: "POST",
-			   url: "account/accountpage",
+			   url: "account/monthpage",
 			   data: json,
 			   success: function(msg){
 			     alert( JSON.stringify(msg));
@@ -172,39 +176,37 @@
 			     var str="";  				    
 			     for(var i=1;i<=msg.datas.length;i++){
 			    	 	var obj=msg.datas[i-1]
-						str +="<tr onclick='cke($(this) )' ><td>"+ (5*(p-1) + i) +"</td><td>"+obj.account+"</td><td>"+obj.allTime+"</td><td>"+ obj.ip+"</td><td >"+ getTime(obj.date) +" </td></tr>"
+						str +="<tr onclick='cke($(this) )'  ondblclick='ock($(this))'><td>"+i+"</td><td>"+obj.account+"</td><td>"+obj.ip+"</td><td>"+obj.allTime +"</td><td>"+ getTime(obj.date)+"</td></tr>"
 					}
 			     $("#data").html(str);
 			     $("#span1").html(nowpage+"/"+lastPage);
 			     
 			   }
 			});
-		 
-	}
-	function cke(ck){
 		
-		ck.addClass("as").siblings().removeClass("as");
 	}
-	
-	 $("#find").on("click",function(){
+    
+    function ock(o){
+		 ip = $(o).children().eq(2).html(); 
+		 date =  $(o).children().eq(4).html(); 
+		 month = date.split("/")[1];
+		 alert("ip="+ip); 
+		 alert("month="+month);
+		 window.open("view/operation/account/page_account_date.jsp"+"?dateYear="+year+"&dateMonth="+month+"&ip="+ip,"_self")	;	    
 		 
-			 var dateYear= $("#dateYear").val();
-			 var dateMonth= $("#dateMonth").val();
-			 
-			 if(dateYear !=""&& dateMonth !=""){
-				 window.open("view/operation/account/page_account_date.jsp"+"?dateYear="+dateYear+"&dateMonth="+dateMonth+"&ip=" ,"_self")	;	    
-			 }else if(dateYear !=""&& dateMonth =="" ){
-				 window.open("view/operation/account/page_account_year.jsp"+"?dateYear="+dateYear,"_self")	;	    
-			 }else if(dateMonth !="" ){
-				 alert("请输入年！");
-			 }else{
-				 $(function(){
-				 	cutpage(1);
-				 })
-			 }
-	       });
-	 
-	</script>
- <script src="static/js/my.js" type="text/javascript"></script>
+	}
+	    
+		function cke(ck){
+			
+			ck.addClass("as").siblings().removeClass("as");
+		}
+	
+        $("#back").on("click",function(){
+        	
+            window.open("view/operation/account/page_account.jsp","_self")
+        });
+        
+    </script>
+    <script src="static/js/my.js" type="text/javascript"></script>
 </body>
 </html>

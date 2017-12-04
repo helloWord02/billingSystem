@@ -1,5 +1,7 @@
 package com.test_project.operation_sys.account_mag.dao;
 
+import java.util.List;
+
 import com.test_project.bean.AccountDayBean;
 import com.test_project.bean.AccountMonthBean;
 import com.test_project.bean.AccountYearBean;
@@ -25,5 +27,6 @@ public interface IAccountMonthDao {
 	 * @param month
 	 * @return
 	 */
-	public  AccountYearBean findAccountMonth (String month);
+	public  List<AccountYearBean> findAccountMonth (String month);
+	 
 }

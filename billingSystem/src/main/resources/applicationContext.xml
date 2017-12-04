@@ -110,11 +110,11 @@
             <tx:method name="del*" read-only="false" isolation="DEFAULT" propagation="REQUIRED" rollback-for="java.lang.Exception" />
             <tx:method name="remove*" read-only="false" isolation="DEFAULT" propagation="REQUIRED" rollback-for="java.lang.Exception" />
             
-            <tx:method name="get*" propagation="NOT_SUPPORTED" rollback-for="java.lang.Exception" />
+           <!--  <tx:method name="get*" propagation="NOT_SUPPORTED" rollback-for="java.lang.Exception" />
             <tx:method name="find*" propagation="NOT_SUPPORTED" rollback-for="java.lang.Exception" />
             <tx:method name="select*" propagation="NOT_SUPPORTED" rollback-for="java.lang.Exception" />
             <tx:method name="count*" propagation="NOT_SUPPORTED" rollback-for="java.lang.Exception" />
-            
+             -->
         </tx:attributes>
     </tx:advice>
 	
@@ -168,8 +168,6 @@
                 /static/** = anon
                	/login.jsp = anon
                	/user/login = anon
-               	/SendMessage =anon
-               	/ReceiveMessage =anon
                 /** = authc
             </value>
       </property>

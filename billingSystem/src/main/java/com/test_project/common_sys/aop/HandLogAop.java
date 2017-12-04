@@ -60,10 +60,7 @@ public class HandLogAop {
 	        handLogServiceImpl.addHandLog(log);
 	       }  
 	    	
-	    	
 	    
-	    
-	     
 	      
 	     
 	

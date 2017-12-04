@@ -1,0 +1,246 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" isELIgnored="false"%>
+  <%
+	String path=request.getContextPath();
+	String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>   
+    
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<base href="<%=basePath%>">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <title>登陆日志</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>professor-1</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="<%=basePath%>static/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="<%=basePath%>static/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="<%=basePath%>static/dist/css/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="<%=basePath%>static/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="<%=basePath%>static/bower_components/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="<%=basePath%>static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<script src="<%=basePath%>static/js/jQuery-2.2.2-min.js" type="text/javascript"></script>
+     
+     <link href="<%=basePath%>static/js/sj/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="<%=basePath%>static/js/sj/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    
+    <script type="text/javascript" src="<%=basePath%>static/js/sj/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<%=basePath%>static/js/sj/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="<%=basePath%>static/js/sj/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+ 
+
+ <style>
+
+        body{
+            /*iframe宽我设置为1000，网页body的宽度也应该设置为1000*/
+            width: 1090px;
+        }
+
+        .div_header{
+            width: 1090px;
+            height: 100px;
+            background-color: rgba(179, 227, 255, 0.5);
+        }
+
+        .div_content{
+
+            width: 100%;
+            height: 480px;
+
+        }
+
+        h1{
+            width: 100%;
+            line-height: 100px;
+            text-align: center;
+        }
+        td
+        {
+            text-align:center  !important;
+        }
+        th{
+            text-align:center  !important;
+        }
+	.as {
+		background-color: skyblue;
+	}
+
+    </style>
+</head>
+<body>
+
+<div class="divall">
+    <div class = "div_header">
+        <h1>登陆日志</h1>
+    </div>
+
+    <div class="div_content">
+
+       	 <div class="panel-body">
+
+			 <!-- 查询 -->
+		   
+        
+        	 		<span>用户名：</span>
+                    <input  style="width: 140px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="用户名" id="magName" type="text" >
+                   
+                    <span>开始时间：</span>
+                    <div style="display: inline"  class="controls input-append date form_datetime" data-date="2017-12-02T05:25:07Z" data-date-format="yyyy-mm-dd hh:ii:ss"  >
+				                    <input size="10" style="width: 150px;height: 30px"   id="beginTime"  value="" readonly>
+				                    <span style="height: 30px" class="add-on"><i class="icon-remove fa fa-times fa-fw"></i></span>
+									<span style="height: 30px" class="add-on"><i class="icon-th fa fa-edit fa-fw"></i></span>
+				                </div>
+             
+            		 <span style="margin-left: 20px" >结束时间：</span>
+				     		 
+				                <div style="display: inline"  class="controls input-append date form_datetime" data-date="2017-12-02T05:25:07Z" data-date-format="yyyy-mm-dd hh:ii:ss"  >
+				                    <input size="10" style="width: 150px;height: 30px"  type="text"   id="endTime" readonly>
+				                    <span style="height: 30px" class="add-on"><i class="icon-remove fa fa-times fa-fw"></i></span>
+									<span style="height: 30px" class="add-on"><i class="icon-th fa fa-edit fa-fw"></i></span>
+				                </div>
+					 <button style="margin-left: 30px" type="button" class="btn btn-info" id="find">查询</button>
+                
+				</div>
+                
+            <!-- 表格  -->
+            <div class="dataTable_wrapper" style="width: 1050px;margin-left: 30px;">
+				
+                <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+					
+                    <div class="row">
+                        <div class="col-sm-12">
+                          <table class="table table-bordered  dataTable no-footer"
+									id="dataTables-example" role="grid"
+									aria-describedby="dataTables-example_info">
+                           
+                                <thead>
+                                <tr role="row">
+                                    <th style="width: 20%;">用户名</th>
+                                    <th style="width: 20%;">操作类型</th>
+                                    <th style="width: 20%;">操作时间</th>
+
+                                </thead>
+                                <tbody id="data">
+                                
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!--翻页按钮-->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                                <ul class="pagination">
+                                    <li class="paginate_button  " aria-controls="dataTables-example" tabindex="0" id="a1"><a>首页</a></li>
+                                    <li class="paginate_button " aria-controls="dataTables-example" tabindex="1" id="a2"><a>上一页</a></li>
+                                    <li class="paginate_button " aria-controls="dataTables-example" tabindex="2" id="a3"><a>下一页</a></li>
+                                    <li class="paginate_button " aria-controls="dataTables-example" tabindex="3" id="a4"><a>尾页</a></li>
+                                    <li class="paginate_button " aria-controls="dataTables-example" tabindex="4" id="a5"><a >跳转</a></li>
+                                    <li aria-controls="dataTables-example" tabindex="4">
+                                        <div class="form-group input-group">
+	                                                <span style=" height:35px" class="input-group-addon" id="span1">
+	                                                </span>
+                                            <input style="width: 70px;height:35px" type="text" class="form-control" placeholder="跳转页" id="page">
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                 
+                </div>
+
+            </div>
+          
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+ 
+	$('.form_datetime').datetimepicker({
+
+	});
+
+	 function getTime(time){
+			var date = new Date(time);
+			return date.toLocaleString();
+		}
+	
+	function cutpage(p){
+		
+		var json={
+				pageNum:p,
+				magName:$("#magName").val(),
+				beginTime:$("#beginTime").val(),  			 
+				endTime:$("#endTime").val()
+				
+		}
+		$.ajax({
+			   type: "POST",
+			   url: "log11/loginLog",
+			   data: json,
+			   success: function(msg){
+			   
+				 alert( JSON.stringify(msg));
+			     lastPage=msg.totalPage;
+			    
+			     var str="";
+			     for(var i=1;i<=msg.datas.length;i++){
+			    	 var obj=msg.datas[i-1]
+						 str+=" <tr onclick='cke($(this) )' >"+	             
+			             "<td>"+obj.magName+"</td>"  
+			             if (obj.handType == '0') {
+								str += "<td>登陆</td>" 
+							}
+						if (obj.handType == '1') {
+							str += "<td>退出</td>" 
+						}			           
+			            str += "<td>"+ getTime(obj.handTime) +"</td>"+"</tr>"					     
+					}					
+			     $("#data").html(str);
+			     $("#span1").html(nowpage+"/"+lastPage);
+				}
+			});
+	}
+
+	function cke(ck){
+		
+		ck.addClass("as").siblings().removeClass("as");
+	}
+	
+	 $("#find").on("click",function(){
+		 cutpage(1);
+		 nowpage = 1;
+		 
+       });
+</script>
+
+<script src=" static/js/my.js" type="text/javascript"></script>
+
+</body>
+</html>

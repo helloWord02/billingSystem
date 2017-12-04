@@ -2,6 +2,8 @@ package com.test_project.operation_sys.account_mag.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.test_project.bean.AccountMonthBean;
@@ -20,13 +22,15 @@ public class AccountMonthServiceImpl implements IAccountMonthService {
 	@Override
 	public void saveAccountMonth(Date date) {
 		// TODO Auto-generated method stub
-		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		 String str = format.format(date);
-		 String year = str.split("-")[0];
-		 String month = str.split("-")[1];
-		 AccountMonthBean am =  accountDayDaoImpl.findAccountDayByPage(year,month);
-		 am.setDate(date);
-		 accountMonthDaoImpl.saveAccountMonth(am);
+				 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				 String str = format.format(date);
+				 String year = str.split("-")[0];
+				 String month = str.split("-")[1];
+				 List<AccountMonthBean> am =  accountDayDaoImpl.findAccountDays(year,month);
+				 for (AccountMonthBean accountMonthBean : am) {
+					 accountMonthBean.setDate(date);
+					 accountMonthDaoImpl.saveAccountMonth(accountMonthBean);
+				} 
 	}
  
 	@Override

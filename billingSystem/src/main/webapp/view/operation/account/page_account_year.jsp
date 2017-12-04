@@ -83,7 +83,7 @@
             <div class="panel-body">
                <!-- 查询 -->
                 <div  >
-                    <span style="font-size: 16px "> ${param.dateYear} ${param.dateMonth}</span>
+                    <span style="font-size: 16px "> ${param.dateYear} 年</span>
 
                 </div>
                 <!-- 查询  -->
@@ -150,7 +150,7 @@
     <script>
    
     var year =  "${param.dateYear}";
-    var month =  "${param.dateMonth}";
+    var month =  "";
     
     var ip = ""
     
@@ -169,7 +169,7 @@
     	}
 		$.ajax({
 			   type: "POST",
-			   url: "accountfen/fenpage",
+			   url: "account/yearpage",
 			   data: json,
 			   success: function(msg){
 			     alert( JSON.stringify(msg));
@@ -190,12 +190,10 @@
     function ock(o){
 		 ip = $(o).children().eq(2).html(); 
 		 date =  $(o).children().eq(4).html(); 
-		 month = date.split("/")[1];
+		// month = date.split("/")[1];
 		 alert("ip="+ip); 
 		 alert("month="+month);
-		 $(function(){
-				cutpage(1);
-			})
+		 window.open("view/operation/account/page_account_month.jsp"+"?dateYear="+year +"&ip="+ip,"_self")	;	    
 		 
 	}
 	    

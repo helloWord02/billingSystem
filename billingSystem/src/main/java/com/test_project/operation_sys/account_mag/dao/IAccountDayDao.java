@@ -25,7 +25,6 @@ public interface IAccountDayDao  {
 	 * @param month
 	 * @return
 	 */
-	public  AccountMonthBean findAccountDayByPage(String year,String month);
-
+	public   List<AccountMonthBean> findAccountDays(String year,String month);
 	 
 }

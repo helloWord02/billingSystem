@@ -1,6 +1,8 @@
 package com.test_project.operation_sys.account_mag.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
@@ -52,15 +54,26 @@ public class AccountMonthDaoImpl extends BaseDao implements IAccountMonthDao {
 	}
 
 	@Override
-	public AccountYearBean findAccountMonth(String year) {
+	public List<AccountYearBean> findAccountMonth(String year) {
 		// TODO Auto-generated method stub
-		String hql = "select new Map( d.businessAccount as businessAcount,d.ip as ip,sum(d.allTime) as allTime )"
-				+ "from AccountMonthBean as d where year(d.date)=(?) ";
+		String hql = "select new Map( d.account as businessAcount,d.ip as ip,sum(d.allTime) as allTime )"
+				+ "from AccountMonthBean as d where year(d.date)=(?) GROUP BY ip ";
 		Query query = getSession().createQuery(hql);
 		query = getSession().createQuery(hql);
 		query.setString(0,year);
-		AccountYearBean ay = (AccountYearBean) query.uniqueResult();	 
-		return ay;
+		
+		List<AccountYearBean> list = new ArrayList<AccountYearBean>();
+		
+		List<Map> map = (List<Map>)query.list();
+		for (Map map2 : map) {
+			AccountYearBean am = new AccountYearBean();
+			am.setAccount((String)map2.get("account"));
+			am.setIp((String)map2.get("ip"));
+			am.setAllTime((long)map2.get("allTime"));
+			list.add(am);
+			
+		} 
+		return list;
+		
 	}
-
 }
