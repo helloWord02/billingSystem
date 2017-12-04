@@ -99,10 +99,10 @@
                             <a ><i class="fa fa-bar-chart-o fa-fw"></i> 用户管理系统<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="  view/operation/log/handLog.jsp" target="myiframe">账务账号管理</a>
+                                    <a href=" view/operation/user/account/page_account_number.jsp" target="myiframe">账务账号管理</a>
                                 </li>
                                 <li>
-                                    <a href=" view/operation/log/loginLog.jsp" target="myiframe">业务账号管理</a>
+                                    <a href=" view/operation/user/business/page_business.jsp" target="myiframe">业务账号管理</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

@@ -28,7 +28,9 @@ public class HandLogAop {
 	private IHandLogService handLogServiceImpl;
 	
 	 
-	@Pointcut("execution(* com.test_project.operation_sys.*mag.service.impl.*ServiceImpl.*(..))")
+	@Pointcut("execution(* com.test_project.operation_sys.*mag.service.impl.*ServiceImpl.save*(..))||"
+			+ " execution(* com.test_project.operation_sys.*mag.service.impl.*ServiceImpl.del*(..))||"
+			+ " execution(* com.test_project.operation_sys.*mag.service.impl.*ServiceImpl.upd*(..))")
 	private void test() {
 	
 	}

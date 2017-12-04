@@ -6,12 +6,14 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -32,37 +34,62 @@ public class AccountBean implements Serializable{
 	@GenericGenerator(name="hibernate.identity",strategy="identity")
 	@GeneratedValue(generator="hibernate.identity")
 	private long id;
+	
 	@Column(name="bill_account",length=45)
 	private String billAccount;
+	
 	@Column(name="real_name",length=20)
 	private String realName;
+	
 	@Column(name="phone_number",length=32)
 	private String phoneNumber;
+	
 	@Column(name="password",length=32)
 	private String password;
+	
 	@Column(name="gender")
 	private int gender;
+	
 	@Column(name="idcard",length=20)
 	private String idCard;
+	
 	@Column(name="address",length=45)
 	private String address;
+	
 	@Column(name="cord")
 	private int cord;
+	
 	@Column(name="qq")
 	private int qq;
+	
 	@Column(name="state")
 	private int state;
+	
 	@Column(name="mail",length=45)
 	private String mail;
+	
 	@ManyToOne(targetEntity = RoleBean.class)
 	@JoinTable(name = "t_account_role", joinColumns = {@JoinColumn(name = "account_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
 	private RoleBean roles;
 
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER,mappedBy="account")
+	private Set<BusinessBean> business;
+	
 	public AccountBean(){
 
 	}
 
 	
+	public Set<BusinessBean> getBusiness() {
+		return business;
+	}
+
+
+	public void setBusiness(Set<BusinessBean> business) {
+		this.business = business;
+	}
+
+
 	public long getId() {
 		return id;
 	}
@@ -197,9 +224,11 @@ public class AccountBean implements Serializable{
 	public String toString() {
 		return "AccountBean [id=" + id + ", billAccount=" + billAccount + ", realName=" + realName + ", phoneNumber="
 				+ phoneNumber + ", password=" + password + ", gender=" + gender + ", idCard=" + idCard + ", address="
-				+ address + ", cord=" + cord + ", qq=" + qq + ", state=" + state + ", mail=" + mail + ", roles=" + roles
-				+ "]";
+				+ address + ", cord=" + cord + ", qq=" + qq + ", state=" + state + ", mail=" + mail + "]";
 	}
+
+
+
 
 
 	

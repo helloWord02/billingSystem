@@ -1,6 +1,7 @@
 package com.test_project.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -39,7 +40,7 @@ public class BillBusinessBean implements Serializable {
 	 * 月时间
 	 */
 	@Column(name = "date_month", length = 45)
-	private String dateMonth;
+	private Date dateMonth;
 
 	/**
 	 * 费用
@@ -77,28 +78,38 @@ public class BillBusinessBean implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BillBusinessBean(String billAccount, String businessName, String dateMonth, double cost, long id,
-			String postageName, String service, long timeLong) {
+/**
+ * 
+ * @param billAccount 账务账号
+ * @param businessName 业务账号
+ * @param dateMonth 月时间
+ * @param cost 费用
+ * @param postageName 资费名称
+ * @param service ip
+ * @param timeLong 时长
+ */ 
+	public BillBusinessBean(String billAccount, String businessName, Date dateMonth, double cost, String postageName,
+			String service, long timeLong) {
 		super();
 		this.billAccount = billAccount;
 		this.businessName = businessName;
 		this.dateMonth = dateMonth;
 		this.cost = cost;
-		this.id = id;
 		this.postageName = postageName;
 		this.service = service;
 		this.timeLong = timeLong;
 	}
 
 
-
-	public String getDateMonth() {
+	public Date getDateMonth() {
 		return dateMonth;
 	}
 
-	public void setDateMonth(String dateMonth) {
+
+	public void setDateMonth(Date dateMonth) {
 		this.dateMonth = dateMonth;
 	}
+
 
 	public String getBillAccount() {
 		return billAccount;

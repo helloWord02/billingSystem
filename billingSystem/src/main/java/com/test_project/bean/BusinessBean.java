@@ -48,17 +48,17 @@ public class BusinessBean implements Serializable {
 	 * ip
 	 */
 	@Column(name="ip")
-	private int ip;
+	private String ip;
 	/**
 	 * 账户账号
 	 */
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="fk_account_id")
 	private AccountBean account;
 	/**
 	 * 资费
 	 */
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="fk_postage_id")
 	private PostageBean  postage;
 	
@@ -108,12 +108,12 @@ public class BusinessBean implements Serializable {
 	}
 
 
-	public int getIp() {
+	public String getIp() {
 		return ip;
 	}
 
 
-	public void setIp(int ip) {
+	public void setIp(String ip) {
 		this.ip = ip;
 	}
 

@@ -2,6 +2,10 @@ package com.test_project.operation_sys.bill_mag.dao;
 
 
 
+import java.util.List;
+import java.util.Map;
+
+import com.test_project.bean.BillBusinessBean;
 import com.test_project.bean.BusinessBean;
 import com.test_project.pojos.PagerBean;
 
@@ -11,13 +15,11 @@ import com.test_project.pojos.PagerBean;
  *
  */
 public interface IBillBusinessDao {
-	
 	/**
-	 * 根据业务账号费用生成对应账务账号费用并保存到数据库
-	 * 
-	 * @param serviceBean
+	 * 保存一个业务月账单
+	 * @param buillBusi
 	 */
-	public void saveBillCost(BusinessBean buesiness);
+	public void saveBillBusiness(BillBusinessBean buillBusi);
 
 	/**
 	 * 根据账务账号查询该账号下所有的业务账号当月发生的费用明细信息
@@ -25,4 +27,13 @@ public interface IBillBusinessDao {
 	 * @return
 	 */
 	public PagerBean findAllBusinessByBillAccount(PagerBean pager);
+	
+	/**
+	 * 查询某年月下的  某账务账号的所有业务账单
+	 * @param map
+	 * @return
+	 */
+	public List<BillBusinessBean> findbillBusByaccount(Map map);
+	
+
 }

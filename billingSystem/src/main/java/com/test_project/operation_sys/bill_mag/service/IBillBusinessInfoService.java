@@ -1,4 +1,7 @@
-package com.test_project.operation_sys.bill_mag.service;
+﻿package com.test_project.operation_sys.bill_mag.service;
+
+import java.util.List;
+import java.util.Map;
 
 import com.test_project.bean.BillBusinessBean;
 import com.test_project.bean.BillBusinessInfoBean;
@@ -19,7 +22,7 @@ public interface IBillBusinessInfoService {
 	 * 
 	 * @param serviceBean
 	 */
-	public void saveBusinessBean(BusinessBean business);
+	public void addBusinessInfoBean(BillBusinessInfoBean billInfo);
 
 	/**
 	 * 根据业务账号查询当前业务账号对应服务器信息
@@ -28,4 +31,12 @@ public interface IBillBusinessInfoService {
 	 * @return
 	 */
 	public PagerBean findBusinessByBusinessAccount(PagerBean pager);
+	
+	/**
+	 * 每个月 生成一次账单详情
+	 * @param map 年,月
+	 */
+	public void addBillInfoMonth(Map<String, Integer> map);
+	
+
 }

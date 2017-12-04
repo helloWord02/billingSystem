@@ -2,13 +2,19 @@ package com.test_project.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -68,10 +74,48 @@ public class BillBean implements Serializable {
 	 */
 	@Column(name = "user_name", length = 20)
 	private String userName;
+	
+
 
 	public BillBean() {
 
 	}
+	
+
+/**
+ * 
+ * @param allCost 总价
+ * @param billAccount 账务账号
+ * @param useTime 时间
+ * @param idcard 身份证
+ * @param payState 支付状态
+ * @param payType 支付方式
+ * @param userName 用户名
+ */
+	public BillBean(double allCost, String billAccount, Date useTime, String idcard, int payState, String payType,
+			String userName) {
+		super();
+		this.allCost = allCost;
+		this.billAccount = billAccount;
+		this.useTime = useTime;
+		this.idcard = idcard;
+		this.payState = payState;
+		this.payType = payType;
+		this.userName = userName;
+	}
+
+
+
+	public Date getUseTime() {
+		return useTime;
+	}
+
+
+
+	public void setUseTime(Date useTime) {
+		this.useTime = useTime;
+	}
+
 
 	public double getAllCost() {
 		return allCost;

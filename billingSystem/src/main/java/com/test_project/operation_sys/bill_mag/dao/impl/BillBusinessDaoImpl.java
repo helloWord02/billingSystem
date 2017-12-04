@@ -1,6 +1,7 @@
 package com.test_project.operation_sys.bill_mag.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -25,11 +26,7 @@ import com.test_project.util.BaseDao;
 @Repository
 public class BillBusinessDaoImpl extends BaseDao implements IBillBusinessDao {
 
-	@Override
-	public void saveBillCost(BusinessBean buesiness) {
-		// TODO Auto-generated method stub
 
-	}
 
 	@Override
 	public PagerBean findAllBusinessByBillAccount(PagerBean pager) {
@@ -37,15 +34,11 @@ public class BillBusinessDaoImpl extends BaseDao implements IBillBusinessDao {
 		/**
 		 * 分页信息查询
 		 */
-		String hql = "select count(b.id) from BillBusinessBean as b where b.billAccount = :billAccount and year(b.dateMonth) = :year and month(b.dateMonth) = :month ";
+		String hql = "select count(b.id) from BillBusinessBean as b where b.billAccount = :billAccount ";
 		Query query = getSession().createQuery(hql);
 		String billAccount = pager.getParams().get("billAccount").toString();
-		String year = pager.getParams().get("year").toString();
-		String month = pager.getParams().get("month").toString();
 		System.out.println("Dao层得到的billAccount："+billAccount);
 		query.setString("billAccount", billAccount);
-		query.setString("year", year);
-		query.setString("month", month);
 		
 		long totalRows = (Long) query.uniqueResult();
 		System.out.println("totalRows:+++++++++++++++totalRows:"+totalRows);
@@ -54,11 +47,8 @@ public class BillBusinessDaoImpl extends BaseDao implements IBillBusinessDao {
 		/**
 		 * 查询具体的数据
 		 */
-		hql="from BillBusinessBean as b where b.billAccount = :billAccount and year(b.dateMonth) = :year and month(b.dateMonth) = :month ";
-		query = getSession().createQuery(hql);
-		query.setString("billAccount", billAccount);
-		query.setString("year", year);
-		query.setString("month", month);
+		hql="from BillBusinessBean as b where b.billAccount = :billAccount ";
+		query = getSession().createQuery(hql).setString("billAccount", billAccount);		
 		System.out.println("------------------------------------"+query.list());		
 		query.setFirstResult(pager.getIndex());
 		query.setMaxResults(pager.getRows());
@@ -67,6 +57,23 @@ public class BillBusinessDaoImpl extends BaseDao implements IBillBusinessDao {
 		pager.setDatas(datas);
 		System.out.println("Dao层查询到的pager数据："+ pager);
 		return pager;
+	}
+
+	@Override
+	public void saveBillBusiness(BillBusinessBean buillBusi) {
+		// TODO Auto-generated method stub
+		getSession().save(buillBusi);
+		
+	}
+
+	@Override
+	public List<BillBusinessBean> findbillBusByaccount(Map map) {
+		// TODO Auto-generated method stub
+		String hql="from BillBusinessBean b where year(b.dateMonth)=:year and month(b.dateMonth)=:month and b.billAccount=:account ";
+		Query q=getSession().createQuery(hql);
+		q.setProperties(map);
+		 List<BillBusinessBean> list=q.list();
+		return list;
 	}
 
 }

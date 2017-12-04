@@ -1,5 +1,7 @@
 package com.test_project.operation_sys.account_mag.service;
 
+import java.util.Date;
+
 import com.test_project.bean.AccountDayBean;
 import com.test_project.pojos.PagerBean;
 
@@ -10,7 +12,7 @@ public interface IAccountDayService {
 	 * 用定时器上传账务日数据
 	 * @param ab
 	 */
-	public void saveAccountDay(AccountDayBean ab);
+	public void saveAccountDay( Date date);
 	
 	
 		

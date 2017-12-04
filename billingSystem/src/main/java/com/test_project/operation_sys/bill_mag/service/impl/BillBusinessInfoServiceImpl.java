@@ -1,9 +1,10 @@
-package com.test_project.operation_sys.bill_mag.service.impl;
+﻿package com.test_project.operation_sys.bill_mag.service.impl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -20,6 +21,7 @@ import com.test_project.bean.ServiceBean;
 import com.test_project.operation_sys.bill_mag.dao.IBillBusinessInfoDao;
 import com.test_project.operation_sys.bill_mag.service.IBillBusinessInfoService;
 import com.test_project.operation_sys.service_mag.dao.IServiceDao;
+import com.test_project.operation_sys.service_mag.service.IServiceService;
 import com.test_project.pojos.PagerBean;
 import com.test_project.util.BaseDao;
 
@@ -29,47 +31,17 @@ public class BillBusinessInfoServiceImpl implements IBillBusinessInfoService {
 	
 	@Resource
 	private IBillBusinessInfoDao billBussinessInfoDao;
+	@Resource
+	private IServiceService serviceserviceImpl;
 
 	@Override
-	public void saveBusinessBean(BusinessBean business) {
-		// TODO Auto-generated method stub
-//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		/**
-//		 * 产生查询日期条件并封闭到ServiceBean
-//		 */
-//		ServiceBean service = new ServiceBean();
-//		Date beginDate;
-//		Date endDate;
-//		try {
-//			beginDate = dateFormat.parse("2017-11-01 00:00:00");
-//			endDate = dateFormat.parse("2017-11-30 00:00:00");
-//			service.setLoginTime(beginDate);
-//			service.setLoginoutTime(endDate);
-//		} catch (ParseException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//
-//		List<ServiceBean> ls = serviceDao.findAllServiceBean(service);
-//
-//		for (ServiceBean serviceBean : ls) {
-//
-//			try {
-//				Date loginTime = serviceBean.getLoginTime();
-//				Date loginOutTime = serviceBean.getLoginoutTime();
-//				String str = dateFormat.format(loginTime);
-//				String str1 = dateFormat.format(loginOutTime);
-//				Date date = dateFormat.parse(str);
-//				Date date1 = dateFormat.parse(str1);
-//				System.out.println("date:" + date);
-//				System.out.println("date1:" + date1);
-//			} catch (ParseException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//
-//		}
-
+	/**
+	 * 根据服务器提供的信息生成对应业务账号费用并保存到数据库
+	 * 
+	 * @param serviceBean
+	 */
+	public void addBusinessInfoBean(BillBusinessInfoBean billInfo) {
+		billBussinessInfoDao.saveBusinessInfoBean(billInfo);
 	}
 
 	@Override
@@ -78,5 +50,22 @@ public class BillBusinessInfoServiceImpl implements IBillBusinessInfoService {
 
 		return billBussinessInfoDao.findBusinessByBusinessAccount(pager);
 	}
+
+
+	@Override
+	public void addBillInfoMonth(Map<String, Integer> map) {
+		// TODO Auto-generated method stub
+		List<ServiceBean> listservice= serviceserviceImpl.findAllService(map);
+		for (ServiceBean serviceBean : listservice) {
+			BillBusinessInfoBean billInfo=new BillBusinessInfoBean(serviceBean.getBusniessAccount(), serviceBean.getLoginoutTime(), serviceBean.getLoginTime(), serviceBean.getIp());
+			long loginoutTime=serviceBean.getLoginoutTime().getTime();
+			long loginTime=serviceBean.getLoginTime().getTime();
+			long minus=loginoutTime-loginTime;
+			billInfo.setTimeLong(minus);
+			billBussinessInfoDao.saveBusinessInfoBean(billInfo);
+		}
+	}
+
+
 
 }

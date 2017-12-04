@@ -59,6 +59,17 @@ public class BillBusinessInfoBean implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public BillBusinessInfoBean(String businessAccount, Date loginoutTime, Date loginTime, String servicesInfo) {
+		super();
+		this.businessAccount = businessAccount;
+		this.loginoutTime = loginoutTime;
+		this.loginTime = loginTime;
+		this.servicesInfo = servicesInfo;
+	}
+
 
 	public BillBusinessInfoBean(String businessAccount, int id, Date loginoutTime, Date loginTime,
 			String servicesInfo, long timeLong) {
