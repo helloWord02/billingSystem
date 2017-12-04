@@ -14,7 +14,7 @@ import com.test_project.reception_sys.self_service_mag.service.IReceptionService
 @Service
 public class ReceptionServiceImpl implements IReceptionService{
 	
-	
+	  
 	@Resource
 	private IReceptionDao ReceptionDaoImpl;
 	
