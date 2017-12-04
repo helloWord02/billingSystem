@@ -1,9 +1,10 @@
-package com.test_project.operation_sys.user_mag.account_mag.service;
+package com.test_project.operation_sys.user_mag.account_mag.dao;
 
 import com.test_project.bean.AccountBean;
 import com.test_project.pojos.PagerBean;
 
-public interface IAccountService {
+public interface IAccountDao {
+	
 	/**
 	 * 添加账务账号
 	 * @param acc
@@ -30,5 +31,6 @@ public interface IAccountService {
 	 * @return
 	 */
 	public PagerBean findAccountPager(PagerBean Pager);
+
 
 }
