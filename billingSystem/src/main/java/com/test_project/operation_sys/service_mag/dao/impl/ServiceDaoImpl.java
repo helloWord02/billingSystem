@@ -1,6 +1,8 @@
 package com.test_project.operation_sys.service_mag.dao.impl;
 
 import java.util.List;
+import java.util.Map;
+
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import com.test_project.bean.ServiceBean;
@@ -23,5 +25,23 @@ public class ServiceDaoImpl extends BaseDao implements IServiceDao {
 		query.setProperties(service);		
 		return query.list();
 	}
+	
+
+	public List<ServiceBean> findAllService(Map<String, Integer> map){
+		String hql="from ServiceBean s where YEAR(s.loginTime)= :year and MONTH(s.loginTime)= :month";
+		Query q=getSession().createQuery(hql);
+		q.setProperties(map);
+		List<ServiceBean> list=q.list();
+		return list;
+	}
+
+
+	@Override
+	public void saveRow(ServiceBean bean) {
+		// TODO Auto-generated method stub
+		getSession().save(bean);
+	}
+	
+	
 
 }

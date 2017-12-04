@@ -14,7 +14,7 @@ import javax.jms.Session;
 /**
  * Created by Administrator on 2017/1/5.
  */
-@Service
+//@Service
 public class ProducerService {
 
 	@Resource(name="jmsTemplate")

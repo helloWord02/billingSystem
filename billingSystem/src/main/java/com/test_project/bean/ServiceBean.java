@@ -2,8 +2,13 @@ package com.test_project.bean;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * 服务器信息实体Bean
@@ -12,19 +17,35 @@ import javax.persistence.Table;
  * @version 1.0
  * @created 25-11��-2017 15:09:23
  */
-
+@Entity
+@Table(name="t_service")
 public class ServiceBean {
-
-	private String busniessAccount;
+	
+	@Id
+	@GenericGenerator(name="hibernate.identity",strategy="identity")
+	@GeneratedValue(generator="hibernate.identity")
 	private long id;
-	private int ip;
+	private String ip;
+	@Column(name="loginout_time")
 	private Date loginoutTime;
+	@Column(name="login_time")
 	private Date loginTime;
-	private long timeLong;
+	@Column(name="busniess_account")
+	private String busniessAccount;
 
 	public ServiceBean() {
 
 	}
+
+	
+	public ServiceBean(String ip, Date loginoutTime, Date loginTime, String busniessAccount) {
+		super();
+		this.ip = ip;
+		this.loginoutTime = loginoutTime;
+		this.loginTime = loginTime;
+		this.busniessAccount = busniessAccount;
+	}
+
 
 	public String getBusniessAccount() {
 		return busniessAccount;
@@ -42,11 +63,13 @@ public class ServiceBean {
 		this.id = id;
 	}
 
-	public int getIp() {
+
+
+	public String getIp() {
 		return ip;
 	}
 
-	public void setIp(int ip) {
+	public void setIp(String ip) {
 		this.ip = ip;
 	}
 
@@ -66,18 +89,13 @@ public class ServiceBean {
 		this.loginTime = loginTime;
 	}
 
-	public long getTimeLong() {
-		return timeLong;
-	}
-
-	public void setTimeLong(long timeLong) {
-		this.timeLong = timeLong;
-	}
-
 	@Override
 	public String toString() {
-		return "ServiceBean [busniessAccount=" + busniessAccount + ", id=" + id + ", ip=" + ip + ", loginoutTime="
-				+ loginoutTime + ", loginTime=" + loginTime + ", timeLong=" + timeLong + "]";
+		return "ServiceBean [id=" + id + ", ip=" + ip + ", loginoutTime=" + loginoutTime + ", loginTime=" + loginTime
+				+ ", busniessAccount=" + busniessAccount + "]";
 	}
+
+
+
 
 }

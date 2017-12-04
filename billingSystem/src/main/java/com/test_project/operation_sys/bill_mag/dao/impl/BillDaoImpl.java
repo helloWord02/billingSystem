@@ -11,7 +11,10 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+
+import com.test_project.bean.AccountBean;
 import com.test_project.bean.BillBean;
+import com.test_project.bean.BusinessBean;
 import com.test_project.bean.ServiceBean;
 import com.test_project.operation_sys.bill_mag.dao.IBillDao;
 import com.test_project.pojos.PagerBean;
@@ -20,11 +23,6 @@ import com.test_project.util.BaseDao;
 @Repository
 public class BillDaoImpl extends BaseDao implements IBillDao {
 
-	@Override
-	public void saveBillCost(ServiceBean serviceBean) {
-		// TODO Auto-generated method stub
-		getSession().save(serviceBean);
-	}
 
 	@Override
 	public PagerBean findAllBillAccoutCost(PagerBean pager) {
@@ -66,7 +64,6 @@ public class BillDaoImpl extends BaseDao implements IBillDao {
 //		query.setString("year", year);
 		Map map = new HashMap<>();
 		map.put("year", year);
-		
 		query.setProperties(map);
 		query.setString(0, pager.getParams().get("idcard").toString());
 		query.setString(1, pager.getParams().get("billAccount").toString());
@@ -76,6 +73,21 @@ public class BillDaoImpl extends BaseDao implements IBillDao {
 		List<?> datas = query.list();
 		pager.setDatas(datas);
 		return pager;
+	}
+
+	@Override
+	public void saveAllSumBill(BillBean bean) {
+		// TODO Auto-generated method stub
+		getSession().save(bean);
+	}
+
+	@Override
+	public List<AccountBean> findAllAccount() {
+		// TODO Auto-generated method stub
+		String hql="from AccountBean ";
+		Query q=getSession().createQuery(hql);
+		List<AccountBean> list=q.list();
+		return list;
 	}
 
 }

@@ -1,6 +1,5 @@
-package com.test_project.operation_sys.bill_mag.dao.impl;
+﻿package com.test_project.operation_sys.bill_mag.dao.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,14 +27,74 @@ import com.test_project.util.BaseDao;
  */
 @Repository
 public class BillBusinessInfoDaoImpl extends BaseDao implements IBillBusinessInfoDao {
-	
+
 	@Override
-	public void saveBusinessCost(BusinessBean businessBean) {
+	public BillBusinessInfoBean findBusinessByBusinessAccount(BillBusinessInfoBean billBusinessInfo) {	
 		// TODO Auto-generated method stub
-		getSession().save(businessBean);
+		System.out.println("传进来的businessAccount:"+billBusinessInfo.getBusinessAccount());
+		String hql = "from BillBusinessInfoBean as b where b.businessAccount = :businessAccount";
+		Query query = getSession().createQuery(hql);
+		query.setString("businessAccount", billBusinessInfo.getBusinessAccount());
+		List<BillBusinessInfoBean> list = query.list();
+		System.out.println("返回的list-BillBusinessInfoBean:"+list);
+		//System.out.println("业务详细信息："+ business);
+		System.out.println(list.size());
+		billBusinessInfo = list.get(0);
+		return billBusinessInfo;
 	}
 
 	@Override
+	public void saveBusinessInfoBean(BillBusinessInfoBean billInfo) {
+		// TODO Auto-generated method stub
+		getSession().save(billInfo);
+	}
+
+	@Override
+	public List<BillBusinessInfoBean> findBillInfoMonth(Map<String, ?> map) {
+		
+		String hql="from BillBusinessInfoBean  where businessAccount =:businessAccount "
+				+ " and year(loginTime)=:year and month(loginTime) = :month";
+		Query q=getSession().createQuery(hql);
+		q.setString("year", map.get("year").toString());
+		q.setString("month", map.get("month").toString());
+		q.setString("businessAccount", map.get("businessAccount").toString());
+		List<BillBusinessInfoBean>list=q.list();
+		return list;
+		
+	}
+
+	@Override
+	public BusinessBean findBUSBeanByAccont(String accont) {
+		// TODO Auto-generated method stub
+		String hql="from BusinessBean b   where b.businessAccount=:accont ";
+		Query q=getSession().createQuery(hql);
+		q.setString("accont", accont);
+		BusinessBean bean=(BusinessBean) q.uniqueResult();
+		return bean;
+	}
+
+	@Override
+	public List<String> findAllAccontByMonth(Map map) {
+		// TODO Auto-generated method stub
+		String hql="select b.businessAccount from BillBusinessInfoBean b where year(loginTime)=:year and month(loginTime) = :month group by b.businessAccount";
+		Query q=getSession().createQuery(hql);
+		q.setString("year", map.get("year").toString());
+		q.setString("month", map.get("month").toString());
+		List<String> list=q.list();
+		return list;
+	}
+
+	@Override
+	public List<BusinessBean> findAllAccont() {
+		// TODO Auto-generated method stub
+		String hql="from BusinessBean";
+		Query q=getSession().createQuery(hql);
+		List<BusinessBean> list=q.list();
+		return list;
+	}
+
+
+@Override
 	public PagerBean findBusinessByBusinessAccount(PagerBean pager) {	
 		// TODO Auto-generated method stub		
 		/**
@@ -76,5 +135,6 @@ public class BillBusinessInfoDaoImpl extends BaseDao implements IBillBusinessInf
 		System.out.println("Dao层查询到的pager数据："+ pager);		
 		return pager;
 	}
+
 
 }
