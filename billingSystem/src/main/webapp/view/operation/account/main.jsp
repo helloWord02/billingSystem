@@ -88,10 +88,10 @@
                             <a ><i class=" fa fa-user fa-fw"></i> 用户自服务系统<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="page_diyaccount.html" target="myiframe">查询账单</a>
+                                    <a href="view/reception/page_diyaccount.jsp" target="myiframe">查询账单</a>
                                 </li>
                                 <li>
-                                    <a href="page_person_upd.html" target="myiframe">修改个人信息</a>
+                                    <a href="view/reception/page_person_upd.jsp" target="myiframe">修改个人信息</a>
                                 </li>
                             </ul>
                         </li></shiro:hasPermission>
@@ -114,15 +114,15 @@
                         </li></shiro:hasPermission>
 
                        <shiro:hasPermission name="/zifeiroot"> <li>
-                            <a href="page_postage.html" target="myiframe"><i class="fa fa-edit fa-fw"></i>资费管理系统</a>  
+                            <a href="view/operation/postage/page_postage.jsp" target="myiframe"><i class="fa fa-edit fa-fw"></i>资费管理系统</a>  
                         </li></shiro:hasPermission>
                        <shiro:hasPermission name="/zhangdanroot"> <li>
-                            <a href="page_bill.html" target="myiframe"><i class="fa fa-edit fa-fw"></i>账单查询系统</span></a>
+                            <a href="view/operation/bill/page_bill.jsp" target="myiframe"><i class="fa fa-edit fa-fw"></i>账单查询系统</span></a>
 
                             <!-- /.nav-second-level -->
                         </li></shiro:hasPermission>
                         <shiro:hasPermission name="/zhangwuroot"><li>
-                            <a href="page_account.jsp" target="myiframe"><i class="fa fa-edit fa-fw"></i>账务查询系统</span></a>
+                            <a href=" view/operation/account/page_account.jsp " target="myiframe"><i class="fa fa-edit fa-fw"></i>账务查询系统</span></a>
 
                             <!-- /.nav-second-level -->
                         </li></shiro:hasPermission>
@@ -142,10 +142,10 @@
                             <a><i class="fa fa-hospital-o  fa-fw"></i> 前台日志系统<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a class="active" href="page_loginlog.html" target="myiframe">登录服务日志</a>
+                                    <a class="active" href=" view/operation/log/loginLog.jsp" target="myiframe">登录服务日志</a>
                                 </li>
                                 <li>
-                                    <a href="page_handlog.html" target="myiframe">操作服务日志</a>
+                                    <a href="  view/operation/log/handLog.jsp" target="myiframe">操作服务日志</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -172,7 +172,7 @@
 
 
         <div id="page-wrapper">
-            <iframe class="iframe1" src="page_account.html" frameborder="0" name="myiframe" style="margin-top: -20px">
+            <iframe class="iframe1" src="view/operation/account/mmm.jsp  " frameborder="0" name="myiframe" style="margin-top: -20px">
             </iframe>
         </div>
 

@@ -2,24 +2,41 @@ package com.test_project.bean;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
+@Table(name="t_handle_log")
 public class HandLogBean {
 	
+	@Id
+	@GenericGenerator(name="hibernate.identity",strategy="identity")
+	@GeneratedValue(generator="hibernate.identity")	
 	private Long id;
 	/**
 	 * 管理员名称
 	 */
+	@Column(name="mag_name",length=40)
 	private String magName;
 	/**
 	 * 操作时间
 	 */
+	@Column(name="hand_time" )
 	private Date handTime;
 	/**
 	 * 操作方法
 	 */
+	@Column(name="hand_method",length=150)
 	private String handMethod;
 	/**
 	 * 操作参数
 	 */
+	@Column(name="hand_args",length=50)
 	private String handArgs;
 	
 	

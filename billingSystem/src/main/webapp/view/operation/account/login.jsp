@@ -80,7 +80,7 @@
     </div>
 </div>
 <script type="text/javascript">
-var obut=document.getElementById("loginbtn");
+var obut=document.getElementById("loginbut");
 	function login(){
 		
 		$.ajax({
