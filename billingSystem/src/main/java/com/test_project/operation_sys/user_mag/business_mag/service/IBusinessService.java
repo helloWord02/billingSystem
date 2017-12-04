@@ -1,6 +1,8 @@
 package com.test_project.operation_sys.user_mag.business_mag.service;
 
+import com.test_project.bean.AccountBean;
 import com.test_project.bean.BusinessBean;
+import com.test_project.bean.PostageBean;
 import com.test_project.pojos.PagerBean;
 
 public interface IBusinessService {
@@ -32,5 +34,7 @@ public interface IBusinessService {
 	 */
 	public PagerBean  findBusinessPager(PagerBean Pager );
 	
-
+	public AccountBean findAccountByname(String name);
+	
+	public PostageBean findPostageByname(String name);
 }

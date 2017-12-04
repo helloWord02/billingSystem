@@ -1,6 +1,8 @@
 package com.test_project.operation_sys.user_mag.business_mag.dao;
 
+import com.test_project.bean.AccountBean;
 import com.test_project.bean.BusinessBean;
+import com.test_project.bean.PostageBean;
 import com.test_project.pojos.PagerBean;
 
 public interface IBusinessDao {
@@ -34,6 +36,8 @@ public interface IBusinessDao {
 	 */
 	public PagerBean  findBusinessPager(PagerBean Pager );
 	
-
+	public AccountBean findAccountByname(String name);
+	
+	public PostageBean findPostageByname(String name);
 
 }

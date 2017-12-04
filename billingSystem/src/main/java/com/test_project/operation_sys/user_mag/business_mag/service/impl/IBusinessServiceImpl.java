@@ -4,7 +4,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.test_project.bean.AccountBean;
 import com.test_project.bean.BusinessBean;
+import com.test_project.bean.PostageBean;
 import com.test_project.operation_sys.user_mag.business_mag.dao.IBusinessDao;
 import com.test_project.operation_sys.user_mag.business_mag.service.IBusinessService;
 import com.test_project.pojos.PagerBean;
@@ -48,5 +50,22 @@ public class IBusinessServiceImpl implements IBusinessService {
 		// TODO Auto-generated method stub
 		return Ibusinessdaoimpl.findBusinessPager(Pager);
 	}
+
+
+	@Override
+	public AccountBean findAccountByname(String name) {
+		// TODO Auto-generated method stub
+		return Ibusinessdaoimpl.findAccountByname(name);
+	}
+
+
+	@Override
+	public PostageBean findPostageByname(String name) {
+		// TODO Auto-generated method stub
+		return Ibusinessdaoimpl.findPostageByname(name);
+	}
+	
+	
+	
 
 }

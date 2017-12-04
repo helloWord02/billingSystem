@@ -1,20 +1,30 @@
 package com.test_project.operation_sys.user_mag.account_mag.controller;
 
-import java.text.SimpleDateFormat;
+
+
+import java.io.InputStream;
 import java.util.HashMap;
+
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.test_project.bean.AccountBean;
-import com.test_project.bean.PostageBean;
 import com.test_project.operation_sys.user_mag.account_mag.service.IAccountService;
 import com.test_project.pojos.PagerBean;
+import com.test_project.util.ImportExcelUtil;
 
 @Controller
 @RequestMapping("/account")
@@ -86,12 +96,43 @@ public class AccController {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
+	 @RequestMapping(value = "/upload", method = RequestMethod.POST)    
+	 public ModelAndView doUploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws Exception {  
+	  
+	        if (!file.isEmpty()) {  
+	            try {  
+	            	InputStream in = null;  
+	    	        List<List<Object>> listob = null;  
+	    	        in = file.getInputStream();  
+	    	        listob = new ImportExcelUtil().getBankListByExcel(in, file.getOriginalFilename());  
+	    	        // 该处可调用service相应方法进行数据保存到数据库中，现只对数据输出  
+	    	        for (int i = 0; i < listob.size(); i++) {  
+	    	            List<Object> lo = listob.get(i);  
+	    	            AccountBean bean=new AccountBean();
+	    	            bean.setRealName(String.valueOf(lo.get(0)));
+	    	            bean.setGender(String.valueOf(lo.get(1))=="男"?1:0);
+	    	            bean.setBillAccount(String.valueOf(lo.get(2)));
+	    	            bean.setPassword(String.valueOf(lo.get(3)));
+	    	            bean.setIdCard(String.valueOf(lo.get(4)));
+	    	            bean.setPhoneNumber(String.valueOf(lo.get(5)));
+	    	            bean.setCord(Integer.parseInt(String.valueOf(lo.get(6))));
+	    	            bean.setAddress(String.valueOf(lo.get(7)));
+	    	            bean.setQq(Integer.parseInt(String.valueOf(lo.get(8))));	            
+	    	           System.out.println(bean);  
+	    	           IAccountServiceImpl.saveAccount(bean);
+	    	        }  
+	    	  
+	            } catch (Exception e) {  
+	                e.printStackTrace();  
+	            }  
+	        }  
+	        ModelAndView mv=new ModelAndView("view/operation/user/account/page_account_number");	
+
+	    	return mv;
+	       
+	    }  
+	  
+	    
 	
 
 }

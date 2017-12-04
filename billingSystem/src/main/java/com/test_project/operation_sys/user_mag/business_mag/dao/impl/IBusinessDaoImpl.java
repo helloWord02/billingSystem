@@ -5,7 +5,9 @@ import java.util.List;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
+import com.test_project.bean.AccountBean;
 import com.test_project.bean.BusinessBean;
+import com.test_project.bean.PostageBean;
 import com.test_project.operation_sys.user_mag.business_mag.dao.IBusinessDao;
 import com.test_project.pojos.PagerBean;
 import com.test_project.util.BaseDao;
@@ -65,6 +67,28 @@ public class IBusinessDaoImpl extends BaseDao implements IBusinessDao {
 		List<BusinessBean> datas  = query.list();
 		Pager.setDatas(datas);
 		return Pager;
+	}
+
+
+	@Override
+	public AccountBean findAccountByname(String name) {
+		// TODO Auto-generated method stub
+		String hql ="from AccountBean as a where a.billAccount = ?";
+		Query query =getSession().createQuery(hql);
+		query.setString(0, name);
+		
+		return (AccountBean) query.list().get(0);
+	}
+
+
+	@Override
+	public PostageBean findPostageByname(String name) {
+		// TODO Auto-generated method stub
+		String hql ="from PostageBean as p where p.postageName = ?";
+		Query query =getSession().createQuery(hql);
+		query.setString(0, name);
+		
+		return (PostageBean) query.list().get(0);
 	}
 
 }
