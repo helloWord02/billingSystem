@@ -28,22 +28,32 @@ public class BillBusinessController {
 	private IBillBusinessService billBusinessServiceImpl;
 	
 	@RequestMapping("/showBillBusinessPage")
-	public ModelAndView showBillBusinessPage(String billAccount) {
+	public ModelAndView showBillBusinessPage(String billAccount,String yearOfMonth) {
 		ModelAndView mv=new ModelAndView("view/operation/bill/page_business_cost");		
+		mv.addObject("acc",billAccount);
+		System.out.println("View层得到的yearOfMonth----------------------------------------------"+yearOfMonth);
+		String [] strarr = yearOfMonth.split("/");
+		System.out.println(strarr[0]);
+		System.out.println(strarr[1]);
+		String year = strarr[0];
+		String month = strarr[1];
+		mv.addObject("year",year);
+		mv.addObject("month",month);
 		mv.addObject("acc",billAccount);
 		return mv;
 	}
 	
 	@RequestMapping("/showBillBusinessData")
-	public @ResponseBody PagerBean showBillBusinessData(int page,String billaccount) {
+	public @ResponseBody PagerBean showBillBusinessData(int page,String billaccount,String year,String month) {
 		
 		PagerBean pager = new PagerBean(page, 5, null);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("billAccount", billaccount);
-		System.out.println("封装MAP：" + map.get("billAccount"));
+		map.put("year", year);
+		map.put("month", month);
 		pager.setParams(map);
-		System.out.println("PagerBeanMAP" + pager.getParams().get("billAccount"));
+		System.out.println("ViewAJax传递给后台的Pager数据："+pager);
 		pager = billBusinessServiceImpl.findAllBusinessByBillAccount(pager);
 		System.out.println("View层：99999999999999999999999999999"+pager);
 		return pager;

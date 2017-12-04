@@ -118,7 +118,7 @@ th {
 						</div>
 
 						<!--翻页按钮-->
-						<!-- <div class="row">
+						 <div class="row">
 							<div class="col-sm-12">
 								<div class="dataTables_paginate paging_simple_numbers"
 									id="dataTables-example_paginate">
@@ -143,19 +143,19 @@ th {
 									</ul>
 								</div>
 							</div>
-						</div> -->
+						</div> 
 						<!-- /翻页按钮-->
 					</div>
 
 				</div>
 				<!-- 表格 -->
-
+				<button id="back" style="width: 100px;height: 40px;margin-left: 450px" type="button" class="btn btn-info">返回</button>
 			</div>
 
 		</div>
 
 	</div>
-
+<script src="static/js/my.js" type="text/javascript"></script>
 	<script>
 	/* 时间转换 */	
 	function dateFormat(time){
@@ -166,17 +166,23 @@ th {
 			$.ajax({
 				type : "POST",
 				url : "bill/showBillBusinessInfoData",
-				data: "pageNum=" + p +"&billaccount=${businessName}",
+				data: "page=" + p +"&businessName=${businessName}&year=${year}&month=${month}",
 				   success: function(msg){
 				     alert( JSON.stringify(msg));
 				     
 				    var str = "";
-							 str+=" <tr onclick='cke($(this))'>"+
-				             "<td class='sorting_1'>"+msg.servicesInfo+"</td>"+			             
-				             "<td>"+dateFormat(msg.loginTime)+"</td>"+
-				             "<td>"+dateFormat(msg.loginoutTime)+"</td>"+
-				             "<td>"+msg.timeLong+"</td>"+
+				    
+				    for(var i=1;i<=msg.datas.length;i++){
+				    	 
+				    	 var obj=msg.datas[i-1]
+							 str+=" <tr onclick='cke($(this))' ondblclick = 'dbck($(this))'>"+
+				             "<td>"+obj.servicesInfo+"</td>"+			             
+				             "<td>"+dateFormat(obj.loginTime)+"</td>"+
+				             "<td>"+dateFormat(obj.loginoutTime)+"</td>"+
+				             "<td>"+obj.timeLong+"</td>"+
+				             
 				             "</tr>"					     
+						}	     
 											
 				     $("#data").html(str);
 				     $("#span1").html(nowpage+"/"+lastPage);
@@ -189,8 +195,15 @@ th {
 		function cke(ck) {			
 			ck.addClass("as").siblings().removeClass("as");
 		}
+		
+		/* 返回按钮绑定跳转事件 */
+		$("#back").on("click",function(){
+    	
+       		 window.open("view/operation/bill/page_bill.jsp","_self")
+   		 });
 		</script>
-
+		
+		
 	<script src="static/js/my.js" type="text/javascript"></script>
 
 </body>

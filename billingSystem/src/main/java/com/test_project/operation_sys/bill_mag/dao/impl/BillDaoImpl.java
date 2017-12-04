@@ -66,6 +66,7 @@ public class BillDaoImpl extends BaseDao implements IBillDao {
 //		query.setString("year", year);
 		Map map = new HashMap<>();
 		map.put("year", year);
+		
 		query.setProperties(map);
 		query.setString(0, pager.getParams().get("idcard").toString());
 		query.setString(1, pager.getParams().get("billAccount").toString());
