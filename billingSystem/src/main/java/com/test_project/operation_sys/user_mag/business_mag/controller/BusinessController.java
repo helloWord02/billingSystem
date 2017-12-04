@@ -108,7 +108,7 @@ public class BusinessController {
 	    	            bean.setPassword(String.valueOf(lo.get(1)));
 	    	            AccountBean account=IBusinessServiceImpl.findAccountByname(String.valueOf(lo.get(2)));
 	    	            bean.setAccount(account);
-	    	            bean.setIp(Integer.parseInt(String.valueOf(lo.get(3))));
+	    	            bean.setIp(String.valueOf(lo.get(3)));
 	    	            PostageBean postage=IBusinessServiceImpl.findPostageByname(String.valueOf(lo.get(4)));
 	    	            bean.setPostage(postage);
 	    	            	            
