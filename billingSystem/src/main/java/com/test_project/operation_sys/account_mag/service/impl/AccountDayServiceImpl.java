@@ -1,5 +1,7 @@
 package com.test_project.operation_sys.account_mag.service.impl;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -15,8 +17,10 @@ public class AccountDayServiceImpl implements IAccountDayService {
 	@Resource
 	private IAccountDayDao accountDayDaoImpl; 
 	@Override
-	public void saveAccountDay(AccountDayBean ab) {
+	public void saveAccountDay( Date date) {
 		// TODO Auto-generated method stub
+		AccountDayBean ab = new AccountDayBean();
+		
 		accountDayDaoImpl.saveAccountDay(ab);
 	}
 

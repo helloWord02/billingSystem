@@ -132,7 +132,7 @@
                 <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
 
                     <div class="row">
-                        <div class="col-sm-12" style=" height:200px">
+                        <div class="col-sm-12"  >
                             <table class="table table-bordered  dataTable no-footer"
 									id="dataTables-example" role="grid"
 									aria-describedby="dataTables-example_info" >
@@ -219,7 +219,7 @@ function cutpage(p){
 		     var str="";
 		     for(var i=1;i<=msg.datas.length;i++){
 		    	 var obj=msg.datas[i-1]
-					 str+=" <tr  onclick='cke($(this)>"+	             
+					 str+=" <tr  onclick='cke($(this)' >"+	             
 		             "<td>"+obj.magName+"</td>"+
 		             "<td>"+getTime(obj.handTime)+"</td>"+
 		             "<td>"+obj.handMethod+"</td>"+
@@ -231,6 +231,7 @@ function cutpage(p){
 			}
 		});
 	}
+	
 	$("#find").on("click",function(){
 		 
 		cutpage(1);
