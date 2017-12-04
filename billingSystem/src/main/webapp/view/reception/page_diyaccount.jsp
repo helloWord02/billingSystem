@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	String path = request.getContextPath();//获取项目名称
@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
+      
     <title>用户自助服务系统</title>
 
     <!-- Bootstrap Core CSS -->
@@ -36,6 +36,7 @@
     <link href="<%=basePath%>static/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
  
     <script src="<%=basePath%>static/js/jQuery-2.2.2-min.js" type="text/javascript"></script>
+  
    
     <style>
 
@@ -69,7 +70,9 @@
         th{
             text-align:center;
         }
-
+		.as {
+			background-color: skyblue;
+		}
 
     </style>
 
@@ -84,7 +87,7 @@
     </div>
     <div  >
         <span>月份：</span>
-        <input  style=" width: 140px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="月份" name="month" type="text" >
+        <input id="dateMonth"  style=" width: 140px;height: 30px; border: 1px rgba(105, 99, 70, 0.5) solid" placeholder="月份" name="month" type="text" >
         <button id="find" type="button" class="btn btn-info">查询</button>
     </div>
     <div class="div_content">
@@ -98,7 +101,7 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
+                            <table class="table  table-bordered  dataTable no-footer" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
 
                                 <thead>
                                 <tr role="row">
@@ -107,39 +110,8 @@
                                     <th style="width: 20%;">支付方式</th>
                                     <th style="width: 20%;">支付状态</th>
                                 </thead>
-                                <tbody>
-                                <tr class="gradeA odd" role="row">
-                                    <td class="sorting_1">1</td>
-                                    <td>服务器1租赁</td>
-                                    <td>221.237.44.152</td>
-                                    <td>111</td>
-
-                                <tr class="gradeA odd" role="row">
-                                    <td class="sorting_1">2</td>
-                                    <td>服务器2租赁</td>
-                                    <td>221.237.44.152</td>
-                                    <td>122</td>
-
-
-                                <tr class="gradeA odd" role="row">
-                                    <td class="sorting_1">3</td>
-                                    <td>服务器3租赁</td>
-                                    <td>221.237.44.152</td>
-                                    <td>1515</td>
-
-                                <tr class="gradeA odd" role="row">
-                                    <td class="sorting_1">4</td>
-                                    <td>服务器4租用</td>
-                                    <td>221.237.44.152</td>
-                                    <td>1515</td>
-
-
-                                <tr class="gradeA odd" role="row">
-                                    <td class="sorting_1">5</td>
-                                    <td>服务器5租用</td>
-                                    <td>221.237.44.152</td>
-                                    <td>111</td>
-
+                                <tbody id="data">
+                               
                                 </tbody>
                             </table>
                         </div>
@@ -177,7 +149,79 @@
     </div>
 
 </div>
-
+	<script src="static/js/my.js" type="text/javascript"></script>
+	<script>
+	var month = "";
+	  
+	function getTime(time){
+		var date = new Date(time);
+		return date.toLocaleString();
+	}
+	
+	function cutpage(p){
+		var json={
+				pageNum:p,
+				month:$("#dateMonth").val(),
+				userid:${user.billAccount},
+		}
+		$.ajax({
+			   type: "POST",
+			   url: "receptions/cutpage",
+			   data: json,
+			   success: function(msg){
+			     lastPage=msg.totalPage;
+			    
+			     var str="";
+			     for(var i=1;i<=msg.datas.length;i++){
+			    	 var obj=msg.datas[i-1]
+						 str+=" <tr class='gradeA odd' role='row' onclick='cke($(this))' ondblclick = 'dbck($(this))'>"
+								+ "<td hidden>"
+								+ obj.id
+								+ "</td>"+
+						 "<td>"+getTime(obj.date)+"</td>"+
+			             "<td>"+obj.allCost+"</td>"+			          
+			             "<td>"+obj.payType+"</td>"
+			             if (obj.payState == '1') {
+								str += "<td>已支付</td>"
+							}
+							if (obj.payState == '0') {
+								str += "<td>未支付</td>"
+							}
+			             "</tr>"					     
+					}					
+			     $("#data").html(str);
+			     $("#span1").html(nowpage+"/"+lastPage);
+				}
+			})
+	}
+	/* 给每行绑定双击跳转事件 */
+	var billAccount
+	function dbck(bill) {
+	var billaccount = ${user.billAccount};	
+	alert(billaccount)
+	var yearOfMonth = $(bill).children().eq(1).html();
+	alert(yearOfMonth)
+	alert(typeof(yearOfMonth))
+	
+	window.open("bill/showBillBusinessPage?billAccount=" + billaccount+"&yearOfMonth="+ yearOfMonth, "_self")
+	
+	}
+		
+	
+	/* 点击变色及获取当前行iD 注意table样式 */
+	var nowID
+	function cke(ck) {
+		nowID = ck.children().first().html();
+		ck.addClass("as").siblings().removeClass("as");
+		
+	}
+	
+	 $("#find").on("click",function(){
+		 cutpage(nowpage);
+	  });
+	 
+	 
+	</script>
 
 </body>
 </html>
